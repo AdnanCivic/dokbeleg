@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use PDF;
+use Illuminate\Http\Request;
 
 class PdfController extends Controller
 {
@@ -13,7 +13,7 @@ class PdfController extends Controller
         unset($requestArray['submit']);
 
         $textbausteinePath = storage_path('app/text_bausteine/');
-        $pdfHTML = '';
+        $bausteinTextArray = [];
 
         foreach($requestArray as $key => $value){
             $file = glob($textbausteinePath.$key.".htm");
@@ -26,14 +26,15 @@ class PdfController extends Controller
                 fclose($handle);
                 
                 $html = str_replace("'", "\"", $html);
-
+                $html = utf8_encode($html);
+                
                 $druckHtml = $this->variablenErsetzen($key, $html, $value);
                 
-                $pdfHTML .= $druckHtml;
+                $bausteinTextArray[$key] = $druckHtml;
             }
         }
         
-        $this->createPdf($pdfHTML);
+        $this->createPdf($bausteinTextArray);
     }
 
     public function variablenErsetzen($baustein, $html, $datenArray){
@@ -72,21 +73,28 @@ class PdfController extends Controller
     }
 
 
-    public function createPdf($htmlText){
-        $html = $htmlText;
-        $name = 'TestPDF';
+    public function createPdf($bausteinTextArray){
+        $name = 'Belegdokumentation';
+        $html = '';
+        foreach($bausteinTextArray as $baustein => $text){
+            $html .= $text;
+        }
+
         new PDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-        PDF::SetCreator('PHP_PDF_Generator');
-        PDF::SetPrintHeader(true);
-        PDF::SetPrintFooter(true);
+        
+        PDF::SetCreator('PDF_Generator');
+        PDF::SetAuthor('Docubyte');
+        PDF::SetTitle('Verfahrensdokumentation zur Belegablage');
+        // PDF::SetPrintHeader(true);
+        // PDF::setHeaderData('', 0, 'marks', "Verfahrensdokumentation zur Belegablage");
+        // PDF::setHeaderFont(array('dejavusans', '', 14));
+        // PDF::SetHeaderMargin(30);
+
         PDF::SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
         PDF::AddPage('P', 'A4');
         
         PDF::writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
         PDF::Output($name.'pdf', 'I');
-
-        // PDF::Output(storage_path('app/public/'.$name.'.pdf'), 'F');
-        // return redirect()->route('pdf')->with('success', 'Eine PDF wurde erstellt.');
 
     }
 }

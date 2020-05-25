@@ -46,6 +46,12 @@
                 <label for="freigabedatum">Freigabedatum</label>
                 <input type="date" class="form-control" id="freigabedatum" name="vorbemerkungen[freigabedatum]">
             </div>
+
+            <div class="form-group">
+                <label for="Mitarbeitername">Name des Mitarbeiters</label>
+                <input type="text" class="form-control" id="mitarbeitername" name="vorbemerkungen[mitarbeitername]">
+            </div>
+
             <div class="form-group">
                 <label for="versionsbezeichnung">Versionsbezeichnung</label>
                 <input type="text" class="form-control" id="versionsbezeichnung" name="vorbemerkungen[versionsbezeichnung]" placeholder="Versionsbezeichnung">
