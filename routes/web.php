@@ -13,9 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', function () { return view('welcome'); });
+
+Route::resources([
+    'dokumentations' => 'DokumentationController',
+    'bausteins' => 'BausteinController'
+]);
 
 Route::get('/create', 'PdfController@createPdf')->name('create');
 

@@ -18,15 +18,20 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
         <div>
             <main class="container" style="padding-top:70px; text-align:center">
                 @include('include.messages')
-                <h1 style="text-align:center">Dokumentation mit Bausteinen erstellen</h1>
-                <a class="btn btn-primary btn-lg" href="{{ route('auswahl') }}" role="button">Zur Auswahl</a>
+                <div class="card">
+                    <div class="card-header"><h3>Komponentenverwaltung</h3></div>
+                    <div class="card-body">
+                        <a class="btn btn-secondary btn-large" href="{{ route('dokumentations.index') }}" role="button">Dokumentationen bearbeiten</a>
+                        <a class="btn btn-secondary btn-large" href="{{ route('bausteins.index') }}" role="button">Bausteine bearbeiten</a>
+                    </div>
+                <div>
             </main>
         </div>
     </div>

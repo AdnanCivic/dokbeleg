@@ -16,6 +16,7 @@ class CreateBausteinsTable extends Migration
         Schema::create('bausteins', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->text();
         });
     }
 
