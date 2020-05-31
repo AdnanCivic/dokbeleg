@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBausteinsTable extends Migration
+class CreateBausteinDokumentationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateBausteinsTable extends Migration
      */
     public function up()
     {
-        Schema::create('bausteins', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->foreignId('dokumentation_id')->constrained();
-            $table->text('html')->charset('utf8');
+        Schema::create('baustein_dokumentation', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->bigInteger('dokumentation_id')->unsigned();
+            $table->bigInteger('baustein_id')->unsigned();
             $table->timestamps();
             
         });

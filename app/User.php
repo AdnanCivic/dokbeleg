@@ -12,6 +12,10 @@ class User extends Authenticatable
     
     protected $dateFormat = 'dd.mm.YYYY';
 
+    public function dokumentations(){
+        return $this->hasMany('App\Dokumentation');
+    }
+
     /**
      * The attributes that are mass assignable.
      *

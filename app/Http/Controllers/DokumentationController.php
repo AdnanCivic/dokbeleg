@@ -24,7 +24,7 @@ class DokumentationController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -35,7 +35,9 @@ class DokumentationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $dokumentation = App\Dokumentation::find($request->dokumentation_id);
+        $dokumentation->bausteins()->attach('baustein_id'); //baustein zu einer dokumentation hinzufügen, auch baustein array möglich attach([1,6,7])
+        //entfernen $dokumentation->bausteins()->detach('baustein_id'); //entfernen
     }
 
     /**
