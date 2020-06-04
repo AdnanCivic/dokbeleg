@@ -13,12 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () { return view('welcome'); });
+Auth::routes();
+
+Route::get('/', 'HomeController@index')->name('home');
 
 Route::resources([
     'dokumentations' => 'DokumentationController',
-    'bausteins' => 'BausteinController'
+    'bausteins' => 'BausteinController',
+    'user' => 'UserController'
 ]);
+
 
 Route::get('/create', 'PdfController@createPdf')->name('create');
 
@@ -29,4 +33,6 @@ Route::post('/createtext', 'PdfController@createText')->name('createtext');
 
 
 // Route::get('/pdf', function () { return view('formulare.fieldset'); })->name('pdf');
+
+
 

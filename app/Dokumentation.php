@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Dokumentation extends Model
 {
-    protected $dateFormat = 'dd.mm.YYYY';
+    protected $fillable = [
+        'name', 'user_id'
+    ];
 
     public function user(){
         return $this->belongsTo('App\User');

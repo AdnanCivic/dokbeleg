@@ -14,10 +14,16 @@ class DokumentationsTableSeeder extends Seeder
     public function run()
     {
         Dokumentation::truncate();
-        Dokumentation::create(['name' => 'Verfahrens- und Belegdokumentation']);
+        DB::table('baustein_dokumentation')->truncate();
 
         $deckblattBaustein = Baustein::where('name', 'Deckblatt')->first();
         $inhaltsverzeichnisBaustein = Baustein::where('name', 'Inhaltsverzeichnis')->first();
         $vorbemerkungenBaustein = Baustein::where('name', 'Vorbemerkungen')->first();
+
+        $dokumentation = Dokumentation::create(['name' => 'Verfahrens- und Belegdokumentation', 'user_id' => 1]);
+
+        $dokumentation->bausteins()->attach([
+            $deckblattBaustein->id, $inhaltsverzeichnisBaustein->id, $vorbemerkungenBaustein->id
+        ]);
     }
 }

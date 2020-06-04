@@ -3,6 +3,7 @@
 use App\User;
 use App\Dokumentation;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class UserTableSeeder extends Seeder
 {
@@ -13,11 +14,11 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        User::truncate();
-        DB::table('baustein_dokumentation')->truncate();
+        $user = User::create([
+            'name' => 'BMW',
+            'email' => 'user@user.com',
+            'password' => Hash::make('defaultuser')
+        ]);
 
-        $vbDoku = Dokumentation::where('name', 'Verfahrens- und Belegdokumentation')->first();
-        
-        User::create();
     }
 }

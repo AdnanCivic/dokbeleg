@@ -9,8 +9,6 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable;
-    
-    protected $dateFormat = 'dd.mm.YYYY';
 
     public function dokumentations(){
         return $this->hasMany('App\Dokumentation');
