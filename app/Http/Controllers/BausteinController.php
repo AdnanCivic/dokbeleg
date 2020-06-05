@@ -14,7 +14,8 @@ class BausteinController extends Controller
      */
     public function index()
     {
-        //
+        $alleBausteine = Baustein::all();
+        return view('bausteine.index', compact('alleBausteine'));
     }
 
     /**
