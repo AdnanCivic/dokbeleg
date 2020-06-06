@@ -8,11 +8,18 @@
         <div class="card-body">
             <table class="table">
             @foreach($alleBausteine as $baustein)
-                <tr><td>{{ $baustein->name }}  </td><td><button class="btn btn-primary">Anzeigen</button></td></tr>
+            <tr><td>{{ $baustein->name }}  ID: {{ $baustein->id }}</td><td><a href="{{ route('bausteins.show', $baustein->id) }}"><button class="btn btn-primary btn-sm">Anzeigen</button></a></td></tr>
             @endforeach
             </table>
+            <div id="summernote"><p>Hello Summernote!</p></div>
         </div>
-    <div>
+    <div>     
 </main>
-    
+<script>
+    $(document).ready(function() {
+        $("#summernote").summernote({
+            height: 350,
+        });
+    });
+</script>
 @endsection

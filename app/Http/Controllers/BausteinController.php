@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class BausteinController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -47,7 +51,7 @@ class BausteinController extends Controller
      */
     public function show(Baustein $baustein)
     {
-        //
+        dd($baustein->html);
     }
 
     /**
