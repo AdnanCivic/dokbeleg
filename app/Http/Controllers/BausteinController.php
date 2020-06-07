@@ -11,15 +11,17 @@ class BausteinController extends Controller
     {
         $this->middleware('auth');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $alleBausteine = Baustein::all();
         return view('bausteine.index', compact('alleBausteine'));
+    }
+
+    public function show(Baustein $baustein)
+    {
+        $dbBaustein = Baustein::find($baustein->id);
+        return view('bausteine.show', compact('dbBaustein'));
     }
 
     /**
@@ -41,17 +43,6 @@ class BausteinController extends Controller
     public function store(Request $request)
     {
         //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Baustein  $baustein
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Baustein $baustein)
-    {
-        dd($baustein->html);
     }
 
     /**
