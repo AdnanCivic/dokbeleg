@@ -24,25 +24,25 @@ class BausteinController extends Controller
         return view('bausteine.show', compact('dbBaustein'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('bausteine.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        // dd($request);
+        request()->validate([
+            'name' => ['required'],
+            'textbaustein' => ['required']
+        ]);
+
+        $baustein = Baustein::create([
+            'name' => request('name'),
+            'html' => request('textbaustein')
+        ]);
+
+        return redirect()->route('bausteins.index')->with('success', 'Ein neuer Baustein wurde erstellt.');
     }
 
     /**
