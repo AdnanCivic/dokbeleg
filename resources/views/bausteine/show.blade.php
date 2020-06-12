@@ -17,6 +17,5 @@
         });
     });
     
-    $('#summernote').summernote('pasteHTML', '<p>A</p>');
 </script>
 @endsection

@@ -44,6 +44,15 @@ class BausteinController extends Controller
 
         return redirect()->route('bausteins.index')->with('success', 'Ein neuer Baustein wurde erstellt.');
     }
+    
+    public function destroy(Baustein $baustein)
+    {
+        dd("hier");
+        $textbaustein = Baustein::find($baustein->id);
+        $textbaustein->delete();
+        
+        return redirect()->route('bausteins.index')->with('success', 'Der Baustein wurde gelöscht.');
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -68,14 +77,4 @@ class BausteinController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Baustein  $baustein
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Baustein $baustein)
-    {
-        //
-    }
 }
