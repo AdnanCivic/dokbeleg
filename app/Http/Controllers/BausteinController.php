@@ -47,32 +47,23 @@ class BausteinController extends Controller
     
     public function destroy(Baustein $baustein)
     {
-        dd("hier");
         $textbaustein = Baustein::find($baustein->id);
         $textbaustein->delete();
         
         return redirect()->route('bausteins.index')->with('success', 'Der Baustein wurde gelöscht.');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Baustein  $baustein
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Baustein $baustein)
+    public function update(Request $request, Baustein $baustein)
     {
-        //
+        $textbaustein = Baustein::find($baustein->id);
+        $textbaustein->html = $baustein->html;
+        dd($baustein);
+        $textbaustein->save();
+
+        return back()->with('success', 'Die Änderungen wurden gespeichert.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Baustein  $baustein
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Baustein $baustein)
+    public function edit(Baustein $baustein)
     {
         //
     }

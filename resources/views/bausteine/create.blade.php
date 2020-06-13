@@ -3,7 +3,7 @@
 @section('content')
 <main class="container" style="padding-top:70px;">
     @include('include.messages')
-    <div><a class="btn btn-primary btn-large" href="{{ route('bausteins.index') }}">Zurück</a></div>
+    <div><a class="btn btn-primary btn-large" href="{{ route('home') }}">Zurück</a></div>
     <div class="card">
         <div class="card-header" style="text-align:center"><h3>Baustein erstellen</h3></div>
         <div class="card-body">
@@ -16,7 +16,7 @@
                 <div class="form-group">
                     <textarea class="form-control summernote" name="textbaustein" value="{{ old('textbaustein') }}"></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Speichern</button>
+                <button type="submit" class="btn btn-secondary">Speichern</button>
             </form>
         </div>
     <div>     

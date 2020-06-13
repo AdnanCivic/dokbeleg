@@ -10,15 +10,20 @@
             <table class="table">
                 <tr><th>Name</th><th>ID</th><th style="text-align: center">Aktion</th></tr>
                 @foreach($alleBausteine as $baustein)
-                <tr><td>{{ $baustein->name }}</td><td>{{ $baustein->id }}</td><td  style="text-align: center"><a href="{{ route('bausteins.show', $baustein->id) }}"><button class="btn btn-primary btn-sm">Anzeigen</button></a>
-                <form href="{{ route('bausteins.destroy', $baustein->id) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-sm">Löschen</button>
-                </form></td></tr>
+                <tr><td>{{ $baustein->name }}</td><td>{{ $baustein->id }}</td>
+                    <td style="text-align: center">
+                        <form method="POST" action="{{ route('bausteins.destroy', $baustein->id) }}" >
+                            @csrf
+                            @method('DELETE')
+                            <a class="btn btn-primary" href="{{ route('bausteins.show', $baustein->id) }}">Anzeigen</a>
+                            <span class="entfernen"><input type="submit" class="btn btn-danger" value="Löschen"></span>
+                        </form>
+                    </td>
+                </tr>
                 @endforeach
             </table>
         </div>
     <div>     
 </main>
+<script src="/js/delete-confirm.js"></script>
 @endsection
