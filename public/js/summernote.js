@@ -8,7 +8,7 @@ $(document).ready(function() {
             ['color', ['color']],
             ['para', ['ul', 'ol', 'paragraph']],
             ['height', ['height']],
-            ['undo']
+            ['undo'],
         ],
     });
 });

@@ -10,19 +10,16 @@
             <form action="{{ route('bausteins.update', $dbBaustein->id) }}" method="POST">
                 @csrf
                 @method('PUT')
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="textarea" class="form-control" {{ $errors->has('name') ? 'alert-danger' : ''}} name="name" value="{{ $dbBaustein->name }}" required autofocus>
+                </div>
+                <input type="hidden" id="newHTML" name="newHTML" value="">
                 <textarea id="summernote">{!! $dbBaustein->html !!}</textarea>
-                {{-- <button type="button" id="testbutton">save</button> --}}
                 <button type="submit" class="btn btn-secondary">Änderungen speichern</button>
             </form>
         </div>    
     </div>    
 </main>
-<script>
-    $(document).ready(function() {
-        $("#summernote").summernote({
-            height: 350
-        });
-        
-    });
-</script>
+<script src="{{ asset('/js/summernote-edit.js') }}"></script>
 @endsection

@@ -16,9 +16,6 @@
                         <div class="subitem">
                             <a class="btn btn-success btn-large subbutton" href="{{ route('bausteins.create') }}" role="button">Baustein erstellen</a>
                         </div>
-                        <div class="subitem">
-                            <a class="btn btn-warning btn-large subbutton" href="" role="button">Baustein editieren</a>
-                        </div>
                     </div>
                 </div>
                 <div class="grid-item card">
