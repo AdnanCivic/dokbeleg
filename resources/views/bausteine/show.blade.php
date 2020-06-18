@@ -14,7 +14,7 @@
                     <label for="name">Name:</label>
                     <input type="textarea" class="form-control" {{ $errors->has('name') ? 'alert-danger' : ''}} name="name" value="{{ $dbBaustein->name }}" required autofocus>
                 </div>
-                <input type="hidden" id="newHTML" name="newHTML" value="">
+                <input type="hidden" id="newHTML" name="newHTML">
                 <textarea id="summernote">{!! $dbBaustein->html !!}</textarea>
                 <button type="submit" class="btn btn-secondary">Änderungen speichern</button>
             </form>

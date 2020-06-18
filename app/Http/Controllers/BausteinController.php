@@ -56,9 +56,20 @@ class BausteinController extends Controller
     public function update(Request $request, Baustein $baustein)
     {
         $textbaustein = Baustein::find($baustein->id);
-        $neuerText = $request->newHTML;
-        $textbaustein->html = $neuerText;
-        //name mit DB abgleichen, falls verändert neuen Namen zuweisen
+        
+        if($textbaustein->name == $request->name && $request->newHTML == null){
+            return back()->with('success', 'Es gibt keine Änderungen.');
+        }
+
+        if($request->newHTML != null){
+            $neuerText = $request->newHTML;
+            $textbaustein->html = $neuerText;  
+        }
+        
+        if($textbaustein->name != $request->name){
+            $textbaustein->name = $request->name;
+        }
+        
         $textbaustein->save();
 
         return back()->with('success', 'Die Änderungen wurden gespeichert.');
