@@ -1,0 +1,10 @@
+.grid-container-createdoku {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    justify-content: space-evenly;
+}
+
+.subitem-createdoku {
+    padding-top: 10px;
+    text-align: center;
+}

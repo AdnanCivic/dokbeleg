@@ -10,7 +10,7 @@
             <table class="table">
                 <tr><th>Name</th><th>User-Name</th><th>ID</th><th style="text-align: center">Aktion</th></tr>
                 @foreach($alleDokumentationen as $dokumentation)
-            <tr><td>{{ $dokumentation->name }}</td><td>{{ $dokumentation->user->name }}</td><td>{{ $dokumentation->id }}</td>
+                <tr><td>{{ $dokumentation->name }}</td><td>{{ $dokumentation->user->name }}</td><td>{{ $dokumentation->id }}</td>
                     <td style="text-align: center">
                         <form method="POST" action="{{ route('dokumentations.destroy', $dokumentation->id) }}" >
                             @csrf

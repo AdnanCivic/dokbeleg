@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Baustein;
 use App\Dokumentation;
 use Illuminate\Http\Request;
 
@@ -19,14 +20,17 @@ class DokumentationController extends Controller
         return view('dokumentationen.index', compact('alleDokumentationen'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function show(Dokumentation $dokumentation)
+    {
+        $dbdokumentation = Dokumentation::find($dokumentation->id);
+
+        return view('dokumentationen.show', compact('dbdokumentation'));
+    }
+
     public function create()
     {
-        
+        $bausteine = Baustein::all();
+        return view('dokumentationen.create', compact('bausteine'));
     }
 
     /**
@@ -40,17 +44,6 @@ class DokumentationController extends Controller
         $dokumentation = App\Dokumentation::find($request->dokumentation_id);
         $dokumentation->bausteins()->attach('baustein_id'); //baustein zu einer dokumentation hinzufügen, auch baustein array möglich attach([1,6,7])
         //entfernen $dokumentation->bausteins()->detach('baustein_id'); //entfernen
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Dokumentation  $dokumentation
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Dokumentation $dokumentation)
-    {
-        //
     }
 
     /**
