@@ -4,7 +4,7 @@
     justify-content: space-evenly;
 }
 
-.subitem-createdoku {
-    padding-top: 10px;
-    text-align: center;
+.tbody-scroll {
+    height:500px;
+    overflow: scroll;
 }

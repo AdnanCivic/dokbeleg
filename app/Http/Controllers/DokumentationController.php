@@ -33,12 +33,6 @@ class DokumentationController extends Controller
         return view('dokumentationen.create', compact('bausteine'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $dokumentation = App\Dokumentation::find($request->dokumentation_id);
