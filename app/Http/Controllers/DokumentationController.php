@@ -33,6 +33,20 @@ class DokumentationController extends Controller
         return view('dokumentationen.create', compact('bausteine'));
     }
 
+    public function getBausteine(Request $request){
+        if($request->has('bausteine')){
+            if($request->bausteine){
+                $response = Baustein::find($request->bausteine);
+            }   
+        }else{
+            return response()->json([
+                'message' => 'Es sind keine Bausteine ausgewählt.'
+            ]);
+        }
+        
+        return $response;
+    }
+
     public function store(Request $request)
     {
         $dokumentation = App\Dokumentation::find($request->dokumentation_id);
