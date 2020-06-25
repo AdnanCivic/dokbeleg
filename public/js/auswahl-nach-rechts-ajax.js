@@ -16,7 +16,7 @@ $(document).ready(function(event){
             success: function(response){
                 var trHTML = '';
                 if(response.hasOwnProperty('message')){
-                    trHTML += '<tr class="ajaxRow"><td>' + response.message + '</td><tr>';
+                    trHTML += '<tr class="ajaxRow"><td>' + response.message + '</td><td></td><td></td><tr>';
                 }else{
                     $.each(response, function(i, baustein){
                     trHTML += '<tr class="ajaxRow"><td>' + baustein.name + '</td><td>' + baustein.id + '</td><td><input name="selectbausteinid" type="checkbox" value="' + baustein.id + '"></td></tr>';
@@ -43,7 +43,3 @@ function getBausteinIds(){
     
     return idArray;
 }
-
-$("#rechteTabelle tbody").on('dblclick', function(){
-    this.lastChild.remove();
-});
