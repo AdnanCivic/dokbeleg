@@ -25,7 +25,6 @@ Route::resources([
 
 Route::post('/getBausteine', 'DokumentationController@getBausteine')->name('getBausteine');
 
-
 Route::get('/create', 'PdfController@createPdf')->name('create');
 
 Route::get('/auswahl', 'PdfController@auswahl')->name('auswahl');

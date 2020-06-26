@@ -1,3 +1,11 @@
+$('#markierbutton').on('click', function(){
+    $('#linkeListe input[type="checkbox"]' ).prop('checked', true);
+});
+
+$('#uncheckbutton').on('click', function(){
+    $('#linkeListe input[type="checkbox"]:checked').prop('checked', false);
+});
+
 $("#transferbutton").on('click', function(){
     var checkedBoxes = $("#linkeListe").children().has('input[name=bausteinid]:checked');
     var anzahl = checkedBoxes.length;
@@ -28,6 +36,26 @@ $("#transferbutton").on('click', function(){
     } 
 });
 
-$("#rechteTabelle tbody").on('dblclick', function(){
-    this.lastChild.remove();
+$('#alleEntfernenButton').on('click', function(){
+    $('#rechteTabelle tbody tr').remove();
+});
+
+$('#unmarkierButton').on('click', function(){
+    $('#rechteListe input[type="checkbox"]:checked').prop('checked', false);
+});
+
+$('#markierteEntfernenButton').on('click', function(){
+    $('#rechteListe input[type="checkbox"]:checked').parent().parent().remove();
+});
+
+$('#obenButton').on('click', function(){
+    var input = $('#rechteListe input[type="checkbox"]:checked').first();
+    var reihe = input.parent().parent();
+    reihe.insertBefore(reihe.prev());
+});
+
+$('#untenButton').on('click', function(){
+    var input = $('#rechteListe input[type="checkbox"]:checked').first();
+    var reihe = input.parent().parent();
+    reihe.insertAfter(reihe.next());
 });

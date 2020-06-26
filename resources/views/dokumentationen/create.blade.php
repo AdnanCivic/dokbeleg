@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<main class="container" style="padding-top:70px;">
+<main class="container-fluid" style="padding-top:70px;width:80%">
     @include('include.messages')
     <div><a class="btn btn-primary btn-large" href="{{ route('home') }}">Zurück</a></div>
     <div class="card">
@@ -26,7 +26,11 @@
                             </table>
                         </div>     
                     </div>
-                    <button id="transferbutton" class="btn btn-primary">Markierte übernehmen</button>
+                    <div class="btn-group">
+                        <button id="markierbutton" class="btn btn-primary">Alle Markieren</button>
+                        <button id="uncheckbutton" class="btn btn-secondary">Markierung aufheben</button>
+                        <button id="transferbutton" class="btn btn-success">Markierte übernehmen</button>
+                    </div>
                 </div>
                 <div class="grid-item card" id="rechteKarte" style="margin-left:20px">
                     <div class="card-header" style="text-align: center"><h5>Ausgewählte Bausteine</h5></div>
@@ -39,18 +43,21 @@
                                     <tbody id="rechteListe"></tbody>
                                 </table>
                             </div>
-                            <div class="btn-group" role="group">
-                                <button class="btn btn-primary">Markierte entfernen</button>
-                                <button class="btn btn-success">Dokumentation erstellen</button>
-                                <button type="submit" class="btn btn-primary btn-block">Markierte übernehmen</button>
-                            </div>
+                            <button type="submit" class="btn btn-success btn-block">Formulare für Auswahl laden</button>
                         </form>
-                    </div>  
+                    </div> 
+                </div>
+                <div class="grid-item button-group">
+                    <button class="btn btn-primary" id="alleEntfernenButton">Alle entfernen</button>
+                    <button class="btn btn-primary" id="unmarkierButton">Markierung aufheben</button>
+                    <button class="btn btn-primary" id="markierteEntfernenButton">Markierte Elemente entfernen</button><hr>
+                    <button class="btn btn-primary" id="obenButton">Nach oben verschieben</button>
+                    <button class="btn btn-primary" id="untenButton">Nach unten verschieben</button>
                 </div>
             </div>
         </div>
     <div>     
 </main>
-<script src="{{ asset('js/auswahl-nach-rechts-ajax.js') }}"></script>
 <script src="{{ asset('js/auswahl-bearbeiten.js') }}"></script>
+<script src="{{ asset('js/auswahl-ajax.js') }}"></script>
 @endsection
