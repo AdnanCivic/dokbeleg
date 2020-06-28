@@ -15,14 +15,12 @@ $(document).ready(function(event){
             },
             success: function(response){
                 var trHTML = '';
-                if(response.hasOwnProperty('message')){
-                    trHTML += '<tr class="ajaxRow"><td>' + response.message + '</td><td></td><td></td><tr>';
-                }else{
-                    $.each(response, function(i, baustein){
-                    trHTML += '<tr class="ajaxRow"><td>' + baustein.name + '</td><td>' + baustein.id + '</td><td><input name="selectbausteinid" type="checkbox" value="' + baustein.id + '"></td></tr>';
-                    });
-                }
-                $('#rechteListe').append(trHTML);  
+                
+                $.each(response, function(i, baustein){
+                    
+                    // trHTML += '<tr class="ajaxRow"><td>' + baustein.name + '</td><td>' + baustein.id + '</td><td><input name="selectbausteinid" type="checkbox" value="' + baustein.id + '"></td></tr>';
+                });
+                
             },
             done: function(xhr, status, error){
                 var errorMessage = xhr.status + ': ' + xhr.statusText;
@@ -33,12 +31,12 @@ $(document).ready(function(event){
 });
 
 function getBausteinIds(){
-    var checkedBoxes = document.querySelectorAll('input[name=bausteinid]:checked');
-    var anzahl = checkedBoxes.length;
+    var boxes = document.querySelectorAll('#rechteListe input[name=bausteinid]');
+    var anzahl = boxes.length;
     var idArray = [];
 
     for(var i = 0; i < anzahl; i++){
-        idArray.push(checkedBoxes[i].value);
+        idArray.push(boxes[i].value);
     }
     
     return idArray;

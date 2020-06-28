@@ -3,6 +3,27 @@
 @section('content')
 <main class="container-fluid" style="padding-top:70px;width:80%">
     @include('include.messages')
+    <div id="formModal" class="modal fade" role="dialog" style="">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Dateneingabe</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table id="modal-table">
+                        <tr><th>babe</th></tr>
+                    </table>
+                    <p>Body Beispieltext des Modals.Body Beispieltext des Modals.Body Beispieltext des Modals</p>
+                </div>
+                <div class="modal-footer">
+                    <p>das ist der footer.</p>
+                </div>
+            </div>
+        </div>
+    </div>
     <div><a class="btn btn-primary btn-large" href="{{ route('home') }}">Zurück</a></div>
     <div class="card">
         <div class="card-header">
@@ -43,7 +64,7 @@
                                     <tbody id="rechteListe"></tbody>
                                 </table>
                             </div>
-                            <button type="submit" class="btn btn-success btn-block">Formulare für Auswahl laden</button>
+                            <button type="submit" class="btn btn-success btn-block" data-toggle="modal" data-target="#formModal">Formulare für Auswahl laden</button>
                         </form>
                     </div> 
                 </div>
@@ -51,8 +72,8 @@
                     <button class="btn btn-primary" id="alleEntfernenButton">Alle entfernen</button>
                     <button class="btn btn-primary" id="unmarkierButton">Markierung aufheben</button>
                     <button class="btn btn-primary" id="markierteEntfernenButton">Markierte Elemente entfernen</button><hr>
-                    <button class="btn btn-primary" id="obenButton">Nach oben verschieben</button>
-                    <button class="btn btn-primary" id="untenButton">Nach unten verschieben</button>
+                    <button class="btn btn-primary btn-lg" id="obenButton">&uarr;</button>
+                    <button class="btn btn-primary btn-lg" id="untenButton">&darr;</button>
                 </div>
             </div>
         </div>

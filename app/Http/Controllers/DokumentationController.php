@@ -37,13 +37,9 @@ class DokumentationController extends Controller
         if($request->has('bausteine')){
             if($request->bausteine){
                 $response = Baustein::find($request->bausteine);
-            }   
-        }else{
-            return response()->json([
-                'message' => 'Es sind keine Bausteine ausgewählt.'
-            ]);
+            } 
         }
-        
+
         return $response;
     }
 
