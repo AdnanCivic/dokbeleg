@@ -3,8 +3,8 @@
 @section('content')
 <main class="container-fluid" style="padding-top:70px;width:80%">
     @include('include.messages')
-    <div id="formModal" class="modal fade" role="dialog" style="">
-        <div class="modal-dialog modal-lg" role="document">
+    <div id="formModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Dateneingabe</h4>
@@ -13,10 +13,9 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table id="modal-table">
-                        <tr><th>babe</th></tr>
+                    <table id="modal-table" class="table">
+                        <tr><th>Baustein-Name</th><th>Baustein-Text</th></tr>
                     </table>
-                    <p>Body Beispieltext des Modals.Body Beispieltext des Modals.Body Beispieltext des Modals</p>
                 </div>
                 <div class="modal-footer">
                     <p>das ist der footer.</p>

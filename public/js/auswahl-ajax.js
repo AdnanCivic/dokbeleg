@@ -17,10 +17,15 @@ $(document).ready(function(event){
                 var trHTML = '';
                 
                 $.each(response, function(i, baustein){
-                    
-                    // trHTML += '<tr class="ajaxRow"><td>' + baustein.name + '</td><td>' + baustein.id + '</td><td><input name="selectbausteinid" type="checkbox" value="' + baustein.id + '"></td></tr>';
+                    var anzahl = baustein.marker;
+                    var j;
+
+                    for(j = 0; j < anzahl; j++){
+                        trHTML += '<tr class="ajaxRow"><td style="width: 20%">' + baustein.name + '</td><td><input name="selectbausteinid" style="width: 100%" type="textfield" placeholder="' + baustein.markerInhaltArray[j] + '"></td></tr>';
+                    }   
                 });
                 
+                $('#modal-table').append(trHTML);
             },
             done: function(xhr, status, error){
                 var errorMessage = xhr.status + ': ' + xhr.statusText;

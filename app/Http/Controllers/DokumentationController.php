@@ -40,6 +40,22 @@ class DokumentationController extends Controller
             } 
         }
 
+        $suche = "/«(.*?)»/";
+
+        foreach($response as $baustein){
+            
+            preg_match_all($suche, $baustein->html, $matches, PREG_PATTERN_ORDER);
+
+            $markerInhalt = [];
+            $anzahl = $baustein->marker;
+
+            for($i = 0; $i < $anzahl; $i++){
+                array_push($markerInhalt, $matches[1][$i]);
+            }
+
+            $baustein->markerInhaltArray = $markerInhalt;
+        }
+
         return $response;
     }
 

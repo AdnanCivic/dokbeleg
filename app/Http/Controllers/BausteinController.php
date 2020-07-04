@@ -31,15 +31,20 @@ class BausteinController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request);
         request()->validate([
             'name' => ['required'],
             'textbaustein' => ['required']
         ]);
 
+        $text = request('textbaustein');
+        $suche = "/«(.*?)»/";
+        
+        $anzahlMarker = preg_match_all($suche, $text, $matches, PREG_SET_ORDER);
+
         $baustein = Baustein::create([
             'name' => request('name'),
-            'html' => request('textbaustein')
+            'html' => request('textbaustein'),
+            'marker' => $anzahlMarker
         ]);
 
         return redirect()->route('bausteins.index')->with('success', 'Ein neuer Baustein wurde erstellt.');
@@ -69,15 +74,20 @@ class BausteinController extends Controller
         if($textbaustein->name != $request->name){
             $textbaustein->name = $request->name;
         }
-        
+
+        $suche = "/«(.*?)»/";
+        $html =  $textbaustein->html;
+        $anzahlMarker = preg_match_all($suche, $html, $matches, PREG_SET_ORDER);
+    
+        $textbaustein->marker = $anzahlMarker;
         $textbaustein->save();
 
         return back()->with('success', 'Die Änderungen wurden gespeichert.');
     }
 
-    public function edit(Baustein $baustein)
-    {
-        //
-    }
+    // public function edit(Baustein $baustein)
+    // {
+        
+    // }
 
 }

@@ -9,6 +9,7 @@ $(document).ready(function(){
         ['para', ['ul', 'ol', 'paragraph']],
         ['height', ['height']],
         ['undo'],
+        ['codeview']
         ],
         callbacks: {
             onChange: function(){
