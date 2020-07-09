@@ -20,12 +20,18 @@ $(document).ready(function(event){
                     var anzahl = baustein.marker;
                     var j;
 
+                    trHTML += '<fieldset><legend>' + baustein.name + ':</legend>';
+                    
+
                     for(j = 0; j < anzahl; j++){
-                        trHTML += '<tr class="ajaxRow"><td style="width: 20%">' + baustein.name + '</td><td><input name="selectbausteinid" style="width: 100%" type="textfield" placeholder="' + baustein.markerInhaltArray[j] + '"></td></tr>';
-                    }   
+                        trHTML += '<div class="ajaxRow"><label for="' + j + '_' + baustein.name + '">' + baustein.markerInhaltArray[j] + 
+                        '</label><input id="' + j + '_' + baustein.name + '" style="width:100%" name="' + baustein.id + '_' + baustein.name + '[]" type="textfield"></div><br>';
+                    }
+
+                    trHTML += '</fieldset';
                 });
                 
-                $('#modal-table').append(trHTML);
+                $('#modal-body').append(trHTML);
             },
             done: function(xhr, status, error){
                 var errorMessage = xhr.status + ': ' + xhr.statusText;

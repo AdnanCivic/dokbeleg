@@ -7,15 +7,19 @@
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Dateneingabe</h4>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table id="modal-table" class="table">
-                        <tr><th>Baustein-Name</th><th>Baustein-Text</th></tr>
-                    </table>
+                    <form id="registration_form" novalidate action="{{ route('dokumentations.store') }}"  method="post">
+                        @csrf
+                        <div id="modal-body">
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <p>das ist der footer.</p>
@@ -80,4 +84,5 @@
 </main>
 <script src="{{ asset('js/auswahl-bearbeiten.js') }}"></script>
 <script src="{{ asset('js/auswahl-ajax.js') }}"></script>
+<script src="{{ asset('js/fortschrittanzeige.js') }}"></script>
 @endsection
