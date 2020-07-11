@@ -1,0 +1,11 @@
+#modal-body fieldset:not(:first-of-type) {
+    display: none;
+}
+
+#modal-body fieldset:first-child .previous {
+    display: none;
+}
+
+#modal-body fieldset:last-child .next {
+    display:none;
+}
