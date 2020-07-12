@@ -3,7 +3,7 @@
 @section('content')
 <main class="container-fluid" style="padding-top:70px;width:80%">
     @include('include.messages')
-    <div id="formModal" class="modal fade" role="dialog">
+    <div id="formModal" class="modal fade" data-backdrop="static" role="dialog">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -18,11 +18,9 @@
                     <form id="registration_form" novalidate action="{{ route('dokumentations.store') }}"  method="post">
                         @csrf
                         <div id="modal-body"></div>
+                        <button type="submit" id="formSubmit" class="btn btn-success btn-block" style="margin-top: 10px; display: none">PDF erstellen</button>
                     </form>
                 </div>
-                {{-- <div class="modal-footer">
-                    <p>das ist der footer.</p>
-                </div> --}}
             </div>
         </div>
     </div>
@@ -66,7 +64,7 @@
                                     <tbody id="rechteListe"></tbody>
                                 </table>
                             </div>
-                            <button type="submit" class="btn btn-success btn-block" data-toggle="modal" data-target="#formModal">Formulare für Auswahl laden</button>
+                            <button type="submit" class="btn btn-success btn-block">Formulare für Auswahl laden</button>
                         </form>
                     </div> 
                 </div>

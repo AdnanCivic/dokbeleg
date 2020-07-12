@@ -4,7 +4,6 @@ $(document).ready(function(event){
         var bausteinids = getBausteinIds();
         var anzahl = bausteinids.length;
         if(anzahl > 0){
-            alert("hier");
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -35,8 +34,9 @@ $(document).ready(function(event){
                         trHTML += '<input type="button" name="next" class="next btn btn-info" value="Weiter" />';
                         trHTML += '</fieldset>';
                     });
-                    
+                    $('#modal-body').empty();
                     $('#modal-body').append(trHTML);
+                    $('#formModal').modal('show');
                     fortschrittanzeige();
                     
                 },
@@ -46,10 +46,6 @@ $(document).ready(function(event){
                 }
             });
         }else{
-            // $('#formModal').on('show.bs.modal', function (e) {
-            //     return e.preventDefault(); // stops modal from being shown
-            // });
-            $('#formModal').hide();
             alert("Keine Bausteine ausgewählt!");
         }
     });
@@ -78,6 +74,9 @@ function fortschrittanzeige(){
         nextFS.show();
         jetztFS.hide();
         setProgressBar(++count);
+        if(anzahlFS == count){
+            $('#formSubmit').css('display', 'block');
+        }
     });
 
     $(".modal-body").on('click', '.previous', function(){
@@ -86,15 +85,17 @@ function fortschrittanzeige(){
         nextFS.show();
         jetztFS.hide();
         setProgressBar(--count);
+        if(anzahlFS !== count){
+            $('#formSubmit').css('display', 'none');
+        }
     });
 
     setProgressBar(count);
     
     function setProgressBar(count){
-        
         var prozent = parseFloat(100 / anzahlFS) * count;
         prozent = prozent.toFixed();
         $(".progress").css("width", "100%");
-        $(".progress-bar").css("width", prozent + "%").html(prozent + "%");   
+        $(".progress-bar").css("width", prozent + "%").html(prozent + "%");
     }
 }
