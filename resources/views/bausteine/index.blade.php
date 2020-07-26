@@ -8,9 +8,9 @@
         <div class="card-header"  style="text-align:center"><h3>Verfügbare Bausteine</h3></div>
         <div class="card-body">
             <table class="table">
-                <tr><th>Name</th><th>ID</th><th style="text-align: center">Aktion</th></tr>
+                <tr><th>Name</th><th>ID</th><th>Nummer</th><th style="text-align: center">Aktion</th></tr>
                 @foreach($alleBausteine as $baustein)
-                <tr><td>{{ $baustein->name }}</td><td>{{ $baustein->id }}</td>
+                <tr><td>{{ $baustein->name }}</td><td>{{ $baustein->id }}</td><td>{{ $baustein->nummer }}</td>
                     <td style="text-align: center">
                         <form method="POST" action="{{ route('bausteins.destroy', $baustein->id) }}" >
                             @csrf

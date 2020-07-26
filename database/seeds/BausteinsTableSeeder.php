@@ -13,8 +13,8 @@ class BausteinsTableSeeder extends Seeder
     public function run()
     {
         Baustein::truncate();
-        Baustein::create(['name' => 'Deckblatt', 'html' => '<p>Das ist ein Baustein.</p>']);
-        Baustein::create(['name' => 'Inhaltsverzeichnis', 'html' => '<p>Das ist das Inhaltsverzeichnis.</p>']);
-        Baustein::create(['name' => 'Vorbemerkungen', 'html' => '<p>Das sind die Vorbemerkungen.</p>']);
+        Baustein::create(['name' => 'Deckblatt', 'nummer' => 'vbd-00', 'html' => '<p>Das ist ein Baustein.</p>']);
+        Baustein::create(['name' => 'Inhaltsverzeichnis', 'nummer' => 'vbd-01', 'html' => '<p>Das ist das Inhaltsverzeichnis.</p>']);
+        Baustein::create(['name' => 'Vorbemerkungen', 'nummer' => 'vbd-02', 'html' => '<p>Das sind die Vorbemerkungen.</p>']);
     }
 }

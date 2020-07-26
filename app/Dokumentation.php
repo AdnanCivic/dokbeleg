@@ -17,8 +17,4 @@ class Dokumentation extends Model
     public function bausteins(){
         return $this->belongsToMany('App\Baustein');
     }
-
-    public function baustein(){
-
-    }
 }

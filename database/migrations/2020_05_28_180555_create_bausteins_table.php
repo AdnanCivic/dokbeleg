@@ -16,6 +16,7 @@ class CreateBausteinsTable extends Migration
         Schema::create('bausteins', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('nummer');
             $table->unsignedInteger('marker')->nullable();
             $table->longText('html')->charset('utf8');
             $table->timestamps();

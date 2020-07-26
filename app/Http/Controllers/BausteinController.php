@@ -33,6 +33,7 @@ class BausteinController extends Controller
     {
         request()->validate([
             'name' => ['required'],
+            'nummer' => ['required'],
             'textbaustein' => ['required']
         ]);
 
@@ -43,6 +44,7 @@ class BausteinController extends Controller
 
         $baustein = Baustein::create([
             'name' => request('name'),
+            'nummer' => request('nummer'),
             'html' => request('textbaustein'),
             'marker' => $anzahlMarker
         ]);
@@ -84,10 +86,4 @@ class BausteinController extends Controller
 
         return back()->with('success', 'Die Änderungen wurden gespeichert.');
     }
-
-    // public function edit(Baustein $baustein)
-    // {
-        
-    // }
-
 }

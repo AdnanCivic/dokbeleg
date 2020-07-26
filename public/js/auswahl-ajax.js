@@ -24,7 +24,6 @@ $(document).ready(function(event){
 
                         trHTML += '<fieldset><legend>' + baustein.name + ':</legend>';
                         
-
                         for(j = 0; j < anzahl; j++){
                             trHTML += '<div class="ajaxRow"><label for="' + j + '_' + baustein.name + '">' + baustein.markerInhaltArray[j] + 
                             '</label><input id="' + j + '_' + baustein.name + '" style="width:100%" name="' + baustein.id + '_' + baustein.name + '[]" type="textfield"></div><br>';
@@ -70,13 +69,10 @@ function fortschrittanzeige(){
     $(".modal-body").on('click', '.next', function(){
         jetztFS = $(this).parent();
         nextFS = $(this).parent().next();
-    
         nextFS.show();
         jetztFS.hide();
         setProgressBar(++count);
-        if(anzahlFS == count){
-            $('#formSubmit').css('display', 'block');
-        }
+        
     });
 
     $(".modal-body").on('click', '.previous', function(){
@@ -85,9 +81,6 @@ function fortschrittanzeige(){
         nextFS.show();
         jetztFS.hide();
         setProgressBar(--count);
-        if(anzahlFS !== count){
-            $('#formSubmit').css('display', 'none');
-        }
     });
 
     setProgressBar(count);
@@ -97,5 +90,10 @@ function fortschrittanzeige(){
         prozent = prozent.toFixed();
         $(".progress").css("width", "100%");
         $(".progress-bar").css("width", prozent + "%").html(prozent + "%");
+        if(prozent == 100){
+            $('#formSubmit').css('display', 'block');
+        }else{
+            $('#formSubmit').css('display', 'none');
+        }
     }
 }

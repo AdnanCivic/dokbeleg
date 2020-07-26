@@ -11,9 +11,15 @@
             <form action="{{ route('bausteins.update', $dbBaustein->id) }}" method="POST">
                 @csrf
                 @method('PUT')
-                <div class="form-group">
-                    <label for="name">Name:</label>
-                    <input type="textarea" class="form-control" {{ $errors->has('name') ? 'alert-danger' : ''}} name="name" value="{{ $dbBaustein->name }}" required autofocus>
+                <div class="form-group row">
+                    <div class="col">
+                        <label for="name">Name:</label>
+                        <input type="textarea" class="form-control" {{ $errors->has('name') ? 'alert-danger' : ''}} name="name" value="{{ $dbBaustein->name }}" required autofocus>
+                    </div>
+                    <div class="col">
+                        <label for="nummer">Nummer:</label>
+                        <input type="textarea" class="form-control {{ $errors->has('nummer') ? 'alert-danger' : ''}}" name="nummer" value="{{ $dbBaustein->nummer }}" required>
+                    </div>
                 </div>
                 <input type="hidden" id="newHTML" name="newHTML">
                 <textarea id="summernote">{!! $dbBaustein->html !!}</textarea>
