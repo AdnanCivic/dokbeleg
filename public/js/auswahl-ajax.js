@@ -25,8 +25,8 @@ $(document).ready(function(event){
                         trHTML += '<fieldset><legend>' + baustein.name + ':</legend>';
                         
                         for(j = 0; j < anzahl; j++){
-                            trHTML += '<div class="ajaxRow"><label for="' + j + '_' + baustein.name + '">' + baustein.markerInhaltArray[j] + 
-                            '</label><input id="' + j + '_' + baustein.name + '" style="width:100%" name="' + baustein.id + '_' + baustein.name + '[]" type="textfield"></div><br>';
+                            trHTML += '<div class="ajaxRow"><label for="' + j + '_' + baustein.nummer + '">' + baustein.markerInhaltArray[j] + 
+                            '</label><input id="' + j + '_' + baustein.nummer + '" style="width:100%" name="' + baustein.id + '_' + baustein.nummer + '[]" type="textfield"></div><br>';
                         }
 
                         trHTML += '<input type="button" name="previous" class="previous btn btn-secondary" value="Zurück"/>';

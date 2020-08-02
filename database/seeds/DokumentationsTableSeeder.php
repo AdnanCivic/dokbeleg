@@ -20,7 +20,7 @@ class DokumentationsTableSeeder extends Seeder
         $inhaltsverzeichnisBaustein = Baustein::where('nummer', 'vbd-01')->first();
         $vorbemerkungenBaustein = Baustein::where('nummer', 'vbd-02')->first();
 
-        $dokumentation = Dokumentation::create(['name' => 'Verfahrens- und Belegdokumentation', 'user_id' => 1]);
+        $dokumentation = Dokumentation::create(['name' => 'Verfahrens- und Belegdokumentation', 'user_id' => 1, 'anzahlBausteine' => 3]);
 
         $dokumentation->bausteins()->attach([
             $deckblattBaustein->id, $inhaltsverzeichnisBaustein->id, $vorbemerkungenBaustein->id

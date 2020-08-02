@@ -61,26 +61,20 @@ class DokumentationController extends Controller
 
     public function store(Request $request)
     {
+        
+        
         dd($request);
-        $dokumentation = App\Dokumentation::find($request->dokumentation_id);
-        $dokumentation->bausteins()->attach('baustein_id'); //baustein zu einer dokumentation hinzufügen, auch baustein array möglich attach([1,6,7])
+        //baustein zu einer dokumentation hinzufügen, auch baustein array möglich attach([1,6,7])
         //entfernen $dokumentation->bausteins()->detach('baustein_id'); //entfernen
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Dokumentation  $dokumentation
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Dokumentation $dokumentation)
     {
-        //
+        $dokumentation = App\Dokumentation::find($request->dokumentation_id);
+        $dokumentation->bausteins()->attach('baustein_id'); 
     }
 
     /**
-     * Update the specified resource in storage.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Dokumentation  $dokumentation
      * @return \Illuminate\Http\Response

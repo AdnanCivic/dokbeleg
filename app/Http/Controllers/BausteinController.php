@@ -64,7 +64,7 @@ class BausteinController extends Controller
     {
         $textbaustein = Baustein::find($baustein->id);
         
-        if($textbaustein->name == $request->name && $request->newHTML == null){
+        if($textbaustein->name == $request->name && $textbaustein->nummer == $request->nummer && $request->newHTML == null){
             return back()->with('success', 'Es gibt keine Änderungen.');
         }
 
@@ -75,6 +75,10 @@ class BausteinController extends Controller
         
         if($textbaustein->name != $request->name){
             $textbaustein->name = $request->name;
+        }
+
+        if($textbaustein->nummer != $request->nummer){
+            $textbaustein->nummer = $request->nummer;
         }
 
         $suche = "/«(.*?)»/";

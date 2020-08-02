@@ -6,26 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateDokumentationsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+    
     public function up()
     {
         Schema::create('dokumentations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->string('name');
+            $table->unsignedSmallInteger('anzahlBausteine');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+   
     public function down()
     {
         Schema::dropIfExists('dokumentations');

@@ -36,10 +36,10 @@
                     <div class="card-body">
                         <div class="tbody-scroll">
                             <table class="table table-hover" id="linkeTabelle">
-                                <thead class="thead-dark"><tr><th>Name</th><th>ID</th><th></th></tr></thead>
+                                <thead class="thead-dark"><tr><th>Name</th><th>ID</th><th>Nummer</th><th></th></tr></thead>
                                 <tbody id="linkeListe">
                                     @foreach($bausteine as $baustein)
-                                        <tr class="reihe"><td>{{ $baustein->name }}</td><td>{{ $baustein->id }}</td>
+                                        <tr class="reihe"><td>{{ $baustein->name }}</td><td>{{ $baustein->id }}</td><td>{{ $baustein->nummer }}</td>
                                         <td><input name="bausteinid" type="checkbox" value="{{ $baustein->id}}"></td>
                                         </tr>
                                     @endforeach
@@ -60,7 +60,7 @@
                             @csrf
                             <div class="tbody-scroll">
                                 <table class="table table-hover" id="rechteTabelle">
-                                    <thead class="thead-dark"><tr><th>Name</th><th>ID</th><th></th><tr></thead>
+                                    <thead class="thead-dark"><tr><th>Name</th><th>ID</th><th>Nummer</th><th></th><tr></thead>
                                     <tbody id="rechteListe"></tbody>
                                 </table>
                             </div>
