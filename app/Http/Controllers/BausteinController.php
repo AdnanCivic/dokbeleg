@@ -20,8 +20,7 @@ class BausteinController extends Controller
 
     public function show(Baustein $baustein)
     {
-        $dbBaustein = Baustein::find($baustein->id);
-        return view('bausteine.show', compact('dbBaustein'));
+        return view('bausteine.show', compact('baustein'));
     }
 
     public function create()
@@ -33,7 +32,7 @@ class BausteinController extends Controller
     {
         request()->validate([
             'name' => ['required'],
-            'nummer' => ['required'],
+            'nummer' => ['required', 'unique:bausteins'],
             'textbaustein' => ['required']
         ]);
 

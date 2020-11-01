@@ -61,9 +61,16 @@ class DokumentationController extends Controller
 
     public function store(Request $request)
     {
-        
-        
-        dd($request);
+        if($request->has('bausteine')){
+            $response = Baustein::find($request->bausteine);
+        }
+
+        $temp = $request->all();
+
+        $response = $temp;
+
+        //return $response;
+        //$dokumentation = App\Dokumentation::create();
         //baustein zu einer dokumentation hinzufügen, auch baustein array möglich attach([1,6,7])
         //entfernen $dokumentation->bausteins()->detach('baustein_id'); //entfernen
     }

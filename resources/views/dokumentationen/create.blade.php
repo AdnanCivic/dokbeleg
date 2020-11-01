@@ -15,7 +15,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="registration_form" novalidate action="{{ route('dokumentations.store') }}"  method="post">
+                    {{-- novalidate action="{{ route('dokumentations.store') }}" --}}
+                    <form id="registration_form" method="post">
                         @csrf
                         <div id="modal-body"></div>
                         <button type="submit" id="formSubmit" class="btn btn-success btn-block" style="margin-top: 10px; display: none">PDF erstellen</button>
@@ -81,5 +82,6 @@
 </main>
 <script src="{{ asset('js/auswahl-bearbeiten.js') }}"></script>
 <script src="{{ asset('js/auswahl-ajax.js') }}"></script>
+<script src="{{ asset('js/submit-ajax.js') }}"></script>
 
 @endsection
