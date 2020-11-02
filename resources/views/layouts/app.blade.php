@@ -28,7 +28,8 @@
     
 </head>
 <body>
-    <div id="app">
+    <div>
+    {{-- <div id="app"> eventuell besser da komponenten in den ganzen body eingefügt werden können--}}
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -80,6 +81,7 @@
             </div>
         </nav>
         <main class="py-4">
+            @include('include.messages')
             @yield('content')
         </main>
     </div>

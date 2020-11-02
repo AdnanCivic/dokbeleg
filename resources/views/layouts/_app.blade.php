@@ -26,7 +26,7 @@
     </style>
 </head>
 <body>
-    <div id="app">
+    <div>
         <main class="container" style="padding-top:70px">
             @include('include.messages') 
             @yield('content')

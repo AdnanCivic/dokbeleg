@@ -25,6 +25,6 @@ Route::prefix('v1')->group(function() {
     Route::apiResource('/baustein', 'Api\v1\BausteinApiController');
 });
 
-Route::prefix('v2')->group(function() {
-    Route::apiResource('/baustein', 'Api\v2\BausteinApiController')->only('show');
-});
+// Route::prefix('v2')->group(function() {
+//     Route::apiResource('/baustein', 'Api\v2\BausteinApiController')->only('show');
+// });
