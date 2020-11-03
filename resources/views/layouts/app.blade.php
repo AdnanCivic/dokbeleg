@@ -11,8 +11,8 @@
     <title>{{ config('app.name', 'Dokbeleg') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js" defer></script>
     
     
     <!-- Fonts -->
@@ -29,7 +29,6 @@
 </head>
 <body>
     <div>
-    {{-- <div id="app"> eventuell besser da komponenten in den ganzen body eingefügt werden können--}}
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">

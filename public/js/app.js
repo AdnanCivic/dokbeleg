@@ -1924,8 +1924,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      bausteine: []
+    };
+  },
   mounted: function mounted() {
-    console.log('Component mounted.');
+    this.loadBausteine();
+  },
+  methods: {
+    loadBausteine: function loadBausteine() {
+      var _this = this;
+
+      axios.get('http://api.dokbeleg.de/v1/baustein', {
+        crossDomain: true
+      }).then(function (response) {
+        _this.bausteine = response.data.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
   }
 });
 
@@ -37513,7 +37531,37 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "main",
+    { staticClass: "container", staticStyle: { "padding-top": "70px" } },
+    [
+      _c("div", { staticClass: "card" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c(
+            "table",
+            { staticClass: "table" },
+            [
+              _vm._m(1),
+              _vm._v(" "),
+              _vm._l(_vm.bausteine, function(baustein, index) {
+                return _c("tr", { key: index }, [
+                  _c("td", [_vm._v(_vm._s(baustein.name))]),
+                  _c("td", [_vm._v(_vm._s(baustein.id))]),
+                  _c("td", [_vm._v(_vm._s(baustein.nummer))]),
+                  _c("td", { staticStyle: { "text-align": "center" } }, [
+                    _vm._v("Aktion")
+                  ])
+                ])
+              })
+            ],
+            2
+          )
+        ])
+      ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
@@ -37521,34 +37569,21 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c(
-      "main",
-      { staticClass: "container", staticStyle: { "padding-top": "70px" } },
-      [
-        _c("div", { staticClass: "card" }, [
-          _c(
-            "div",
-            {
-              staticClass: "card-header",
-              staticStyle: { "text-align": "center" }
-            },
-            [_c("h3", [_vm._v("Verfügbare Bausteine")])]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c("table", { staticClass: "table" }, [
-              _c("tr", [
-                _c("th", [_vm._v("Name")]),
-                _c("th", [_vm._v("ID")]),
-                _c("th", [_vm._v("Nummer")]),
-                _c("th", { staticStyle: { "text-align": "center" } }, [
-                  _vm._v("Aktion")
-                ])
-              ])
-            ])
-          ])
-        ])
-      ]
+      "div",
+      { staticClass: "card-header", staticStyle: { "text-align": "center" } },
+      [_c("h3", [_vm._v("Verfügbare Bausteine")])]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", [_vm._v("Name")]),
+      _c("th", [_vm._v("ID")]),
+      _c("th", [_vm._v("Nummer")]),
+      _c("th", { staticStyle: { "text-align": "center" } }, [_vm._v("Aktion")])
+    ])
   }
 ]
 render._withStripped = true

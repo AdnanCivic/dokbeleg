@@ -6,7 +6,7 @@
             <div class="card-body">
                 <table class="table">
                     <tr><th>Name</th><th>ID</th><th>Nummer</th><th style="text-align: center">Aktion</th></tr>
-
+                    <tr v-for="(baustein, index) in bausteine" :key="index"><td>{{ baustein.name }}</td><td>{{ baustein.id }}</td><td>{{ baustein.nummer }}</td><td style="text-align:center">Aktion</td></tr>
                 </table>
             </div>
         </div>     
@@ -19,6 +19,24 @@
             return {
                 bausteine: [],
             }
+        },
+
+        mounted() {
+            this.loadBausteine();
+        },
+
+        methods: {
+            loadBausteine: function() {
+                axios.get('http://api.dokbeleg.de/v1/baustein', {
+                    crossDomain: true
+                    })
+                    .then((response) => {
+                        this.bausteine = response.data.data;
+                    })
+                    .catch(function(error){
+                        console.log(error);
+                    });
+            },
         }
     }
 </script>
