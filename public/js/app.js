@@ -1923,6 +1923,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1936,13 +1937,14 @@ __webpack_require__.r(__webpack_exports__);
     loadBausteine: function loadBausteine() {
       var _this = this;
 
-      axios.get('http://api.dokbeleg.de/v1/baustein', {
-        crossDomain: true
-      }).then(function (response) {
+      axios.get('http://api.dokbeleg.de/v1/baustein').then(function (response) {
         _this.bausteine = response.data.data;
       })["catch"](function (error) {
         console.log(error);
       });
+    },
+    dinge: function dinge() {
+      alert('hey');
     }
   }
 });
@@ -37550,8 +37552,23 @@ var render = function() {
                   _c("td", [_vm._v(_vm._s(baustein.name))]),
                   _c("td", [_vm._v(_vm._s(baustein.id))]),
                   _c("td", [_vm._v(_vm._s(baustein.nummer))]),
+                  _vm._v(" "),
                   _c("td", { staticStyle: { "text-align": "center" } }, [
-                    _vm._v("Aktion")
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        on: {
+                          click: function($event) {
+                            return _vm.dinge()
+                          }
+                        }
+                      },
+                      [_vm._v("Anzeigen")]
+                    ),
+                    _c("button", { staticClass: "btn btn-danger" }, [
+                      _vm._v("Löschen")
+                    ])
                   ])
                 ])
               })
