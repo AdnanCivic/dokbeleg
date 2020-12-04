@@ -7,10 +7,11 @@
                 <table class="table">
                     <tr><th>Name</th><th>ID</th><th>Nummer</th><th style="text-align: center">Aktion</th></tr>
                     <tr v-for="(baustein, index) in bausteine" :key="index"><td>{{ baustein.name }}</td><td>{{ baustein.id }}</td><td>{{ baustein.nummer }}</td>
-                        <td style="text-align:center"><button class="btn btn-primary" v-on:click="dinge()">Anzeigen</button><button class="btn btn-danger">Löschen</button></td></tr>
+                        <td style="text-align:center"><a class="btn btn-primary">Anzeigen</a><a class="btn btn-danger">Löschen</a></td></tr>
                 </table>
+                
             </div>
-        </div>     
+        </div>
     </main>
 </template>
 
@@ -19,6 +20,7 @@
         data: function(){
             return {
                 bausteine: [],
+                message: 'heilige Kuh',
             }
         },
 
@@ -37,9 +39,10 @@
                     });
             },
 
-            dinge: function(){
-                alert('hey');
-            }
+        },
+
+        computed: {
+            
         }
     }
 </script>

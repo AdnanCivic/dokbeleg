@@ -8,4 +8,5 @@
 
 <script src="{{ mix('js/app.js') }}"></script>
 <script src="/js/delete-confirm.js"></script>
+
 @endsection

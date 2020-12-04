@@ -28,5 +28,7 @@
         </div>    
     </div>    
 </main>
-<script src="{{ asset('/js/summernote-edit.js') }}"></script>
+@push('scripts')
+    <script src="{{ asset('/js/summernote-edit.js') }}"></script>
+@endpush
 @endsection
