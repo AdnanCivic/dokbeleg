@@ -20,6 +20,7 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('alle-bausteine', require('./components/AlleBausteine.vue').default);
+Vue.component('button-link', require('./components/ButtonLink.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -29,4 +30,7 @@ Vue.component('alle-bausteine', require('./components/AlleBausteine.vue').defaul
 
 const app = new Vue({
     el: '#app',
+    data: {
+        message: 'Hello World',
+    },
 });

@@ -22,7 +22,7 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
     
 </head>
 <body>
@@ -82,8 +82,8 @@
             @yield('content')
         </main>
     </div>
-    {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-    @stack('scripts')
+    <script src="{{ asset('js/app.js') }}"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script> --}}
+    {{-- @stack('scripts') --}}
 </body>
 </html>
