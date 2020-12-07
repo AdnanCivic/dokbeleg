@@ -1,40 +1,23 @@
 <template>
-    <div class="button-link">
-        <a class="btn btn-primary btn-large" :href="route" role="button"><slot></slot></a>
-    </div>
+    <a class="btn btn-primary btn-large button-link" :href="route" role="button"><slot></slot></a>
 </template>
 
 <script>
     export default {
-        props: [
-            'route'
-        ],
-
-        data: function(){
-            return {
-                
+        props: {
+            route: {
+                type: String,
+                required: true
             }
-        },
-
-        mounted() {
-            
-        },
-
-        methods: {
-            
-
-        },
-
-        computed: {
-            
         }
+            
     }
 </script>
 
 <style scoped>
     .button-link {
-        padding-top: 10px;
         text-align: center;
-        width: auto;
+        width: 100%;
+        margin-top: 10px;
     }
 </style>

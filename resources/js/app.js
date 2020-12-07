@@ -5,6 +5,9 @@
  */
 
 require('./bootstrap');
+require('summernote');
+require('summernote/dist/summernote.css');
+require('summernote/dist/summernote.js');
 
 window.Vue = require('vue');
 

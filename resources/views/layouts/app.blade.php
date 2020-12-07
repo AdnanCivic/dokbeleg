@@ -16,14 +16,10 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/grid.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/grid-dashboard.css') }}" rel="stylesheet">
     <link href="{{ asset('css/grid-createdoku.css') }}" rel="stylesheet">
     <link href="{{ asset('css/modal-form.css') }}" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-
-    <!-- Scripts -->
-    {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
-    
+    {{-- <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">  --}}
 </head>
 <body>
     <div>
@@ -38,9 +34,7 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
+                    <ul class="navbar-nav mr-auto"></ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -80,9 +74,14 @@
         <main class="py-4">
             @include('include.messages')
             @yield('content')
+            
         </main>
+        <div id="summernote"></div>
     </div>
     <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        $('.summernote').summernote();
+    </script>
     {{-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script> --}}
     {{-- @stack('scripts') --}}
 </body>
