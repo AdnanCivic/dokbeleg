@@ -1,7 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<main class="container" id="app" style="padding-top:70px;">
+<main class="container" style="padding-top:70px;">
+
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border text-primary"></div>
+    </div>
+
     @include('include.messages')
     <div class="card">
         <div class="card-header"  style="text-align:center"><h3>Komponentenverwaltung</h3></div>

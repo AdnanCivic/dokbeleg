@@ -33,7 +33,9 @@ Vue.component('button-link', require('./components/ButtonLink.vue').default);
 
 const app = new Vue({
     el: '#app',
-    data: {
-        message: 'Hello World',
+    data() {
+        return {
+            isLoading: true
+        }
     },
 });

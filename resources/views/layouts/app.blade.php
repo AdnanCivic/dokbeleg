@@ -71,17 +71,12 @@
                 </div>
             </div>
         </nav>
-        <main class="py-4">
+        <main class="py-4" id="app">
             @include('include.messages')
-            @yield('content')
-            
+            @yield('content')  
         </main>
-        <div id="summernote"></div>
     </div>
     <script src="{{ asset('js/app.js') }}"></script>
-    <script>
-        $('.summernote').summernote();
-    </script>
     {{-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script> --}}
     {{-- @stack('scripts') --}}
 </body>
