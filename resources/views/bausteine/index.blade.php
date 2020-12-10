@@ -2,11 +2,8 @@
 
 @section('content')
 
-<div id="app">
-    <alle-bausteine></alle-bausteine>
-</div>
+<alle-bausteine></alle-bausteine>
 
-<script src="{{ mix('js/app.js') }}"></script>
-<script src="/js/delete-confirm.js"></script>
+{{-- <script src="/js/delete-confirm.js"></script> --}}
 
 @endsection
