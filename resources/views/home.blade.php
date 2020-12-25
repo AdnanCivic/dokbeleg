@@ -2,7 +2,6 @@
 
 @section('content')
 <main class="container" style="padding-top:70px;">
-    @include('include.messages')
     <div class="card">
         <div class="card-header"  style="text-align:center"><h3>Komponentenverwaltung</h3></div>
         <div class="card-body">
@@ -28,9 +27,10 @@
                         <button-link class="btn-success" route="{{ route('user.create') }}">Benutzer anlegen</button-link>
                     </div>
                 </div>
-            <div>
+            </div>
         </div>
-    <div>
+    </div>
+    <summer-note></summer-note>
 </main>
     
 @endsection

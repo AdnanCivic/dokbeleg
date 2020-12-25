@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
     <link href="{{ asset('css/grid-dashboard.css') }}" rel="stylesheet">
     <link href="{{ asset('css/grid-createdoku.css') }}" rel="stylesheet">
     <link href="{{ asset('css/modal-form.css') }}" rel="stylesheet">
@@ -72,9 +72,9 @@
         </nav>
         <main class="py-4" id="app">
             @include('include.messages')
-            @yield('content')  
+            @yield('content')
         </main>
     </div>
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ mix('js/app.js') }}"></script>
 </body>
 </html>
