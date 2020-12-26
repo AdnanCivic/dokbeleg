@@ -41,8 +41,9 @@ export default {
         },
 
         bausteinSpeichern: function(){
-            var markupStr = $('#summernote').summernote('code');
-            console.log(markupStr);
+            var formatStr = $('#summernote').summernote('code');
+            
+            console.log(formatStr);
             // axios in db speichern
             this.$emit('bausteinsaved');
             

@@ -2,9 +2,15 @@
 
 @section('content')
 
-<div class="container" style="margin-top:50px">
-    <a class="btn btn-primary btn-large" href="{{ route('home') }}">Zurück</a>
-    <alle-bausteine></alle-bausteine>
+<div class="container" id="app">
+    <a class="btn btn-large btn-primary" href="{{ route('home') }}"><- Komponentenverwaltung</a>
+    <div class="navbar navbar-expand-md">
+        <router-link class="btn btn-light" to="/bausteins" exact>Index</router-link>
+    </div>
+    <div class="container">
+        <router-view></router-view>
+    </div>
+    
 </div>
 
 @endsection

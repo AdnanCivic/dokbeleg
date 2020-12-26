@@ -70,7 +70,7 @@
                 </div>
             </div>
         </nav>
-        <main class="py-4" id="app">
+        <main class="py-4">
             @include('include.messages')
             @yield('content')
         </main>
