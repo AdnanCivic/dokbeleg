@@ -1,14 +1,18 @@
 <template>
     <div class="card" >
-        <div class="card-header"  style="text-align:center"><h3>Verfügbare Bausteine</h3></div>
+        <div class="card-header"><h3>Verfügbare Bausteine</h3></div>
         <div class="card-body">
             <table class="table">
                 <tr><th>Name</th><th>ID</th><th>Nummer</th><th style="text-align: center">Aktion</th></tr>
-                <tr v-for="baustein in bausteine" :key="baustein.id"><td>{{ baustein.name }}</td><td>{{ baustein.id }}</td><td>{{ baustein.nummer }}</td>
-                    <td style="text-align:center"><a class="btn btn-primary" @click="showBaustein(baustein.id)">Anzeigen</a><a class="btn btn-danger">Löschen</a></td></tr>
+                <tr v-for="(baustein, index) in bausteine" :key="index"><td>{{ baustein.name }}</td><td>{{ baustein.id }}</td><td>{{ baustein.nummer }}</td>
+                    <td id="buttons"><a class="btn btn-primary" @click="showBaustein(baustein.id)">Anzeigen</a><a class="btn btn-danger">Löschen</a></td></tr>
             </table>
             <div class="text-center">
                 <div :class="{'spinner-border': isLoading}" style="width: 3rem; height: 3rem;"></div>
+            </div>
+            <div v-if="error" class="error">
+                <p>{{ error }}</p>
+                <p><button class="btn btn-success" @click.prevent="loadBausteine">Erneut versuchen</button></p>
             </div>
         </div>
     </div>
@@ -19,25 +23,27 @@
     export default {
         data(){
             return {
-                bausteine: [],
-                isLoading: true
+                bausteine: null,
+                error: null,
+                isLoading: true,
             }
         },
 
-        mounted(){
+        created(){
             this.loadBausteine();
         },
 
         methods: {
             loadBausteine: function() {
+                this.bausteine = null;
+                this.error = null;
                 axios.get('http://dokbeleg.de/api/v1/baustein')
                     .then((response) => {
                         this.bausteine = response.data.data;
-                        this.isLoading = false;
-                        
+                        this.isLoading = false; 
                     })
-                    .catch(function(error){
-                        console.log(error);
+                    .catch((error) => {
+                        this.error = error.message;
                     })
                     .finally(()=>{
                         this.isLoading = false;
@@ -45,7 +51,8 @@
             },
 
             showBaustein: function(bausteinId){
-                console.log(bausteinId);
+                this.$route.params.id = bausteinId;
+                console.log(this.$route.params);
                 
             },
             
@@ -53,7 +60,21 @@
         },
 
         computed: {
+        },
             
-        }
     }
+ 
 </script>
+
+<style>
+    .error {
+        text-align: center;
+        color: red;
+    }
+    .card-header {
+        text-align: center;
+    }
+    #buttons {
+        text-align: center;
+    }
+</style>

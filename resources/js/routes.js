@@ -1,5 +1,7 @@
 import AlleBausteine from './components/AlleBausteine.vue';
 import SummerNote from './components/SummerNote.vue';
+import BausteinEdit from './components/BausteinEdit.vue';
+import BausteinShow from './components/BausteinShow.vue';
 
 export default{
     mode: 'history',
@@ -8,6 +10,14 @@ export default{
         {
             path: '/bausteins',
             component: AlleBausteine
+        },
+        {
+            path: 'bausteins/:id',
+            component: BausteinShow
+        },
+        {
+            path: '/bausteins/:id/edit',
+            component: BausteinEdit
         },
         {
             path: '/bausteins/summernote',
