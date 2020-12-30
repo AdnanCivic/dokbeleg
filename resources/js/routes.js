@@ -9,14 +9,17 @@ export default{
     routes: [
         {
             path: '/bausteins',
+            name: 'AlleBausteine',
             component: AlleBausteine
         },
         {
-            path: 'bausteins/:id',
+            path: '/bausteins/:id',
+            name: 'BausteinShow',
             component: BausteinShow
         },
         {
             path: '/bausteins/:id/edit',
+            name: 'BausteinEdit',
             component: BausteinEdit
         },
         {
