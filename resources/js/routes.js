@@ -25,6 +25,10 @@ export default{
         {
             path: '/bausteins/summernote',
             component: SummerNote
+        },
+        {
+            path: '/bausteins/*',
+            component: NotFound
         }
     ]
 }

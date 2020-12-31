@@ -25,7 +25,7 @@
             return {
                 bausteine: null,
                 error: null,
-                isLoading: true,
+                isLoading: false,
             }
         },
 
@@ -33,10 +33,14 @@
             this.loadBausteine();
         },
 
+        watch: {
+            '$route': 'loadBausteine',
+        },
+
         methods: {
             loadBausteine: function() {
-                this.bausteine = null;
-                this.error = null;
+                this.bausteine = this.error = null;
+                this.isLoading = true;
                 axios.get('/api/v1/baustein')
                     .then((response) => {
                         this.bausteine = response.data.data;
@@ -49,11 +53,7 @@
                         this.isLoading = false;
                     });
             },     
-        },
-
-        computed: {
-        },
-            
+        },       
     }
  
 </script>
