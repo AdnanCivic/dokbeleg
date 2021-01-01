@@ -3,20 +3,22 @@
         <div class="card-header"><h3>Verfügbare Bausteine</h3></div>
         <div class="card-body">
             <table class="table">
-                <tr><th>Name</th><th>ID</th><th>Nummer</th><th style="text-align: center">Aktion</th></tr>
-                <tr v-for="(baustein, index) in bausteine" :key="index"><td>{{ baustein.name }}</td><td>{{ baustein.id }}</td><td>{{ baustein.nummer }}</td>
-                    <td id="buttons"><router-link class="btn btn-primary" :to="{name: 'BausteinShow', params: { id:baustein.id}}">Anzeigen</router-link><a class="btn btn-danger">Löschen</a></td></tr>
+                <tr><th>Name</th><th>ID</th><th>Typ</th><th style="text-align: center">Aktion</th></tr>
+                <tr v-for="(baustein, index) in bausteine" :key="index"><td>{{ baustein.name }}</td><td>{{ baustein.id }}</td><td>{{ baustein.typ }}</td>
+                    <td id="buttons">
+                        <router-link class="btn btn-primary" :to="{name: 'BausteinShow', params: { id:baustein.id}}">Anzeigen</router-link>
+                        <button type="button" class="btn btn-danger" @click="checkDelete">Löschen</button>
+                    </td></tr>
             </table>
             <div class="text-center">
                 <div :class="{'spinner-border': isLoading}" style="width: 3rem; height: 3rem;"></div>
             </div>
             <div v-if="error" class="error">
                 <p>{{ error }}</p>
-                <p><button class="btn btn-success" @click.prevent="loadBausteine">Erneut versuchen</button></p>
+                <p><button class="btn btn-success" @click="loadBausteine">Erneut versuchen</button></p>
             </div>
         </div>
     </div>
-    <!-- <script src="/js/delete-confirm.js"></script> -->
 </template>
 
 <script>
@@ -52,7 +54,20 @@
                     .finally(()=>{
                         this.isLoading = false;
                     });
-            },     
+            },
+            
+            checkDelete: function(){
+                var auswahl = confirm('Soll der Baustein gelöscht werden?');
+                if(auswahl) {
+                    this.deleteBaustein();
+                }
+            },
+
+            deleteBaustein: function(){
+                //baustein löschen
+                //alert message
+                alert('Baustein gelöscht.');
+            },
         },       
     }
  

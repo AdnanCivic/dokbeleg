@@ -16,9 +16,9 @@ class DokumentationsTableSeeder extends Seeder
         Dokumentation::truncate();
         DB::table('baustein_dokumentation')->truncate();
 
-        $deckblattBaustein = Baustein::where('nummer', 'vbd-00')->first();
-        $inhaltsverzeichnisBaustein = Baustein::where('nummer', 'vbd-01')->first();
-        $vorbemerkungenBaustein = Baustein::where('nummer', 'vbd-02')->first();
+        $deckblattBaustein = Baustein::where('name', 'Deckblatt')->first();
+        $inhaltsverzeichnisBaustein = Baustein::where('name', 'Inhaltsverzeichnis')->first();
+        $vorbemerkungenBaustein = Baustein::where('name', 'Vorbemerkungen')->first();
 
         $dokumentation = Dokumentation::create(['name' => 'Verfahrens- und Belegdokumentation', 'user_id' => 1, 'anzahlBausteine' => 3]);
 
