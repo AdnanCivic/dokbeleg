@@ -15,15 +15,10 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/grid.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
+    <link href="{{ asset('css/grid-dashboard.css') }}" rel="stylesheet">
     <link href="{{ asset('css/grid-createdoku.css') }}" rel="stylesheet">
     <link href="{{ asset('css/modal-form.css') }}" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
-    
 </head>
 <body>
     <div>
@@ -38,9 +33,7 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
+                    <ul class="navbar-nav mr-auto"></ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -82,8 +75,6 @@
             @yield('content')
         </main>
     </div>
-    {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-    @stack('scripts')
+    <script src="{{ mix('js/app.js') }}"></script>
 </body>
 </html>

@@ -3,13 +3,3 @@
     grid-template-columns: auto auto auto;
     justify-content: space-evenly;
 }
-
-.subitem {
-    padding-top: 10px;
-    text-align: center;
-    
-}
-
-.subbutton{
-    width: 100%;
-}

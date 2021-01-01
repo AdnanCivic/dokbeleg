@@ -8,8 +8,9 @@ class Baustein extends Model
 {
     protected $fillable = [
         'name',
-        'nummer',
-        'html',
+        'typ',
+        'heading',
+        'content',
         'marker'
     ];
 

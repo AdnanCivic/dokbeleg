@@ -1,48 +1,87 @@
 <template>
-    <main class="container" style="padding-top:70px;">
-        <!-- <div><a class="btn btn-primary btn-large" href="{{ route('home') }}">Zurück</a></div> -->
-        <div class="card">
-            <div class="card-header"  style="text-align:center"><h3>Verfügbare Bausteine</h3></div>
-            <div class="card-body">
-                <table class="table">
-                    <tr><th>Name</th><th>ID</th><th>Nummer</th><th style="text-align: center">Aktion</th></tr>
-                    <tr v-for="(baustein, index) in bausteine" :key="index"><td>{{ baustein.name }}</td><td>{{ baustein.id }}</td><td>{{ baustein.nummer }}</td>
-                        <td style="text-align:center"><a class="btn btn-primary">Anzeigen</a><a class="btn btn-danger">Löschen</a></td></tr>
-                </table>
-                
+    <div class="card" >
+        <div class="card-header"><h3>Verfügbare Bausteine</h3></div>
+        <div class="card-body">
+            <table class="table">
+                <tr><th>Name</th><th>ID</th><th>Typ</th><th style="text-align: center">Aktion</th></tr>
+                <tr v-for="(baustein, index) in bausteine" :key="index"><td>{{ baustein.name }}</td><td>{{ baustein.id }}</td><td>{{ baustein.typ }}</td>
+                    <td id="buttons">
+                        <router-link class="btn btn-primary" :to="{name: 'BausteinShow', params: { id:baustein.id}}">Anzeigen</router-link>
+                        <button type="button" class="btn btn-danger" @click="checkDelete">Löschen</button>
+                    </td></tr>
+            </table>
+            <div class="text-center">
+                <div :class="{'spinner-border': isLoading}" style="width: 3rem; height: 3rem;"></div>
+            </div>
+            <div v-if="error" class="error">
+                <p>{{ error }}</p>
+                <p><button class="btn btn-success" @click="loadBausteine">Erneut versuchen</button></p>
             </div>
         </div>
-    </main>
+    </div>
 </template>
 
 <script>
     export default {
-        data: function(){
+        data(){
             return {
-                bausteine: [],
-                message: 'heilige Kuh',
+                bausteine: null,
+                error: null,
+                isLoading: false,
             }
         },
 
-        mounted() {
+        created(){
             this.loadBausteine();
+        },
+
+        watch: {
+            '$route': 'loadBausteine',
         },
 
         methods: {
             loadBausteine: function() {
-                axios.get('http://api.dokbeleg.de/v1/baustein')
+                this.bausteine = this.error = null;
+                this.isLoading = true;
+                axios.get('/api/v1/baustein')
                     .then((response) => {
                         this.bausteine = response.data.data;
+                        this.isLoading = false; 
                     })
-                    .catch(function(error){
-                        console.log(error);
+                    .catch((error) => {
+                        this.error = error.message;
+                    })
+                    .finally(()=>{
+                        this.isLoading = false;
                     });
             },
-
-        },
-
-        computed: {
             
-        }
+            checkDelete: function(){
+                var auswahl = confirm('Soll der Baustein gelöscht werden?');
+                if(auswahl) {
+                    this.deleteBaustein();
+                }
+            },
+
+            deleteBaustein: function(){
+                //baustein löschen
+                //alert message
+                alert('Baustein gelöscht.');
+            },
+        },       
     }
+ 
 </script>
+
+<style>
+    .error {
+        text-align: center;
+        color: red;
+    }
+    .card-header {
+        text-align: center;
+    }
+    #buttons {
+        text-align: center;
+    }
+</style>
