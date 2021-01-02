@@ -1,8 +1,8 @@
 <template>
     <div>
         <div id="summernote"></div>
-        <button class="btn btn-primary" type="button" @click="bausteinSpeichern">Textbaustein speichern</button>
-        <button class="btn btn-secondary" type="button" @click="testFunction">Zweiter Button</button>
+        <!-- <button class="btn btn-primary" type="button" @click="bausteinSpeichern">Textbaustein speichern</button>
+        <button class="btn btn-secondary" type="button" @click="testFunction">Zweiter Button</button> -->
     </div>
 </template>
 
@@ -41,7 +41,6 @@
 
             bausteinSpeichern: function(){
                 var formatStr = $('#summernote').summernote('code');
-                
                 console.log(formatStr);
                 // axios in db speichern
                 this.$emit('bausteinsaved');

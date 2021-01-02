@@ -7,13 +7,14 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 class BausteinResourceCollection extends ResourceCollection
 {
     /**
-     * Transform the resource collection into an array.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function toArray($request)
     {
         return parent::toArray($request);
+        // if (rand(1, 10) < 5) {
+        //     abort(500, 'Vorgang fehlgeschlagen.');
+        // }
     }
 }

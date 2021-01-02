@@ -22,6 +22,17 @@
 </template>
 
 <script>
+    const getUsers = (page, callback) => {
+    const params = { page };
+    axios
+        .get('/api/users', { params })
+        .then(response => {
+            callback(null, response.data);
+        }).catch(error => {
+            callback(error, error.response.data);
+        });
+    };
+    
     export default {
         data(){
             return {
@@ -31,7 +42,14 @@
             }
         },
 
+        beforeRouteEnter(to, from, next){
+            getPost(to.params.id, (err, post) => {
+            next(vm => vm.setData(err, post));
+            });
+        },
+
         created(){
+            // console.log(this.$route);
             this.loadBausteine();
         },
 
