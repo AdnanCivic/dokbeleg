@@ -4,20 +4,20 @@
         <form id="form" @submit.prevent="neuerBaustein">
             <div class="form-group row">
                 <div class="col">
-                    <label for="name">Name:</label>
+                    <label for="name" class="label">Name:</label>
                     <input type="textarea" class="form-control" name="name" v-model="baustein.name" placeholder="Namen eingeben..." required autofocus>
                 </div>
                 <div class="col">
-                    <label for="typ">Typ:</label>
+                    <label for="typ" class="label">Typ:</label>
                     <input type="textarea" class="form-control" name="typ" v-model="baustein.typ" placeholder="Typ auswählen..." required @mouseover="showTooltip">
                 </div>
             </div>
             <div class="form-group">
-                <label for="heading">Überschrift:</label>
+                <label for="heading" class="label">Überschrift:</label>
                 <input type="textarea" class="form-control" name="heading" v-model="baustein.heading" placeholder="Kapitelüberschrift formulieren...">
             </div>
             <div class="form-group">
-                <label for="editor">Inhalt:</label>
+                <label for="editor" class="label">Inhalt:</label>
                 <summer-note name="editor"></summer-note>
             </div>
             <button type="submit" class="btn btn-primary">Speichern</button>
@@ -66,7 +66,7 @@ export default {
 #form {
     margin: 10px;
 }
-div > label {
+.label {
     color: blue;
 }
 </style>

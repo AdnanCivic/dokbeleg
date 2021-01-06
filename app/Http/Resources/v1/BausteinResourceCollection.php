@@ -12,9 +12,10 @@ class BausteinResourceCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
-        // if (rand(1, 10) < 5) {
+        // if (rand(1, 10) < 9) {
         //     abort(500, 'Vorgang fehlgeschlagen.');
         // }
+
+        return parent::toArray($request);
     }
 }
