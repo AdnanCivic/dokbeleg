@@ -10,16 +10,13 @@
                         <button type="button" class="btn btn-danger" @click="checkDelete">Löschen</button>
                     </td></tr>
             </table>
-            <div class="text-center">
-                <div :class="{'spinner-border': isLoading}" style="width: 3rem; height: 3rem;"></div>
-            </div>
             <div v-if="error" class="error">
                 <p>{{ error }}</p>
                 <p><button class="btn btn-success">Erneut versuchen</button></p>
             </div>
-            <div class="pagination">
-                <button class="btn btn-secondary" :disabled="!prevPage" @click.prevent="goToPrev">Previous</button>
-                <button class="btn btn-secondary" :disabled="!nextPage" @click.prevent="goToNext">Next</button>
+            <div>
+                <router-link class="btn btn-secondary" tag="button" :disabled="!prevPage" :to="{name: 'AlleBausteine', query: { page: this.prevPage}}">Zurück</router-link>
+                <router-link class="btn btn-secondary" tag="button" :disabled="!nextPage" :to="{name: 'AlleBausteine', query: { page: this.nextPage}}">Weiter</router-link>
             </div>
             <div>{{ paginationCount }}</div>
         </div>
@@ -31,7 +28,7 @@ import api from '../api/baustein';
 
 const getBausteine = (page, callback) => {
     const params = { page };
-    axios.get('/api/v1/baustein', {params})
+    api.all(params)
         .then(response => {
             callback(null, response.data);})
         .catch(error => {
@@ -51,11 +48,11 @@ export default {
                 prev: null
             },
             meta: null,
-            isLoading: true,
+            isLoading: false,
         }
     },
 
-    beforeRouteEnter(to, from, next){
+    beforeRouteEnter(to, from, next) {
         const params = { page: to.query.page };
         getBausteine(params, (error, data) => {
             next(vm => vm.setData(error, data));
@@ -71,22 +68,6 @@ export default {
     },
 
     methods: {
-        
-        goToNext(){
-            this.$router.push({
-                query: {
-                    page: this.nextPage,
-                },
-            });
-        },
-
-        goToPrev(){
-            this.$router.push({
-                query: {
-                    page: this.prevPage,
-                }
-            });
-        },
 
         setData(error, { data: bausteine, links, meta }) {
             if (error) {
@@ -115,46 +96,26 @@ export default {
     computed: {
         
         nextPage(){
-            if (! this.meta || this.meta.current_page === this.meta.last_page) {
-                return;
-            }
+            if (!this.meta || this.meta.current_page === this.meta.last_page) {return;}
+
             return this.meta.current_page + 1;
         },
 
         prevPage(){
-            if (! this.meta || this.meta.current_page === 1) {
-                return;
-            }
+            if (!this.meta || this.meta.current_page === 1) {return;}
+
             return this.meta.current_page - 1;
         },
 
         paginationCount() {
-            if (! this.meta) {
-                return;
-            }
+            if (! this.meta) {return;}
+
             const { current_page, last_page } = this.meta;
-            return `${current_page}` + ` von ` + `${last_page}`;
+
+            return `Seite ${current_page} von ${last_page}`;
         },
     }      
 }
-
-// loadBausteine: function() {
-        //     this.bausteine = this.error = null;
-        //     this.isLoading = true;
-
-        //     api.all()
-        //         .then((response) => {
-        //             this.bausteine = response.data.data;
-        //             console.log(response.data);
-        //             this.isLoading = false; 
-        //         })
-        //         .catch((error) => {
-        //             this.error = error.message;
-        //         })
-        //         .finally(()=>{
-        //             this.isLoading = false;
-        //         });
-        // },
 </script>
 
 <style>

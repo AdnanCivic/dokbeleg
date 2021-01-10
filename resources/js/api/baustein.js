@@ -1,7 +1,7 @@
 export default {
 
-    all() {
-        return axios.get('/api/v1/baustein');
+    all(params) {
+        return axios.get('/api/v1/baustein', {params});
     },
 
     create(data) {

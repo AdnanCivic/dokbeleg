@@ -1,11 +1,16 @@
+import Vue from 'vue';
 import AlleBausteine from './components/AlleBausteine.vue';
 import SummerNote from './components/SummerNote.vue';
 import BausteinCreate from './components/BausteinCreate.vue';
 import BausteinEdit from './components/BausteinEdit.vue';
 import BausteinShow from './components/BausteinShow.vue';
 import NotFound from './components/NotFound.vue';
+import VueRouter from 'vue-router';
+import NProgress from 'nprogress';
 
-export default{
+Vue.use(VueRouter);
+
+const router = new VueRouter({
     mode: 'history',
     linkActiveClass: 'font-weight-bold',
     routes: [
@@ -38,4 +43,15 @@ export default{
             component: NotFound
         }
     ]
-}
+});
+
+router.beforeEach((to, from, next) => {
+    NProgress.start();
+    next();
+});
+
+router.afterEach(() => {
+    NProgress.done();
+});
+
+export default router;

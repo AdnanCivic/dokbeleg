@@ -15,7 +15,6 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
     <link href="{{ asset('css/grid-dashboard.css') }}" rel="stylesheet">
     <link href="{{ asset('css/grid-createdoku.css') }}" rel="stylesheet">
     <link href="{{ asset('css/modal-form.css') }}" rel="stylesheet">
