@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="card-header"><h3>Baustein erstellen</h3></div>
-        <form id="form" @submit.prevent="neuerBaustein">
+        <form id="formCreate" @submit.prevent="onSubmit">
             <div class="form-group row">
                 <div class="col">
                     <label for="name" class="label">Name:</label>
@@ -9,7 +9,9 @@
                 </div>
                 <div class="col">
                     <label for="typ" class="label">Typ:</label>
-                    <input type="textarea" class="form-control" name="typ" v-model="baustein.typ" placeholder="Typ auswählen..." required @mouseover="showTooltip">
+                    <select class="form-control" name="typ" placeholder="Typ auswählen..." required @mouseover="showTooltip">
+                        <option v-for="(typ, index) in typen" :key="index">{{ typ }}</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group">
@@ -27,29 +29,29 @@
 </template>
 
 <script>
-import SummerNote from './SummerNote.vue'
+import SummerNote from './SummerNote.vue';
+
 export default {
-    
     components: { 
         SummerNote 
     },
 
     data() {
         return {
-            baustein: {
-                name: '',
-                typ: '',
-                heading: '',
-                content: ''
-            }
+            baustein: {},
+            typen: [
+                    'deckblatt',
+                    'inhaltsverzeichnis',
+                    'hauptkapitel',
+                    'oberkapitel',
+                    'unterkapitel'
+            ],
         }
     },
 
     methods: {
-        neuerBaustein: function(){
+        onSubmit(){
             var content = $('#summernote').summernote('code');
-
-
             console.log(formatStr);
         },
 
@@ -63,7 +65,7 @@ export default {
 </script>
 
 <style>
-#form {
+#formCreate {
     margin: 10px;
 }
 .label {

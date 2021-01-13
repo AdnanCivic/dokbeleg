@@ -6,13 +6,13 @@
                 <tr><th>Name</th><th>ID</th><th>Typ</th><th style="text-align: center">Aktion</th></tr>
                 <tr v-for="(baustein, index) in bausteine" :key="index"><td>{{ baustein.name }}</td><td>{{ baustein.id }}</td><td>{{ baustein.typ }}</td>
                     <td id="buttons">
-                        <router-link class="btn btn-primary" :to="{name: 'BausteinShow', params: { id:baustein.id }}">Anzeigen</router-link>
+                        <router-link class="btn btn-primary" :to="{name: 'BausteinEdit', params: { id:baustein.id }}">Anzeigen</router-link>
                         <button type="button" class="btn btn-danger" @click="checkDelete">Löschen</button>
                     </td></tr>
             </table>
             <div v-if="error" class="error">
                 <p>{{ error }}</p>
-                <p><button class="btn btn-success">Erneut versuchen</button></p>
+                <p><button class="btn btn-success" @click="reloadComponent">Erneut versuchen</button></p>
             </div>
             <div>
                 <router-link class="btn btn-secondary" tag="button" :disabled="!prevPage" :to="{name: 'AlleBausteine', query: { page: this.prevPage}}">Zurück</router-link>
@@ -27,7 +27,7 @@
 import api from '../api/baustein';
 
 const getBausteine = (page, callback) => {
-    const params = { page };
+    const params =  { page };
     api.all(params)
         .then(response => {
             callback(null, response.data);})
@@ -53,10 +53,16 @@ export default {
     },
 
     beforeRouteEnter(to, from, next) {
-        const params = { page: to.query.page };
-        getBausteine(params, (error, data) => {
-            next(vm => vm.setData(error, data));
-        });
+        if(to.query !== 0){
+            getBausteine(to.query.page, (error, data) => {
+                next(vm => vm.setData(error, data));
+            });
+        }else{
+            const params = { page: to.query.page };
+            getBausteine(params, (error, data) => {
+                next(vm => vm.setData(error, data));
+            });
+        }
     },
     
     beforeRouteUpdate(to, from, next) {
@@ -86,10 +92,14 @@ export default {
             }
         },
 
-        deleteBaustein: function(){
+        deleteBaustein(){
             //baustein löschen
             //alert message
             alert('Baustein gelöscht.');
+        },
+
+        reloadComponent(){
+            window.location.reload();
         },
     },
 
