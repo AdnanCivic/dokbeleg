@@ -1,25 +1,36 @@
 <template>
     <div>
         <div id="summernote"></div>
-        <!-- <button class="btn btn-primary" type="button" @click="bausteinSpeichern">Textbaustein speichern</button>
-        <button class="btn btn-secondary" type="button" @click="testFunction">Zweiter Button</button> -->
+        <!-- <button class="btn btn-primary" type="button" @click="bausteinSpeichern">Textbaustein speichern</button> -->
     </div>
 </template>
 
 <script>
     export default {
+        props: {
+            editorContent: {
+                type: String,
+                required: false
+            }
+        },
         data(){
             return {
-                summernote: '',
+                value: '',
             }
+        },
+
+        created(){
+            this.value = this.editorContent;
+            console.log(value);
         },
 
         mounted(){
             this.loadSummernote();
+            // this.loadContent();
         },
 
         methods: {
-            loadSummernote: function(){
+            loadSummernote() {
                 $(document).ready(function() {
                     $('#summernote').summernote({
                         focus: true,
@@ -39,6 +50,12 @@
                 
             },
 
+            loadContent(){
+                // console.log(this.editorContent);
+                // $('#summernote').summernote('code', this.econtent);
+                // $('#summernote').summernote('code', this.content);
+            },
+
             bausteinSpeichern: function(){
                 var formatStr = $('#summernote').summernote('code');
                 console.log(formatStr);
@@ -46,10 +63,6 @@
                 this.$emit('bausteinsaved');
                 
             },
-
-            testFunction: function(){
-                alert('Zwei');
-            }
         }
     }
 </script>

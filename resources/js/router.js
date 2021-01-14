@@ -3,7 +3,6 @@ import AlleBausteine from './components/AlleBausteine.vue';
 import SummerNote from './components/SummerNote.vue';
 import BausteinCreate from './components/BausteinCreate.vue';
 import BausteinEdit from './components/BausteinEdit.vue';
-import BausteinShow from './components/BausteinShow.vue';
 import NotFound from './components/NotFound.vue';
 import VueRouter from 'vue-router';
 import NProgress from 'nprogress';
@@ -18,11 +17,6 @@ const router = new VueRouter({
             path: '/bausteins',
             name: 'AlleBausteine',
             component: AlleBausteine
-        },
-        {
-            path: '/bausteins/:id',
-            name: 'BausteinShow',
-            component: BausteinShow
         },
         {
             path: '/bausteins/:id/edit',

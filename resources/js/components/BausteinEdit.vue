@@ -20,7 +20,7 @@
             </div>
             <div class="form-group">
                 <label for="editor" class="label">Inhalt:</label>
-                <summer-note name="editor"></summer-note>
+                <summer-note name="editor" :editorContent="this.baustein.content"></summer-note>
             </div>
             <button type="submit" class="btn btn-primary">Änderungen speichern</button>
         </form>
@@ -41,19 +41,17 @@ import api from '../api/baustein';
                 baustein: {},
                 typen: [
                     'deckblatt',
-                    'inhaltsverzeichnis',
                     'hauptkapitel',
                     'oberkapitel',
                     'unterkapitel'
                 ],
-                summernote: '',
             }
         },
 
         created(){
             api.find(this.$route.params.id)
                 .then((response) => {
-                    this.baustein = response.data.data; 
+                    this.baustein = response.data.data;
                 })
                 .catch((error) => {
                     this.error = error.response.data;
@@ -63,11 +61,11 @@ import api from '../api/baustein';
         methods: {
             onSubmit(){
                 
-                var formatStr = $('#summernote').summernote('code');
+                // var formatStr = $('#summernote').summernote('code');
             
                 console.log(formatStr);
             // axios in db speichern
-                this.$emit('bausteinsaved');
+                // this.$emit('bausteinsaved');
             },
 
             showTooltip(){
