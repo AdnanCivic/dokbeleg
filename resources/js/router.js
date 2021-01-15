@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import AlleBausteine from './components/AlleBausteine.vue';
-import SummerNote from './components/SummerNote.vue';
 import BausteinCreate from './components/BausteinCreate.vue';
 import BausteinEdit from './components/BausteinEdit.vue';
 import NotFound from './components/NotFound.vue';
@@ -27,10 +26,6 @@ const router = new VueRouter({
             path: '/bausteins/create',
             name: 'BausteinCreate',
             component: BausteinCreate
-        },
-        {
-            path: '/bausteins/summernote',
-            component: SummerNote
         },
         {
             path: '/bausteins/*',

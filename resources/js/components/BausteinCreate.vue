@@ -20,7 +20,6 @@
             </div>
             <div class="form-group">
                 <label for="editor" class="label">Inhalt:</label>
-                <summer-note name="editor"></summer-note>
             </div>
             <button type="submit" class="btn btn-primary">Speichern</button>
         </form>
@@ -29,13 +28,7 @@
 </template>
 
 <script>
-import SummerNote from './SummerNote.vue';
-
 export default {
-    components: { 
-        SummerNote 
-    },
-
     data() {
         return {
             baustein: {},
@@ -51,7 +44,6 @@ export default {
 
     methods: {
         onSubmit(){
-            var content = $('#summernote').summernote('code');
             console.log(formatStr);
         },
 

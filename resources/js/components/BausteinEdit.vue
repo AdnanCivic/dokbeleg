@@ -19,8 +19,8 @@
                 <input type="textarea" class="form-control" name="heading" v-model="baustein.heading" placeholder="Kapitelüberschrift formulieren...">
             </div>
             <div class="form-group">
-                <label for="editor" class="label">Inhalt:</label>
-                <summer-note name="editor" :editorContent="this.baustein.content"></summer-note>
+                <label for="editordata" class="label">Inhalt:</label>
+
             </div>
             <button type="submit" class="btn btn-primary">Änderungen speichern</button>
         </form>
@@ -28,51 +28,48 @@
 </template>
 
 <script>
-import SummerNote from './SummerNote.vue';
 import api from '../api/baustein';
 
-    export default {
-        components: { 
-            SummerNote 
-        },
-        
-        data(){
-            return {
-                baustein: {},
-                typen: [
-                    'deckblatt',
-                    'hauptkapitel',
-                    'oberkapitel',
-                    'unterkapitel'
-                ],
-            }
+export default {
+    data(){
+        return {
+            baustein: {},
+            typen: [
+                'deckblatt',
+                'hauptkapitel',
+                'oberkapitel',
+                'unterkapitel'
+            ],
+        }
+    },
+
+    created(){
+        api.find(this.$route.params.id)
+            .then((response) => {
+                this.baustein = response.data.data;
+            })
+            .catch((error) => {
+                this.error = error.response.data;
+            });
+    },
+
+    mounted(){
+
+        console.log(this.baustein.heading);
+    },
+
+    methods: {
+        onSubmit(){
+            // console.log(formatStr);
+        // axios in db speichern
+            // this.$emit('bausteinsaved');
         },
 
-        created(){
-            api.find(this.$route.params.id)
-                .then((response) => {
-                    this.baustein = response.data.data;
-                })
-                .catch((error) => {
-                    this.error = error.response.data;
-                });
-        },
-
-        methods: {
-            onSubmit(){
-                
-                // var formatStr = $('#summernote').summernote('code');
+        showTooltip(){
             
-                console.log(formatStr);
-            // axios in db speichern
-                // this.$emit('bausteinsaved');
-            },
-
-            showTooltip(){
-                console.log('tooltip');
-            }
         }
     }
+}
 </script>
 
 <style>
