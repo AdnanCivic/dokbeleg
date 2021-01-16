@@ -20,7 +20,7 @@
             </div>
             <div class="form-group">
                 <label for="editordata" class="label">Inhalt:</label>
-
+                <editor :eingabe-content="this.baustein.content"></editor>
             </div>
             <button type="submit" class="btn btn-primary">Änderungen speichern</button>
         </form>
@@ -33,7 +33,12 @@ import api from '../api/baustein';
 export default {
     data(){
         return {
-            baustein: {},
+            baustein: {
+                name: '',
+                typ: '',
+                heading: '',
+                content: ''
+            },
             typen: [
                 'deckblatt',
                 'hauptkapitel',
@@ -55,7 +60,6 @@ export default {
 
     mounted(){
 
-        console.log(this.baustein.heading);
     },
 
     methods: {
