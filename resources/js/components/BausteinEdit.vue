@@ -20,7 +20,7 @@
             </div>
             <div class="form-group">
                 <label for="editordata" class="label">Inhalt:</label>
-                <editor :eingabe-content="this.baustein.content"></editor>
+                <editor :eingabe-content="this.baustein.content" ></editor>
             </div>
             <button type="submit" class="btn btn-primary">Änderungen speichern</button>
         </form>
