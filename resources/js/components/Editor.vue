@@ -2,22 +2,27 @@
   <div>
     <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
       <div>
-        <button class="btn btn-light" :class="{ 'is-active': isActive.bold() }" @click="commands.bold"><b>F</b></button>
-        <button class="btn btn-light" :class="{ 'is-active': isActive.italic() }" @click="commands.italic"><i>K</i></button>
-        <button class="btn btn-light" :class="{ 'is-active': isActive.underline() }" @click="commands.underline"><u>U</u></button>
-        <button class="btn btn-light" :class="{ 'is-active': isActive.strike() }" @click="commands.strike"><s>abc</s></button>
-        <button class="btn btn-light" ><i class="fas fa-undo"></i></button>
+        <button class="btn btn-light" :class="{ 'is-active': isActive.bold() }" @click="commands.bold"><i class="fas fa-bold"></i></button>
+        <button class="btn btn-light" :class="{ 'is-active': isActive.italic() }" @click="commands.italic"><i class="fas fa-italic"></i></button>
+        <button class="btn btn-light" :class="{ 'is-active': isActive.underline() }" @click="commands.underline"><i class="fas fa-underline"></i></button>
+        <button class="btn btn-light" :class="{ 'is-active': isActive.strike() }" @click="commands.strike"><i class="fas fa-strikethrough"></i></button>
+        <button class="btn btn-light" :class="{ 'is-active': isActive.heading({level: 2}) }" @click="commands.heading({level:2})"><i class="fa fa-header">H2</i></button>
+        <button class="btn btn-light" :class="{ 'is-active': isActive.heading({level: 3}) }" @click="commands.heading({level:3})"><i class="fa fa-header">H3</i></button>
+        <button class="btn btn-light" :class="{ 'is-active': isActive.bullet_list() }" @click="commands.bullet_list"><i class="fa fa-list"></i></button>
+        <button class="btn btn-light" :class="{ 'is-active': isActive.ordered_list() }" @click="commands.ordered_list"><i class="fa fa-list-ol"></i></button>
+        <button class="btn btn-light" @click="commands.horizontal_rule"><i>-</i></button>
+        <button class="btn btn-light" @click="commands.undo"><i class="fa fa-undo" aria-hidden="true"></i></button>
+        <button class="btn btn-light" @click="commands.redo"><i class="fa fa-redo" aria-hidden="true"></i></button>
       </div>
     </editor-menu-bar>
-    <editor-content class="editor__content" :editor="editor" style="border: 1px solid #ced4da; border-radius: 4px; padding: 5px"></editor-content>
+    <editor-content :editor="editor" style="border: 1px solid #ced4da; border-radius: 4px; padding: 5px"></editor-content>
   </div>
 </template>
 
 <script>
 // Import the editor
 import { Editor, EditorContent, EditorMenuBar } from 'tiptap';
-import { CodeBlock, HardBreak, Heading, HorizontalRule, OrderedList, BulletList, ListItem, TodoItem, TodoList, Bold, Code, Italic, Link, Strike,
-  Underline, History, TrailingNode } from 'tiptap-extensions';
+import { Bold, Italic, Underline, Strike, Heading, BulletList, OrderedList, ListItem, HorizontalRule, History } from 'tiptap-extensions';
 
 export default {
   props: {
@@ -49,11 +54,9 @@ export default {
   mounted() {
       this.editor = new Editor({
         extensions: [
-          new Bold(),
-          new Heading({ levels: [ 1, 2, 3] }),
-          new Italic(),
-          new Strike(),
-          new Underline()
+          new Bold(), new Italic(), new Underline(), new Strike(),
+          new BulletList(), new OrderedList(), new ListItem(), new Heading({ levels: [1, 2, 3] }),
+          new HorizontalRule(), new History(),
         ],
         content: '',
         onUpdate: ({ getHTML }) => {
