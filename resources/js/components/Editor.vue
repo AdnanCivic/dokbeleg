@@ -38,12 +38,16 @@ export default {
   data() {
     return {
       editor: null,
+      updatedContent: ''
     }
   },
 
   watch: {
     eingabeContent: function(){
-      this.editor.setContent(this.eingabeContent);
+      let html = this.editor.getHTML();
+      if (html !== this.eingabeContent) {
+        this.editor.setContent(this.eingabeContent);
+      }
     }
   },
 
@@ -58,10 +62,10 @@ export default {
           new BulletList(), new OrderedList(), new ListItem(), new Heading({ levels: [1, 2, 3] }),
           new HorizontalRule(), new History(),
         ],
-        content: '',
+        
         onUpdate: ({ getHTML }) => {
-          let newContent = getHTML();
-          console.log(newContent);
+          this.updatedContent = getHTML();
+          this.$emit('contentUpdated', this.updatedContent); 
         },
       });
   },

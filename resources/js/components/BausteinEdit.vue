@@ -20,7 +20,7 @@
             </div>
             <div class="form-group">
                 <label for="editordata" class="label">Inhalt:</label>
-                <editor :eingabe-content="this.baustein.content" ></editor>
+                <editor :eingabe-content="this.baustein.content" @contentUpdated="updateBaustein"></editor>
             </div>
             <button type="submit" class="btn btn-primary">Änderungen speichern</button>
         </form>
@@ -63,10 +63,12 @@ export default {
     },
 
     methods: {
+        updateBaustein(updatedContent){
+            this.baustein.content = updatedContent;
+        },
         onSubmit(){
-            // console.log(formatStr);
-        // axios in db speichern
-            // this.$emit('bausteinsaved');
+            api.update(this.$route.params.id, this.baustein);
+            // message
         },
 
         showTooltip(){
