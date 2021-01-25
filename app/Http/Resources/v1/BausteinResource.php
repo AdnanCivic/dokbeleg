@@ -12,6 +12,10 @@ class BausteinResource extends JsonResource
      */
     public function toArray($request)
     {
+        // if (rand(1, 10) < 5) {
+        //     abort(500, 'Vorgang fehlgeschlagen.');
+        // }
+        
         return parent::toArray($request);
 
         // so werden ausgewählte keys returned

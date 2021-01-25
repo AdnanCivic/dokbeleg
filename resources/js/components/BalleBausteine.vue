@@ -49,10 +49,7 @@ export default {
 
     beforeRouteEnter(to, from, next){
         // to.query.page= 2;
-        console.log(' --->    beforeRouteEnter called!');
-        console.log(to.query.page + ' beforeRouteEnter');
         const params = { page: to.query.page };
-        console.log(JSON.stringify(params) + ' beforeRouteEnter');
         getBausteine(params, (error, data) => {
             next(vm => vm.setData(error, data));
         });
@@ -60,9 +57,6 @@ export default {
     },
 
     beforeRouteUpdate(to, from, next){
-        console.log(' ---> beforeRouteUpdate!');
-        console.log(to.query.page + ' beforeRouteUpdate');
-        console.log(to.query.page + ' beforeRouteUpdate');
         this.bausteine = this.links = this.meta = null;
         getBausteine(to.query.page, (error, data) => {
             this.setData(error, data);
@@ -94,9 +88,6 @@ export default {
             if (error) {
                 this.error = error;
             } else {
-                console.log("setData bausteine= " + JSON.stringify(bausteine));
-                console.log("setData links= " + JSON.stringify(links));
-                console.log("setData meta = " + JSON.stringify(meta));
                 this.bausteine = bausteine;
                 this.links = links;
                 this.meta = meta;

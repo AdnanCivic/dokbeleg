@@ -10,8 +10,13 @@
                         <button type="button" class="btn btn-danger" @click="checkDelete">Löschen</button>
                     </td></tr>
             </table>
+            <div v-if="!loaded">
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border" role="status"></div>
+                </div>
+            </div>
             <div v-if="error" class="error">
-                <p>{{ error }}</p>
+                <p>{{ error.message }}</p>
                 <p><button class="btn btn-success" @click="reloadComponent">Erneut versuchen</button></p>
             </div>
             <div>
@@ -48,7 +53,7 @@ export default {
                 prev: null
             },
             meta: null,
-            isLoading: false,
+            loaded: false,
         }
     },
 
@@ -78,10 +83,12 @@ export default {
         setData(error, { data: bausteine, links, meta }) {
             if (error) {
                 this.error = error;
+                this.loaded = true;
             } else {
                 this.bausteine = bausteine;
                 this.links = links;
                 this.meta = meta;
+                this.loaded = true;
             }
         },
         
