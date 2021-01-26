@@ -30,7 +30,7 @@
             </div>
             <div class="form-group">
                 <label for="editordata" class="label">Inhalt:</label>
-                <editor :eingabe-content="this.baustein.content" @contentUpdated="updateBaustein"></editor>
+                <editor name="editordata" :eingabe-content="this.baustein.content" @contentUpdated="updateBaustein"></editor>
             </div>
             <div class="form-group">
                 <button type="submit" :disabled="saving" class="btn btn-primary">Änderungen speichern</button>
@@ -58,9 +58,9 @@ export default {
                 'unterkapitel'
             ],
             message: null,
+            error: null,
             loaded: false,
             saving: false,
-            error: null,
         }
     },
 
@@ -100,14 +100,11 @@ export default {
             window.location.reload();
         },
 
-        showTooltip(){
-            
-        }
     }
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 #formEdit {
     margin: 10px;
 }

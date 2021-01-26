@@ -6,8 +6,8 @@
                 <tr><th>Name</th><th>ID</th><th>Typ</th><th style="text-align: center">Aktion</th></tr>
                 <tr v-for="(baustein, index) in bausteine" :key="index"><td>{{ baustein.name }}</td><td>{{ baustein.id }}</td><td>{{ baustein.typ }}</td>
                     <td id="buttons">
-                        <router-link class="btn btn-primary" :to="{name: 'BausteinEdit', params: { id:baustein.id }}">Anzeigen</router-link>
-                        <button type="button" class="btn btn-danger" @click="checkDelete">Löschen</button>
+                        <router-link class="btn btn-primary btn-sm" :to="{name: 'BausteinEdit', params: { id:baustein.id }}">Anzeigen</router-link>
+                        <button type="button" class="btn btn-danger btn-sm" @click="checkDelete">Löschen</button>
                     </td></tr>
             </table>
             <div v-if="!loaded">
@@ -145,5 +145,8 @@ export default {
     }
     #buttons {
         text-align: center;
+    }
+    .label {
+    color: blue;
     }
 </style>

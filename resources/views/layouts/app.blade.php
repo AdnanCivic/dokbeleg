@@ -19,6 +19,11 @@
     <link href="{{ asset('css/grid-dashboard.css') }}" rel="stylesheet">
     <link href="{{ asset('css/grid-createdoku.css') }}" rel="stylesheet">
     <link href="{{ asset('css/modal-form.css') }}" rel="stylesheet">
+    {{-- <style type="text/css">
+        #registration_form fieldset:not(:first-of-type) {
+          display: none;
+        }
+    </style> --}}
 </head>
 <body>
     <div>

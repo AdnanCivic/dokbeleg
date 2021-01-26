@@ -11,7 +11,7 @@ use App\Http\Resources\v1\BausteinResourceCollection;
 class BausteinApiController extends Controller
 {
     public function index(): BausteinResourceCollection{
-        return new BausteinResourceCollection(Baustein::paginate(2));
+        return new BausteinResourceCollection(Baustein::paginate(4));
     }
     
     public function show(Baustein $baustein): BausteinResource{
@@ -19,21 +19,33 @@ class BausteinApiController extends Controller
     }
 
     public function store(Request $request){
-        $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required',
-            'nummer' => ['required', 'unique:bausteins'],
-            'marker' => 'required',
-            'html' => 'required',
+            'typ' => 'required',
+            'heading' => 'required',
+            'content' => 'nullable',
         ]);
 
-        $baustein = Baustein::create($request->all());
+        $baustein = Baustein::create($validatedData);
         
         return new BausteinResource($baustein);
     }
 
     public function update(Baustein $baustein, Request $request): BausteinResource{
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'typ' => 'required',
+            'heading' => 'required',
+            'content' => 'nullable'
+        ]);
 
-        $baustein->update($request->all());
+        $suche = "/«(.*?)»/";
+        $html = $request->content;
+        $anzahlMarker = preg_match_all($suche, $html, $matches, PREG_SET_ORDER);
+
+        $validatedData['marker'] = $anzahlMarker;
+
+        $baustein->update($validatedData);
         
         return new BausteinResource($baustein);
     }
