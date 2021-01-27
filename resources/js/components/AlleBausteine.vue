@@ -2,12 +2,14 @@
     <div class="card" >
         <div class="card-header"><h3>Verfügbare Bausteine</h3></div>
         <div class="card-body">
+            <div v-if="message" class="standby">{{ message }}</div>
             <table class="table">
                 <tr><th>Name</th><th>ID</th><th>Typ</th><th style="text-align: center">Aktion</th></tr>
+                
                 <tr v-for="(baustein, index) in bausteine" :key="index"><td>{{ baustein.name }}</td><td>{{ baustein.id }}</td><td>{{ baustein.typ }}</td>
                     <td id="buttons">
                         <router-link class="btn btn-primary btn-sm" :to="{name: 'BausteinEdit', params: { id:baustein.id }}">Anzeigen</router-link>
-                        <button type="button" class="btn btn-danger btn-sm" @click="checkDelete">Löschen</button>
+                        <button type="button" class="btn btn-danger btn-sm" @click.prevent="checkDelete(baustein.id)" :disabled="saving">Löschen</button>
                     </td></tr>
             </table>
             <div v-if="!loaded">
@@ -53,7 +55,9 @@ export default {
                 prev: null
             },
             meta: null,
+            message: null,
             loaded: false,
+            saving: false,
         }
     },
 
@@ -92,17 +96,27 @@ export default {
             }
         },
         
-        checkDelete(){
+        checkDelete(id){
             var auswahl = confirm('Soll der Baustein gelöscht werden?');
             if(auswahl) {
-                this.deleteBaustein();
+                this.deleteBaustein(id);
             }
         },
 
-        deleteBaustein(){
-            //baustein löschen
-            //alert message
-            alert('Baustein gelöscht.');
+        deleteBaustein(id){
+            this.message = null;
+            this.saving = true;
+            api.delete(id)
+                .then(() => {
+                    this.message = "Baustein wird entfernt.";
+                    setTimeout(() => this.message = null, 1500);
+                })
+                .catch((error) => {
+                    this.error = error.response.data
+                })
+                .finally(() => {
+                    setTimeout(() => this.saving = false, 1500);
+                });
         },
 
         reloadComponent(){
@@ -136,17 +150,26 @@ export default {
 </script>
 
 <style>
-    .error {
-        text-align: center;
-        color: red;
-    }
-    .card-header {
-        text-align: center;
-    }
-    #buttons {
-        text-align: center;
-    }
-    .label {
-    color: blue;
-    }
+.error {
+    text-align: center;
+    color: red;
+}
+.card-header {
+    text-align: center;
+}
+#buttons {
+    text-align: center;
+}
+.label {
+color: blue;
+}
+.standby {
+background: rgb(129, 226, 129);
+color: black;
+padding: 1rem;
+margin-bottom: 1rem;
+width: 100%;
+border: 1px solid rgb(26, 197, 26);
+border-radius: 5px;
+}
 </style>

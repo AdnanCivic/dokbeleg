@@ -26,6 +26,11 @@ class BausteinApiController extends Controller
             'content' => 'nullable',
         ]);
 
+        $suche = "/«(.*?)»/";
+        $html = $request->content;
+        $anzahlMarker = preg_match_all($suche, $html, $matches, PREG_SET_ORDER);
+
+        $validatedData['marker'] = $anzahlMarker;
         $baustein = Baustein::create($validatedData);
         
         return new BausteinResource($baustein);
@@ -44,7 +49,6 @@ class BausteinApiController extends Controller
         $anzahlMarker = preg_match_all($suche, $html, $matches, PREG_SET_ORDER);
 
         $validatedData['marker'] = $anzahlMarker;
-
         $baustein->update($validatedData);
         
         return new BausteinResource($baustein);

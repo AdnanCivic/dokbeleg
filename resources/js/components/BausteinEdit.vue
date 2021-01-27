@@ -91,7 +91,7 @@ export default {
                 .catch((error) => {
                     this.error = error.response.data
                 })
-                .then(() => {
+                .finally(() => {
                     setTimeout(() => this.saving = false, 1500);
                 });
         },

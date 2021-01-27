@@ -3,7 +3,7 @@
         <div class="card-header"><h3>Baustein erstellen</h3></div>
         <div v-if="error" class="error" style="margin:20px;">
             <p>{{ error.message }}</p>
-            <p>Erneut versuchen</p>
+            <p>Bitte erneut versuchen.</p>
         </div>
         <div v-if="message" class="standby">{{ message }}</div>
         <form id="formCreate" @submit.prevent="onSubmit">
@@ -64,27 +64,36 @@ export default {
             this.baustein.content = updatedContent;
         },
         onSubmit(){
+            this.error = null;
             this.saving = true;
             api.create(this.baustein)
                 .then((response) => {
+                    this.message = "Baustein wird gespeichert.";
+                    setTimeout(() => this.message = null, 1500);
                     this.baustein = response.data.data;
                 })
                 .catch((error) => {
                     this.error = error.response.data;
                 })
                 .finally(() => {
-                    this.saving = false;
+                    setTimeout(() => this.saving = false, 1500);
                 });
         },
-
     }
-
-    
 }
 </script>
 
 <style scoped>
-    #formCreate {
-        margin: 10px;
-    }
+#formCreate {
+    margin: 10px;
+}
+.standby {
+background: rgb(129, 226, 129);
+color: black;
+padding: 1rem;
+margin-bottom: 1rem;
+width: 100%;
+border: 1px solid rgb(26, 197, 26);
+border-radius: 5px;
+}
 </style>
