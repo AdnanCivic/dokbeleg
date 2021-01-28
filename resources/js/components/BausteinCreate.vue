@@ -69,14 +69,15 @@ export default {
             api.create(this.baustein)
                 .then((response) => {
                     this.message = "Baustein wird gespeichert.";
-                    setTimeout(() => this.message = null, 1500);
+                    setTimeout(() => this.message = null, 1000);
                     this.baustein = response.data.data;
                 })
                 .catch((error) => {
                     this.error = error.response.data;
                 })
                 .finally(() => {
-                    setTimeout(() => this.saving = false, 1500);
+                    setTimeout(() => this.saving = false, 1000);
+                    setTimeout(() => this.$router.back(), 1500);
                 });
         },
     }
@@ -90,6 +91,7 @@ export default {
 .standby {
 background: rgb(129, 226, 129);
 color: black;
+text-align: center;
 padding: 1rem;
 margin-bottom: 1rem;
 width: 100%;

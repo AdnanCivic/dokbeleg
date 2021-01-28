@@ -34,6 +34,7 @@
             </div>
             <div class="form-group">
                 <button type="submit" :disabled="saving" class="btn btn-primary">Änderungen speichern</button>
+                <button type="button" class="btn btn-danger" @click.prevent="checkDelete(baustein.id)" :disabled="saving">Baustein löschen</button>
             </div>
         </form>
     </div>
@@ -85,19 +86,44 @@ export default {
             api.update(this.baustein.id, this.baustein)
                 .then((response) => {
                     this.message = 'Änderungen werden gespeichert!';
-                    setTimeout(() => this.message = null, 1500);
+                    setTimeout(() => this.message = null, 1000);
                     this.baustein = response.data.data;
                 })
                 .catch((error) => {
                     this.error = error.response.data
                 })
                 .finally(() => {
-                    setTimeout(() => this.saving = false, 1500);
+                    setTimeout(() => this.saving = false, 1000);
+                    setTimeout(() => this.$router.back(), 1500);
                 });
         },
-
         reloadComponent(){
             window.location.reload();
+        },
+
+        checkDelete(id){
+            var auswahl = confirm('Soll der Baustein gelöscht werden?');
+            if(auswahl) {
+                this.deleteBaustein(id);
+            }
+        },
+
+        deleteBaustein(id){
+            this.message = null;
+            this.saving = true;
+            api.delete(id)
+                .then(() => {
+                    this.message = "Baustein wird entfernt.";
+                    setTimeout(() => this.message = null, 1000);
+                })
+                .catch((error) => {
+                    this.error = error.response.data
+                })
+                .finally(() => {
+                    setTimeout(() => this.saving = false, 1000);
+                    setTimeout(() => this.$router.back(), 1500);
+                });
+            
         },
 
     }
@@ -112,6 +138,7 @@ export default {
 .standby {
     background: rgb(129, 226, 129);
     color: black;
+    text-align: center;
     padding: 1rem;
     margin-bottom: 1rem;
     width: 100%;

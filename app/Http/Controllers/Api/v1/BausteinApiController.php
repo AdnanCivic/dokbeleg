@@ -11,7 +11,7 @@ use App\Http\Resources\v1\BausteinResourceCollection;
 class BausteinApiController extends Controller
 {
     public function index(): BausteinResourceCollection{
-        return new BausteinResourceCollection(Baustein::paginate(4));
+        return new BausteinResourceCollection(Baustein::paginate(5));
     }
     
     public function show(Baustein $baustein): BausteinResource{
