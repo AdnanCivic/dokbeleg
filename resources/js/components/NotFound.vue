@@ -10,7 +10,7 @@
 export default {
     methods: {
         toIndex(){
-            this.$router.push({name: 'AlleBausteine'});
+            this.$router.push({name: 'AlleBausteine', params: { page: 1}});
         }
     }
 }

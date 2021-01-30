@@ -82,6 +82,7 @@ export default {
 
         setData(error, { data: bausteine, links, meta }) {
             if (error) {
+                this.error = null;
                 this.error = error;
                 this.loaded = true;
             } else {
