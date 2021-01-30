@@ -12,7 +12,7 @@ class BausteinResource extends JsonResource
      */
     public function toArray($request)
     {
-        // if (rand(1, 10) < 5) {
+        // if (rand(1, 10) < 3) {
         //     abort(500, 'Vorgang fehlgeschlagen.');
         // }
         

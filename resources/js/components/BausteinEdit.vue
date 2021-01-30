@@ -72,8 +72,12 @@ export default {
                 this.loaded = true;
             })
             .catch((error) => {
-                this.error = error.response.data;
                 this.loaded = true;
+                if(error.response.status == 404){
+                    this.$router.push({name: '404'});
+                }else{
+                    this.error = error.response.data;
+                }
             });
     },
 

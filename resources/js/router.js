@@ -29,8 +29,13 @@ const router = new VueRouter({
             component: BausteinCreate
         },
         {
+            path: '/404',
+            name: '404',
+            component: NotFound,
+        },
+        {
             path: '/bausteins/*',
-            component: NotFound
+            redirect: '404'
         }
     ]
 });

@@ -11,6 +11,7 @@
         <button type="button" class="btn btn-light" :class="{ 'is-active': isActive.bullet_list() }" @click.prevent="commands.bullet_list"><i class="fa fa-list"></i></button>
         <button type="button" class="btn btn-light" :class="{ 'is-active': isActive.ordered_list() }" @click.prevent="commands.ordered_list"><i class="fa fa-list-ol"></i></button>
         <button type="button" class="btn btn-light" @click.prevent="commands.horizontal_rule"><i>-</i></button>
+        <button type="button" class="btn btn-light" @click="showImagePrompt(commands.image)"><i class="fas fa-image"></i></button>
         <button type="button" class="btn btn-light" @click.prevent="commands.undo"><i class="fa fa-undo" aria-hidden="true"></i></button>
         <button type="button" class="btn btn-light" @click.prevent="commands.redo"><i class="fa fa-redo" aria-hidden="true"></i></button>
       </div>
@@ -22,7 +23,7 @@
 <script>
 // Import the editor
 import { Editor, EditorContent, EditorMenuBar } from 'tiptap';
-import { Bold, Italic, Underline, Strike, Heading, BulletList, OrderedList, ListItem, HorizontalRule, History } from 'tiptap-extensions';
+import { Bold, Italic, Underline, Strike, Heading, BulletList, OrderedList, ListItem, HorizontalRule, History, Image } from 'tiptap-extensions';
 
 export default {
   props: {
@@ -52,7 +53,12 @@ export default {
   },
 
   methods: {
-
+      showImagePrompt(command) {
+      const src = prompt('Image-Url hier einfügen')
+      if (src !== null) {
+        command({ src })
+      }
+    },
   },
 
   mounted() {
@@ -60,7 +66,7 @@ export default {
         extensions: [
           new Bold(), new Italic(), new Underline(), new Strike(),
           new BulletList(), new OrderedList(), new ListItem(), new Heading({ levels: [1, 2, 3] }),
-          new HorizontalRule(), new History(),
+          new HorizontalRule(), new History(), new Image(),
         ],
         
         onUpdate: ({ getHTML }) => {
