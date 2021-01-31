@@ -7,9 +7,9 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::middleware(['auth'])->get('/bausteins/{any?}', function(){ return view('bausteine.index'); })->where('any', '.*')->name('bausteine.index');
+Route::middleware(['auth'])->get('/dokumentations/{any?}', function(){ return view('dokumentationen.index'); })->where('any', '.*')->name('dokumentationen.index');
 
 // Route::resources([
-//     'dokumentations' => 'DokumentationController',
 //     'user' => 'UserController'
 // ]);
 

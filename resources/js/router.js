@@ -1,8 +1,8 @@
 import Vue from 'vue';
-import AlleBausteine from './components/AlleBausteine.vue';
-import BausteinCreate from './components/BausteinCreate.vue';
-import BausteinEdit from './components/BausteinEdit.vue';
-import NotFound from './components/NotFound.vue';
+import AlleBausteine from './components/Baustein/AlleBausteine.vue';
+import BausteinCreate from './components/Baustein/BausteinCreate.vue';
+import BausteinEdit from './components/Baustein/BausteinEdit.vue';
+import NotFound from './components/Baustein/NotFound.vue';
 import VueRouter from 'vue-router';
 import NProgress from 'nprogress';
 

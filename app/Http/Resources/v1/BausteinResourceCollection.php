@@ -19,3 +19,5 @@ class BausteinResourceCollection extends ResourceCollection
         return parent::toArray($request);
     }
 }
+
+?>

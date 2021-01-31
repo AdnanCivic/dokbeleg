@@ -28,3 +28,5 @@ class BausteinResource extends JsonResource
         // ];
     }
 }
+
+?>
