@@ -9,7 +9,7 @@ Route::prefix('v1')->group(function() {
 });
 
 Route::prefix('v1')->group(function() {
-    Route::apiResource('/dokumentation', 'Api\v1\DokumentationApiController');
+    Route::apiResource('/dokument', 'Api\v1\DokumentApiController');
 });
 
 // Route::prefix('v2')->group(function() {

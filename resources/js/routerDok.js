@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import AlleDokumentationen from './components/Dokumentation/AlleDokumentationen.vue';
-import DokumentationEdit from './components/Dokumentation/DokumentationEdit.vue';
-import DokumentationCreate from './components/Dokumentation/DokumentationCreate.vue';
+import AlleDokumente from './components/Dokument/AlleDokumente.vue';
+import DokumentEdit from './components/Dokument/DokumentEdit.vue';
+import DokumentCreate from './components/Dokument/DokumentCreate.vue';
 
 Vue.use(VueRouter);
 
@@ -12,19 +12,19 @@ const routerDok = new VueRouter({
     linkActiveClass: 'font-weight-bold',
     routes: [
         {
-            path: '/dokumentations',
-            name: 'AlleDokumentationen',
-            component: AlleDokumentationen
+            path: '/dokuments',
+            name: 'AlleDokumente',
+            component: AlleDokumente
         },
         {
-            path: '/dokumentations/:id/edit',
-            name: 'DokumentationEdit',
-            component: DokumentationEdit
+            path: '/dokuments/:id/edit',
+            name: 'DokumentEdit',
+            component: DokumentEdit
         },
         {
-            path: '/dokumentations/create',
-            name: 'DokumentationCreate',
-            component: DokumentationCreate
+            path: '/dokuments/create',
+            name: 'DokumentCreate',
+            component: DokumentCreate
         },
     ]
 });

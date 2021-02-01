@@ -13,9 +13,9 @@
                     </div>
                 </div>
                 <div class="grid-item card">
-                    <div class="card-header"  style="text-align:center"><h5>Dokumentation</h5></div>
+                    <div class="card-header"  style="text-align:center"><h5>Dokument</h5></div>
                     <div class="card-body">
-                        <button-link route="{{ route('dokumentationen.index') }}">Dokumentationen bearbeiten</button-link>
+                        <button-link route="{{ route('dokumente.index') }}">Dokumente bearbeiten</button-link>
                         {{-- <button-link class="btn-success" route="{{ route('dokumentations.create') }}">Dokumentation erstellen</button-link> --}}
                     </div>
                 </div>
