@@ -13,7 +13,7 @@ class CreateDokumentsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->string('name');
-            $table->unsignedSmallInteger('anzahlBausteine');
+            $table->unsignedSmallInteger('anzahlGruppen');
             $table->timestamps();
         });
     }

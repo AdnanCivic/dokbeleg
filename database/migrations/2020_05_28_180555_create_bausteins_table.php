@@ -15,6 +15,9 @@ class CreateBausteinsTable extends Migration
     {
         Schema::create('bausteins', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained();
+            $table->unsignedInteger('gruppe_id')->nullable();
+            $table->unsignedInteger('gruppe_pos')->nullable();
             $table->string('name');
             $table->string('typ');
             $table->text('heading');
