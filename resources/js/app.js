@@ -1,4 +1,5 @@
 require('./bootstrap');
+require('./api/api-cookie');
 import Vue from 'vue';
 import router from './router';
 import routerDok from './routerDok';

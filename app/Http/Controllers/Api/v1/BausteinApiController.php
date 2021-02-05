@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Api\v1;
 use App\Baustein;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\v1\BausteinResource;
 use App\Http\Resources\v1\BausteinResourceCollection;
 
 class BausteinApiController extends Controller
 {
-    public function index(): BausteinResourceCollection{
+    public function index(Request $request): BausteinResourceCollection{
+        // dd($request->user()->id);
         return new BausteinResourceCollection(Baustein::paginate(5));
     }
     
