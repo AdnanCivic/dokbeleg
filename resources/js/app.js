@@ -1,8 +1,9 @@
 require('./bootstrap');
 require('./api/api-cookie');
 import Vue from 'vue';
-import router from './router';
-import routerDok from './routerDok';
+import router from './router/router';
+import routerDok from './router/routerDok';
+import routerGru from './router/routerGru';
 import 'nprogress/nprogress.css';
 
 Vue.component('button-link', require('./components/ButtonLink.vue').default);
@@ -21,5 +22,13 @@ const dok = new Vue({
     router: routerDok,
     data: {
         
+    },
+});
+
+const gru = new Vue({
+    el: '#gru',
+    router: routerGru,
+    data: {
+
     },
 });

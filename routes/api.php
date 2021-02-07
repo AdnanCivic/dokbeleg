@@ -8,7 +8,11 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function() {
     Route::apiResource('/baustein', 'Api\v1\BausteinApiController');
 });
 
-Route::prefix('v1')->group(function() {
+Route::prefix('v1')->middleware('auth:sanctum')->group(function() {
+    Route::apiResource('/gruppe', 'Api\v1\GruppeApiController');
+});
+
+Route::prefix('v1')->middleware('auth:sanctum')->group(function() {
     Route::apiResource('/dokument', 'Api\v1\DokumentApiController');
 });
 
