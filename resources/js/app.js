@@ -1,9 +1,9 @@
 require('./bootstrap');
 require('./api/api-cookie');
 import Vue from 'vue';
-import router from './router/router';
-import routerDok from './router/routerDok';
-import routerGru from './router/routerGru';
+import router from './router/router.js';
+import routerDok from './router/routerDok.js';
+import routerGru from './router/routerGru.js';
 import 'nprogress/nprogress.css';
 
 Vue.component('button-link', require('./components/ButtonLink.vue').default);

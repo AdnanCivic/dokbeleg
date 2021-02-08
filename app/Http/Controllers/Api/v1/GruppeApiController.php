@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controller\Api\v1;
+namespace App\Http\Controllers\Api\v1;
 
 use App\Baustein;
 use App\Gruppe;
@@ -18,6 +18,10 @@ class GruppeApiController extends Controller
 
     public function show(Gruppe $gruppe): GruppeResource{
         return new GruppeResource($gruppe);
+    }
+
+    public function store(Request $request){
+        
     }
 }
 
