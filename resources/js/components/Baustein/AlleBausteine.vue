@@ -53,7 +53,6 @@ export default {
             },
             meta: null,
             loaded: false,
-            saving: false,
         }
     },
 

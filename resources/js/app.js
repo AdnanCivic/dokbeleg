@@ -12,23 +12,15 @@ Vue.component('editor', require('./components/Editor.vue').default);
 const app = new Vue({
     el: '#app',
     router: router,
-    data: {
-        
-    },
 });
 
 const dok = new Vue({
     el: '#dok',
     router: routerDok,
-    data: {
-        
-    },
 });
 
 const gru = new Vue({
+    
     el: '#gru',
     router: routerGru,
-    data: {
-
-    },
 });
