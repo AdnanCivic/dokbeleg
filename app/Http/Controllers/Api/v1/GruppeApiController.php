@@ -21,7 +21,46 @@ class GruppeApiController extends Controller
     }
 
     public function store(Request $request){
+        $validatedData = $request->validate([
+            'name' => 'required'
+        ]);
+
+        $anzahlBausteine = count($request->bausteinGruppe);
+        $bausteine = $request->bausteinGruppe;
+
+        $validatedData['anzahlBausteine'] = $anzahlBausteine;
+        $validatedData['user_id'] = $request->user()->id;
+
+        $gruppeNeu = Gruppe::create($validatedData);
+
+        for($i = 0; $i < $anzahlBausteine; $i++){
+
+            $baustein = Baustein::find($bausteine[$i]['id']);
+
+            $baustein->gruppe_id = $gruppeNeu->id;
+            $baustein->gruppe_pos = $i + 1;
+            $baustein->save();
+        }
         
+        return new GruppeResource($gruppeNeu);
+    }
+
+    public function update(Gruppe $gruppe, Request $request): GruppeResource{
+        $validatedData = $request->validate([
+            'name' => 'required',
+        ]);
+        
+        //update re
+        $gruppe->update($validatedData);
+        
+        return new GruppeResource($gruppe);
+    }
+
+    public function destroy(Gruppe $gruppe){
+        
+        $gruppe->delete();
+
+        return response()->json();
     }
 }
 

@@ -70,7 +70,6 @@ export default {
                 .then((response) => {
                     this.message = "Baustein wird gespeichert.";
                     setTimeout(() => this.message = null, 1000);
-                    this.baustein = response.data.data;
                 })
                 .catch((error) => {
                     this.error = error.response.data;

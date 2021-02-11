@@ -5,6 +5,11 @@
             <p>{{ error.message }}</p>
             <p><button class="btn btn-success" @click="reloadComponent">Erneut versuchen</button></p>
         </div>
+        <div v-if="!loaded" style="margin:20px;">
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border" role="status"></div>
+            </div>
+        </div>
         <div v-if="message" class="standby">{{ message }}</div>
         <form id="formCreate" @submit.prevent="onSubmit">
             <div class="form-group row">
@@ -13,11 +18,7 @@
                     <input type="textarea" class="form-control" name="name" v-model="gruppe.name" placeholder="Namen eingeben..." required autofocus>
                 </div>
             </div>
-            <div v-if="!loaded">
-                <div class="d-flex justify-content-center">
-                    <div class="spinner-border" role="status"></div>
-                </div>
-            </div>
+            
             <div class="form-group row">
                 <div id="bausteinFeld" class="col alert alert-primary">
                     <h4 style="text-align:center;">Auswahl der Bausteine</h4>
@@ -29,8 +30,8 @@
                 </div>
                 <div id="gruppeFeld" class="col alert alert-success">
                     <h4 style="text-align:center;">Neue Gruppe</h4>
-                    <draggable class="list-group" :list="bausteineAuswahl" group="bausteine" ghost-class="ghost" @start="drag=true" @end="drag=false">
-                        <div class="list-group-item" v-for="(baustein, index) in bausteineAuswahl" :key="index">
+                    <draggable class="list-group" :list="bausteinAuswahl" group="bausteine" ghost-class="ghost" @start="drag=true" @end="drag=false">
+                        <div class="list-group-item" v-for="(baustein, index) in bausteinAuswahl" :key="index">
                             {{baustein.name}} - Index: {{ index }}
                         </div>
                     </draggable>
@@ -49,7 +50,8 @@ import apiG from '../../api/gruppe';
 import draggable from 'vuedraggable';
 
 const getBausteine = (callback) => {
-    apiB.all()
+    const params =  { gruppe: 1};
+    apiB.all(params)
         .then(response => {
             callback(null, response.data);})
         .catch(error => {
@@ -65,12 +67,14 @@ export default {
         return {
             gruppe: {
                 name: '',
+                bausteinGruppe: [],
             },
             bausteine: [],
-            bausteineAuswahl: [],
+            bausteinAuswahl: [],
             message: null,
             error: null,
             saving: false,
+            loaded: false,
         }
     },
 
@@ -97,11 +101,12 @@ export default {
         onSubmit(){
             this.error = null;
             this.saving = true;
-            api.create(this.gruppe)
+            this.gruppe.bausteinGruppe = this.bausteinAuswahl;
+
+            apiG.create(this.gruppe)
                 .then((response) => {
                     this.message = "Gruppe wird gespeichert.";
                     setTimeout(() => this.message = null, 1000);
-                    this.gruppe = response.data.data;
                 })
                 .catch((error) => {
                     this.error = error.response.data;

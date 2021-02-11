@@ -12,7 +12,7 @@ class GruppesTableSeeder extends Seeder
     public function run()
     {
 
-        $gruppe = Gruppe::create(['dokument_id' => 1, 'dokument_pos' => 1, 'name' => 'Gruppe_1','user_id' => 1, 'anzahlBausteine' => 5]);
+        $gruppe = Gruppe::create([ 'name' => 'Gruppe_1','user_id' => 1, 'anzahlBausteine' => 5]);
 
     }
 }
