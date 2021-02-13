@@ -76,7 +76,7 @@ export default {
                 })
                 .finally(() => {
                     setTimeout(() => this.saving = false, 1000);
-                    setTimeout(() => this.$router.back(), 1500);
+                    setTimeout(() => this.$router.push({name: 'AlleBausteine'}), 1500);
                 });
         },
     }

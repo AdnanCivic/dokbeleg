@@ -17,6 +17,8 @@ class GruppeApiController extends Controller
     }
 
     public function show(Gruppe $gruppe): GruppeResource{
+        $bausteinGruppe = $gruppe->bausteins;
+        $gruppe->bausteinGruppe = $bausteinGruppe;
         return new GruppeResource($gruppe);
     }
 

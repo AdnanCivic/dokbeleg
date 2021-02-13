@@ -14,11 +14,13 @@ class BausteinApiController extends Controller
     public function index(Request $request): BausteinResourceCollection{
         $user_id = $request->user()->id;
         if(isset($request->gruppe)){
-            return new BausteinResourceCollection(Baustein::where('user_id', $user_id)->get());
+            return new BausteinResourceCollection(Baustein::where([
+                ['user_id', $user_id],
+                ['gruppe_id', null]
+            ])->get());
         }else{
             return new BausteinResourceCollection(Baustein::where('user_id', $user_id)->paginate(5));
-        }
-        
+        }  
     }
     
     public function show(Baustein $baustein): BausteinResource{

@@ -32,7 +32,7 @@
                     <h4 style="text-align:center;">Neue Gruppe</h4>
                     <draggable class="list-group" :list="bausteinAuswahl" group="bausteine" ghost-class="ghost" @start="drag=true" @end="drag=false">
                         <div class="list-group-item" v-for="(baustein, index) in bausteinAuswahl" :key="index">
-                            {{baustein.name}} - Index: {{ index }}
+                            {{baustein.name}}
                         </div>
                     </draggable>
                 </div>
@@ -99,22 +99,28 @@ export default {
         },
         
         onSubmit(){
-            this.error = null;
-            this.saving = true;
-            this.gruppe.bausteinGruppe = this.bausteinAuswahl;
+            if(this.bausteinAuswahl.length < 1){
+                this.message = "Bitte mindestens einen Textbaustein auswählen.";
+                setTimeout(() => this.message = null, 1000);
+            }else{
+                this.error = null;
+                this.saving = true;
+                this.gruppe.bausteinGruppe = this.bausteinAuswahl;
 
-            apiG.create(this.gruppe)
-                .then((response) => {
-                    this.message = "Gruppe wird gespeichert.";
-                    setTimeout(() => this.message = null, 1000);
-                })
-                .catch((error) => {
-                    this.error = error.response.data;
-                })
-                .finally(() => {
-                    setTimeout(() => this.saving = false, 1000);
-                    setTimeout(() => this.$router.back(), 1500);
-                });
+                apiG.create(this.gruppe)
+                    .then((response) => {
+                        this.message = "Gruppe wird gespeichert.";
+                        setTimeout(() => this.message = null, 1000);
+                    })
+                    .catch((error) => {
+                        this.error = error.response.data;
+                    })
+                    .finally(() => {
+                        setTimeout(() => this.saving = false, 1000);
+                        setTimeout(() => this.$router.push({name: 'AlleGruppen'}), 1500);
+                    });
+            }
+            
         },
 
         reloadComponent(){
