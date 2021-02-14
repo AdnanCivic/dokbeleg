@@ -17,14 +17,14 @@ class GruppeApiController extends Controller
     }
 
     public function show(Gruppe $gruppe): GruppeResource{
-        $bausteinGruppe = $gruppe->bausteins;
-        $gruppe->bausteinGruppe = $bausteinGruppe;
+        $gruppe->bausteinGruppe = $gruppe->bausteins;
         return new GruppeResource($gruppe);
     }
 
     public function store(Request $request){
         $validatedData = $request->validate([
-            'name' => 'required'
+            'name' => 'required',
+            'bausteinGruppe' => ['array', 'min:1']
         ]);
 
         $anzahlBausteine = count($request->bausteinGruppe);
@@ -48,13 +48,36 @@ class GruppeApiController extends Controller
     }
 
     public function update(Gruppe $gruppe, Request $request): GruppeResource{
-        $validatedData = $request->validate([
+        $request->validate([
             'name' => 'required',
+            'bausteinGruppe' => ['array', 'min:1']
         ]);
         
-        //update re
-        $gruppe->update($validatedData);
+        $bausteineAlt = Baustein::where('gruppe_id', $gruppe->id)->get();
+        foreach($bausteineAlt as $baustein){
+            $baustein->gruppe_id = null;
+            $baustein->gruppe_pos = null;
+            $baustein->save();
+        }
+
+        $anzahlBausteine = count($request->bausteinGruppe);
+        $bausteineNeu = $request->bausteinGruppe;
+
+        for($i = 0; $i < $anzahlBausteine; $i++){
+
+            $baustein = Baustein::find($bausteineNeu[$i]['id']);
+
+            $baustein->gruppe_id = $gruppe->id;
+            $baustein->gruppe_pos = $i + 1;
+            $baustein->save();
+        }
         
+        $gruppe->anzahlBausteine = $anzahlBausteine;
+        
+        //$gruppe->name = $request->gruppe->name;
+        $gruppe->save();
+        $gruppe->bausteinGruppe = $gruppe->bausteins;
+
         return new GruppeResource($gruppe);
     }
 

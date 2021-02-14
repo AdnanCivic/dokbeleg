@@ -20,7 +20,7 @@
             </div>
             <div class="form-group row">
                 <div id="bausteinFeld" class="col alert alert-secondary feld">
-                    <h4 style="text-align:center;">Textbausteinauswahl</h4>
+                    <h4 style="text-align:center;">Ohne Zuordnung</h4>
                     <draggable class="list-group" :list="bausteinFeld" group="bausteine" ghost-class="ghost" @start="drag=true" @end="drag=false">
                         <div class="list-group-item" v-for="baustein in bausteinFeld" :key="baustein.id">
                             {{baustein.name}}
@@ -120,6 +120,28 @@ export default {
                 this.loaded = true;
             }
         },
+
+        onSubmit(){
+            if(this.gruppe.bausteinGruppe.length < 1){
+                this.message = "Bitte mindestens einen Textbaustein auswählen.";
+                setTimeout(() => this.message = null, 1000);
+            }else{
+                this.saving = true;
+                apiG.update(this.gruppe.id, this.gruppe)
+                    .then((response) => {
+                        this.message = 'Änderungen werden gespeichert!';
+                        setTimeout(() => this.message = null, 1000);
+                        this.gruppe = response.data.data;
+                    })
+                    .catch((error) => {
+                        this.error = error.response.data
+                    })
+                    .finally(() => {
+                        setTimeout(() => this.saving = false, 1000);
+
+                    });
+            }
+        },
     },
 }
 </script>
@@ -143,6 +165,17 @@ export default {
 .ghost {
   opacity: 0.5;
   background: #fdff87;
+}
+
+.standby {
+background: rgb(129, 226, 129);
+color: black;
+text-align: center;
+padding: 1rem;
+margin-bottom: 1rem;
+width: 100%;
+border: 1px solid rgb(26, 197, 26);
+border-radius: 5px;
 }
 
 </style>
