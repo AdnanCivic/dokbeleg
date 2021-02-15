@@ -13,6 +13,7 @@ class BausteinApiController extends Controller
 {
     public function index(Request $request): BausteinResourceCollection{
         $user_id = $request->user()->id;
+        
         if(isset($request->gruppe)){
             return new BausteinResourceCollection(Baustein::where([
                 ['user_id', $user_id],

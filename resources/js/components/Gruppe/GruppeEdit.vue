@@ -138,10 +138,35 @@ export default {
                     })
                     .finally(() => {
                         setTimeout(() => this.saving = false, 1000);
-
+                        setTimeout(() => this.$router.go(0), 1500);
                     });
             }
         },
+
+        checkDelete(id){
+            var auswahl = confirm('Soll die Gruppe gelöscht werden?');
+            if(auswahl) {
+                this.deleteBaustein(id);
+            }
+        },
+
+        deleteBaustein(id){
+            this.message = null;
+            this.saving = true;
+            apiG.delete(id)
+                .then((response) => {
+                    console.log(response);
+                    this.message = "Gruppe wird entfernt.";
+                    setTimeout(() => this.message = null, 1000);
+                })
+                .catch((error) => {
+                    this.error = error.response.data
+                })
+                .finally(() => {
+                    setTimeout(() => this.saving = false, 1000);
+                    setTimeout(() => this.$router.push({name: 'AlleGruppen'}), 1500);
+                });
+        }
     },
 }
 </script>

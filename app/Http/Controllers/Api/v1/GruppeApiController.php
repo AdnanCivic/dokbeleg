@@ -73,15 +73,22 @@ class GruppeApiController extends Controller
         }
         
         $gruppe->anzahlBausteine = $anzahlBausteine;
-        
-        //$gruppe->name = $request->gruppe->name;
+        $gruppe->name = $request->name;
         $gruppe->save();
+
         $gruppe->bausteinGruppe = $gruppe->bausteins;
 
         return new GruppeResource($gruppe);
     }
 
     public function destroy(Gruppe $gruppe){
+        $bausteineAlt = Baustein::where('gruppe_id', $gruppe->id)->get();
+
+        foreach($bausteineAlt as $baustein){
+            $baustein->gruppe_id = null;
+            $baustein->gruppe_pos = null;
+            $baustein->save();
+        }
         
         $gruppe->delete();
 

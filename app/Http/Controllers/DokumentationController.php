@@ -80,25 +80,4 @@ class DokumentationController extends Controller
         $dokumentation = App\Dokumentation::find($request->dokumentation_id);
         $dokumentation->bausteins()->attach('baustein_id'); 
     }
-
-    /**
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Dokumentation  $dokumentation
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Dokumentation $dokumentation)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Dokumentation  $dokumentation
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Dokumentation $dokumentation)
-    {
-        //
-    }
 }
