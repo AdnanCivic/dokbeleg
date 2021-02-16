@@ -8,17 +8,6 @@ use Illuminate\Http\Request;
 
 class DokumentationController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    public function index()
-    {
-        $alleDokumentationen = Dokumentation::all();
-        
-        return view('dokumentationen.index', compact('alleDokumentationen'));
-    }
 
     public function show(Dokumentation $dokumentation)
     {

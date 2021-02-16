@@ -2,38 +2,45 @@
     <div class="card" >
         <div class="card-header"><h3>Dokumente</h3></div>
         <div class="card-body">
-            <ul class="list-group">
-                <li class="list-group-item" v-for="(dokument, index) in dokumente" :key="index">{{ dokument.name}} | {{ dokument.anzahlBausteine }}</li>
-            </ul>
-            <!-- <table class="table">
-                <tr><th>Name</th><th>ID</th><th>Typ</th><th style="text-align: center">Aktion</th></tr> -->
-                <!-- <tr v-for="(baustein, index) in bausteine" :key="index"><td>{{ baustein.name }}</td><td>{{ baustein.id }}</td><td>{{ baustein.typ }}</td>
-                <td id="buttons"><router-link class="btn btn-primary" :to="{name: 'BausteinShow', params: { id:baustein.id }}">Anzeigen</router-link> -->
-                <!-- <button type="button" class="btn btn-danger">Löschen</button>
-            </table> -->
-            <div v-if="error" class="error"><p>{{ error }}</p></div>
-            <!-- <div class="pagination"> -->
-                <!-- <button :disabled="!prevPage" @click.prevent="goToPrev">Previous</button>
-                <button :disabled="!nextPage" @click.prevent="goToNext">Next</button> -->
-            <!-- </div> -->
+            <table class="table table-sm">
+                <tr><th>Name</th><th>Dokument-ID</th><th>Anzahl Gruppen</th><th style="text-align: center">Aktion</th></tr>
+                    <tr v-for="(dokument, index) in dokumente" :key="index">
+                        <td>{{ dokument.name }}</td><td>{{ dokument.id }}</td><td>{{ dokument.anzahlGruppen }}</td>
+                        <td id="buttons">
+                            <router-link class="btn btn-primary btn-sm" :to="{name: 'DokumentEdit', params: { id:dokument.id }}">Anzeigen</router-link>
+                        </td>
+                    </tr>
+            </table>
+            <div v-if="!loaded">
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border" role="status"></div>
+                </div>
+            </div>
+            <div v-if="error" class="error">
+                <p>{{ error.message }}</p>
+                <p><button class="btn btn-success" @click="reloadComponent">Erneut versuchen</button></p>
+            </div>
+            <div>
+                <router-link class="btn btn-secondary" tag="button" :disabled="!prevPage" :to="{name: 'AlleDokumente', query: { page: this.prevPage}}">Zurück</router-link>
+                <router-link class="btn btn-secondary" tag="button" :disabled="!nextPage" :to="{name: 'AlleDokumente', query: { page: this.nextPage}}">Weiter</router-link>
+            </div>
+            <div>{{ paginationCount }}</div>
         </div>
     </div>
 </template>
 
 <script>
-import axios from 'axios';
-// const getBausteine = (page, callback) => {
-//     const params = { page };
-//     console.log(' ---> getBausteine called');
-//     console.log(JSON.stringify(params) + ' getBausteine');
-//     axios.get('/api/v1/baustein', {params})
-//         .then(response => {
-//             console.log(response.data);
-//             callback(null, response.data);
-//         }).catch(error => {
-//             callback(error, error.response.data);
-//     });
-// };
+import api from '../../api/dokument';
+
+const getDokumente = (page, callback) => {
+    const params =  { page };
+    api.all(params)
+        .then(response => {
+            callback(null, response.data);})
+        .catch(error => {
+            callback(error, error.response.data);
+    });
+};
 
 export default {
     data(){
@@ -47,80 +54,72 @@ export default {
                 prev: null
             },
             meta: null,
-            isLoading: false,
+            loaded: false,
         }
     },
 
-    created() {
-        axios.get('/api/v1/dokument')
-            .then(response => {
-                this.dokumente = response.data.data;
+    beforeRouteEnter(to, from, next) {
+        if(to.query !== 0){
+            getDokumente(to.query.page, (error, data) => {
+                next(vm => vm.setData(error, data));
             });
+        }else{
+            const params = { page: to.query.page };
+            getDokumente(params, (error, data) => {
+                next(vm => vm.setData(error, data));
+            });
+        }
     },
 
-    // beforeRouteEnter(to, from, next){
-    //     // to.query.page= 2;
-    //     const params = { page: to.query.page };
-    //     getBausteine(params, (error, data) => {
-    //         next(vm => vm.setData(error, data));
-    //     });
-        
-    // },
-
-    // beforeRouteUpdate(to, from, next){
-    //     this.bausteine = this.links = this.meta = null;
-    //     getBausteine(to.query.page, (error, data) => {
-    //         this.setData(error, data);
-    //         next();
-    //     });
-
-    // },
+    beforeRouteUpdate(to, from, next) {
+        this.dokumente = this.links = this.meta = null;
+        getDokumente(to.query.page, (error, data) => {
+            this.setData(error, data);
+            next();
+        });
+    },
 
     methods: {
-        
-        // goToNext(){
-        //     this.$router.push({
-                
-        //         query: {
-        //             page: this.nextPage,
-        //         },
-        //     });
-        // },
+        setData(error, { data: dokumente, links, meta }) {
+            if (error) {
+                this.error = null;
+                this.error = error;
+                this.loaded = true;
+            } else {
+                this.error = null;
+                this.dokumente = dokumente;
+                this.links = links;
+                this.meta = meta;
+                this.loaded = true;
+            }
+        },
 
-        // goToPrev(){
-        //     this.$router.push({
-        //         query: {
-        //             page: this.prevPage,
-        //         }
-        //     });
-        // },
-
-        // setData(error, { data: bausteine, links, meta }) {
-        //     if (error) {
-        //         this.error = error;
-        //     } else {
-        //         this.bausteine = bausteine;
-        //         this.links = links;
-        //         this.meta = meta;
-        //     }
-        // },
+        reloadComponent(){
+            window.location.reload();
+        },
     },
 
     computed: {
         
-        // nextPage(){
-        //     if (! this.meta || this.meta.current_page === this.meta.last_page) {
-        //         return;
-        //     }
-        //     return this.meta.current_page + 1;
-        // },
+        nextPage(){
+            if (!this.meta || this.meta.current_page === this.meta.last_page) {return;}
 
-        // prevPage(){
-        //     if (! this.meta || this.meta.current_page === 1) {
-        //         return;
-        //     }
-        //     return this.meta.current_page - 1;
-        // },
+            return this.meta.current_page + 1;
+        },
+
+        prevPage(){
+            if (!this.meta || this.meta.current_page === 1) {return;}
+
+            return this.meta.current_page - 1;
+        },
+
+        paginationCount() {
+            if (! this.meta) {return;}
+
+            const { current_page, last_page } = this.meta;
+
+            return `Seite ${current_page} von ${last_page}`;
+        },
     }      
 }
 </script>

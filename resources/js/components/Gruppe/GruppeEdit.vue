@@ -155,7 +155,6 @@ export default {
             this.saving = true;
             apiG.delete(id)
                 .then((response) => {
-                    console.log(response);
                     this.message = "Gruppe wird entfernt.";
                     setTimeout(() => this.message = null, 1000);
                 })
