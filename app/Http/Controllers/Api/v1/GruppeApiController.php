@@ -13,7 +13,15 @@ class GruppeApiController extends Controller
 {
     public function index(Request $request): GruppeResourceCollection{
         $user_id = $request->user()->id;
-        return new GruppeResourceCollection(Gruppe::where('user_id', $user_id)->paginate(5));
+
+        if(isset($request->gruppe)){
+            return new GruppeResourceCollection(Gruppe::where([
+                ['user_id', $user_id]
+            ])->get());
+        }else{
+            return new GruppeResourceCollection(Gruppe::where('user_id', $user_id)->paginate(5));
+        }
+        
     }
 
     public function show(Gruppe $gruppe): GruppeResource{

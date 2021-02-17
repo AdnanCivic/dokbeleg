@@ -21,7 +21,23 @@ class DokumentApiController extends Controller
     }
 
     public function store(Request $request){
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'bausteinGruppe' => ['array', 'min:1']
+        ]);
 
+        $anzahlGruppen = count($request->gruppenDokument);
+        $gruppen = $request->gruppenDokument;
+        $gruppenIds = array_column($gruppen, 'id');
+
+        $validatedData['anzahlGruppen'] = $anzahlGruppen;
+        $validatedData['user_id'] = $request->user()->id;
+
+        $dokumentNeu = Dokument::create($validatedData);
+
+        $dokumentNeu->gruppes()->attach($gruppenIds);
+        
+        return new DokumentResource($dokumentNeu);
     }
 
     public function update(Dokument $dokument, Request $request): DokumentResource{

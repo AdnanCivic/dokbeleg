@@ -46,16 +46,18 @@
 
 <script>
 import apiG from '../../api/gruppe';
+import apiD from '../../api/dokument';
 import draggable from 'vuedraggable';
 
 const getGruppen = (callback) => {
     const params =  { gruppe: 1};
-    apiB.all(params)
+    apiG.all(params)
         .then(response => {
             callback(null, response.data);})
         .catch(error => {
             callback(error, error.response.data);
     });
+    
 };
 
 export default {
@@ -77,13 +79,52 @@ export default {
 
         }
     },
-    methods:{
-        onSubmit(){
 
+    beforeRouteEnter(to, from, next) {
+        getGruppen((error, data) => {
+            next(vm => vm.setData(error, data));
+        });
+    },
+
+    methods:{
+        setData(error, data) {
+            if (error) {
+                this.error = null;
+                this.error = error;
+                this.loaded = true;
+            } else {
+                this.error = null;
+                this.gruppen = data.data;
+                this.loaded = true;
+            }
+        },
+        
+        onSubmit(){
+            if(this.gruppeAuswahl.length < 1){
+                this.message = "Bitte mindestens eine Gruppe auswählen.";
+                setTimeout(() => this.message = null, 1000);
+            }else{
+                this.error = null;
+                this.saving = true;
+                this.dokument.gruppenDokument = this.gruppeAuswahl;
+
+                apiD.create(this.dokument)
+                    .then((response) => {
+                        this.message = "Dokument wird gespeichert.";
+                        setTimeout(() => this.message = null, 1000);
+                    })
+                    .catch((error) => {
+                        this.error = error.response.data;
+                    })
+                    .finally(() => {
+                        setTimeout(() => this.saving = false, 1000);
+                        setTimeout(() => this.$router.push({name: 'AlleDokumente'}), 1500);
+                    });
+            }
         },
 
         reloadComponent(){
-
+            window.location.reload();
         },
     }
 }
@@ -95,4 +136,32 @@ export default {
     margin: 1rem;
 }
 
+#gruppeFeld, #dokumentFeld {
+    margin: 1rem;
+    padding: 1rem;
+    border: 1px solid black;
+}
+
+.list-group{
+    height: 20rem;
+    margin-bottom: 1rem;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+.ghost {
+  opacity: 0.5;
+  background: #fdff87;
+}
+
+.standby {
+background: rgb(129, 226, 129);
+color: black;
+text-align: center;
+padding: 1rem;
+margin-bottom: 1rem;
+width: 100%;
+border: 1px solid rgb(26, 197, 26);
+border-radius: 5px;
+}
 </style>
