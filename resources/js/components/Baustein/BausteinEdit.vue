@@ -101,6 +101,7 @@ export default {
                     setTimeout(() => this.$router.back(), 1500);
                 });
         },
+        
         reloadComponent(){
             window.location.reload();
         },

@@ -14,8 +14,6 @@ Route::middleware(['auth'])->get('/dokuments/{any?}', function(){ return view('d
 //     'user' => 'UserController'
 // ]);
 
-// Route::post('/getBausteine', 'DokumentationController@getBausteine')->name('getBausteine');
-
 // Route::get('/create', 'PdfController@createPdf')->name('create');
 // Route::get('/auswahl', 'PdfController@auswahl')->name('auswahl');
 // Route::post('/auswahl', 'PdfController@postauswahl')->name('postauswahl');

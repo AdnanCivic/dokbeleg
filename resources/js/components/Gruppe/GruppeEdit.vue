@@ -71,6 +71,7 @@ export default {
     components: {
         draggable
     },
+
     data(){
         return {
             gruppe: {
@@ -146,11 +147,11 @@ export default {
         checkDelete(id){
             var auswahl = confirm('Soll die Gruppe gelöscht werden?');
             if(auswahl) {
-                this.deleteBaustein(id);
+                this.deleteGruppe(id);
             }
         },
 
-        deleteBaustein(id){
+        deleteGruppe(id){
             this.message = null;
             this.saving = true;
             apiG.delete(id)
@@ -165,9 +166,14 @@ export default {
                     setTimeout(() => this.saving = false, 1000);
                     setTimeout(() => this.$router.push({name: 'AlleGruppen'}), 1500);
                 });
-        }
+        },
+
+        reloadComponent(){
+            window.location.reload();
+        },
     },
 }
+
 </script>
 
 <style scoped>
@@ -186,11 +192,6 @@ export default {
     -webkit-overflow-scrolling: touch;
 }
 
-.ghost {
-  opacity: 0.5;
-  background: #fdff87;
-}
-
 .standby {
 background: rgb(129, 226, 129);
 color: black;
@@ -200,6 +201,11 @@ margin-bottom: 1rem;
 width: 100%;
 border: 1px solid rgb(26, 197, 26);
 border-radius: 5px;
+}
+
+.ghost {
+  opacity: 0.5;
+  background: #fdff87;
 }
 
 </style>

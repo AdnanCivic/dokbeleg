@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import AlleDokumente from '../components/Dokument/AlleDokumente.vue';
 import DokumentEdit from '../components/Dokument/DokumentEdit.vue';
 import DokumentCreate from '../components/Dokument/DokumentCreate.vue';
+import NotFound from '../components/Dokument/NotFound.vue';
 
 Vue.use(VueRouter);
 
@@ -26,6 +27,15 @@ const routerDok = new VueRouter({
             name: 'DokumentCreate',
             component: DokumentCreate
         },
+        {
+            path: '/404',
+            name: '404',
+            component: NotFound,
+        },
+        {
+            path: '/dokuments/*',
+            redirect: '404'
+        }
     ]
 });
 

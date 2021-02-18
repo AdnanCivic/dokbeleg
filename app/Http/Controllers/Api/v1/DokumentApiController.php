@@ -16,14 +16,14 @@ class DokumentApiController extends Controller
     }
 
     public function show(Dokument $dokument): DokumentResource{
-        $dokument->gruppen = $dokument->gruppes;
+        $dokument->gruppenDokument = $dokument->gruppes;
         return new DokumentResource($dokument);
     }
 
     public function store(Request $request){
         $validatedData = $request->validate([
             'name' => 'required',
-            'bausteinGruppe' => ['array', 'min:1']
+            'gruppenDokument' => ['array', 'min:1']
         ]);
 
         $anzahlGruppen = count($request->gruppenDokument);
@@ -41,11 +41,31 @@ class DokumentApiController extends Controller
     }
 
     public function update(Dokument $dokument, Request $request): DokumentResource{
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'gruppenDokument' => ['array', 'min:1']
+        ]);
 
+        $anzahlGruppen = count($request->gruppenDokument);
+        $gruppen = $request->gruppenDokument;
+        $gruppenIds = array_column($gruppen, 'id');
+
+        $validatedData['anzahlGruppen'] = $anzahlGruppen;
+        $validatedData['user_id'] = $request->user()->id;
+
+        $dokument->update($validatedData);
+        $dokument->gruppes()->sync($gruppenIds);
+
+        $dokument->gruppenDokument = $dokument->gruppes;
+        
+        return new DokumentResource($dokument);
     }
 
     public function destroy(Dokument $dokument){
-        
+        $dokument->gruppes()->detach();
+        $dokument->delete();
+
+        return response()->json();
     }
 }
 
