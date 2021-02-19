@@ -4,6 +4,7 @@ import AlleDokumente from '../components/Dokument/AlleDokumente.vue';
 import DokumentEdit from '../components/Dokument/DokumentEdit.vue';
 import DokumentCreate from '../components/Dokument/DokumentCreate.vue';
 import NotFound from '../components/Dokument/NotFound.vue';
+import AllePdfs from '../components/Pdf/AllePdfs.vue';
 
 Vue.use(VueRouter);
 
@@ -26,6 +27,11 @@ const routerDok = new VueRouter({
             path: '/dokuments/create',
             name: 'DokumentCreate',
             component: DokumentCreate
+        },
+        {
+            path:'/dokuments/pdfs',
+            name: 'AllePdfs',
+            component: AllePdfs
         },
         {
             path: '/404',

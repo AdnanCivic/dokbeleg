@@ -13,6 +13,10 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function() {
 });
 
 Route::prefix('v1')->middleware('auth:sanctum')->group(function() {
+    Route::apiResource('/dokument/pdf', 'Api\v1\PdfApiController');
+});
+
+Route::prefix('v1')->middleware('auth:sanctum')->group(function() {
     Route::apiResource('/dokument', 'Api\v1\DokumentApiController');
 });
 

@@ -14,9 +14,4 @@ Route::middleware(['auth'])->get('/dokuments/{any?}', function(){ return view('d
 //     'user' => 'UserController'
 // ]);
 
-// Route::get('/create', 'PdfController@createPdf')->name('create');
-// Route::get('/auswahl', 'PdfController@auswahl')->name('auswahl');
-// Route::post('/auswahl', 'PdfController@postauswahl')->name('postauswahl');
-// Route::post('/createtext', 'PdfController@createText')->name('createtext');
-
 // Route::get('/pdf', function () { return view('formulare.fieldset'); })->name('pdf');
