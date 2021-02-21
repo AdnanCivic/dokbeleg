@@ -24,14 +24,14 @@ const routerDok = new VueRouter({
             component: DokumentEdit
         },
         {
+            path:'/dokuments/:id/pdfs',
+            name: 'AllePdfs',
+            component: AllePdfs
+        },
+        {
             path: '/dokuments/create',
             name: 'DokumentCreate',
             component: DokumentCreate
-        },
-        {
-            path:'/dokuments/pdfs',
-            name: 'AllePdfs',
-            component: AllePdfs
         },
         {
             path: '/404',

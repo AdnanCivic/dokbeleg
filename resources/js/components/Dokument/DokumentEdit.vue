@@ -46,7 +46,7 @@
             </div>
             <div class="form-group">
                 <button type="submit" :disabled="saving" class="btn btn-primary">Änderungen speichern</button>
-                <button type="button" :disabled="saving" class="btn btn-success" @click.prevent="pdfSection(dokument.id)">PDF bearbeiten</button>
+                <button type="button" :disabled="saving" class="btn btn-success" @click.prevent="pdfSection()">PDF bearbeiten</button>
                 <button type="button" class="btn btn-danger" @click.prevent="checkDelete(dokument.id)" :disabled="saving">Dokumentzuordnung löschen</button>
             </div>
         </form>
@@ -173,8 +173,8 @@ export default {
             window.location.reload();
         },
 
-        pdfSection(id){
-            this.$router.push({name: 'AllePdfs'});
+        pdfSection(){
+            this.$router.push({name: 'AllePdfs', params: { id: this.dokument.id }});
         },
     }
 }

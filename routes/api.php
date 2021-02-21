@@ -13,11 +13,11 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function() {
 });
 
 Route::prefix('v1')->middleware('auth:sanctum')->group(function() {
-    Route::apiResource('/dokument/pdf', 'Api\v1\PdfApiController');
+    Route::apiResource('/dokument', 'Api\v1\DokumentApiController');
 });
 
 Route::prefix('v1')->middleware('auth:sanctum')->group(function() {
-    Route::apiResource('/dokument', 'Api\v1\DokumentApiController');
+    Route::get('/dokument/{id}/pdfs', 'Api\v1\PdfApiController@index');
 });
 
 // Route::prefix('v2')->group(function() {

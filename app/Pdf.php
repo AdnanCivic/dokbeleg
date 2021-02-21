@@ -7,10 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Pdf extends Model
 {
     protected $fillable = [
-        'user_id',
+        'name',
         'dokument_id',
-        'name'
+        'user_id',
+        'anzahlGruppen' 
     ];
+
+    public function dokument(){
+        return $this->belongsTo('App\Dokument');
+    }
 }
 
 ?>

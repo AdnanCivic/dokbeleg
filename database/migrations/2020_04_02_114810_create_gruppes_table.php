@@ -12,8 +12,6 @@ class CreateGruppesTable extends Migration
         Schema::create('gruppes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->unsignedInteger('dokument_id')->nullable();
-            $table->unsignedInteger('dokument_pos')->nullable();
             $table->string('name');
             $table->unsignedSmallInteger('anzahlBausteine');
             $table->timestamps();
