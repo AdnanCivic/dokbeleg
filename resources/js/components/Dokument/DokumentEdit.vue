@@ -129,6 +129,7 @@ export default {
                 setTimeout(() => this.message = null, 1000);
             }else{
                 this.saving = true;
+                this.dokument.gruppenDokument = _.uniqBy(this.dokument.gruppenDokument, 'id');
                 apiD.update(this.dokument.id, this.dokument)
                     .then((response) => {
                         this.message = 'Änderungen werden gespeichert!';

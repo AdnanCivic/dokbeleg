@@ -23,6 +23,7 @@
             <div>
                 <router-link class="btn btn-secondary" tag="button" :disabled="!prevPage" :to="{name: 'AllePdfs', query: { page: this.prevPage}}">Zurück</router-link>
                 <router-link class="btn btn-secondary" tag="button" :disabled="!nextPage" :to="{name: 'AllePdfs', query: { page: this.nextPage}}">Weiter</router-link>
+                <router-link class="btn btn-success" tag="button" :to="{name: 'PdfCreate'}">PDF neu erstellen</router-link>
             </div>
             <div>{{ paginationCount }}</div>
 
@@ -43,6 +44,13 @@ const getPdfs = (page, dok_id, callback) => {
     });
 };
 
+const getDokumentId = () => {
+    let url = window.location.pathname;
+    let crop1 = url.substr(11);
+    let res = crop1.slice(0, 1);
+    return res;
+};
+
 export default {
     data(){
         return {
@@ -60,6 +68,9 @@ export default {
     },
 
     beforeRouteEnter(to, from, next) {
+        if(from.params.id == undefined){
+            from.params.id = getDokumentId();
+        }
         if(to.query !== 0){
             getPdfs(to.query.page, from.params.id, (error, data) => {
                 next(vm => vm.setData(error, data));
@@ -73,6 +84,9 @@ export default {
     },
 
     beforeRouteUpdate(to, from, next) {
+        if(from.params.id == undefined){
+            from.params.id = getDokumentId();
+        }
         this.pdfs = this.links = this.meta = null;
         getPdfs(to.query.page, from.params.id, (error, data) => {
             this.setData(error, data);

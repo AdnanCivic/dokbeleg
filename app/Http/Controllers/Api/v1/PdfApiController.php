@@ -12,7 +12,7 @@ use App\Http\Resources\v1\PdfResourceCollection;
 class PdfApiController extends Controller
 {
     public function index(Request $request): PdfResourceCollection{
-        return new PdfResourceCollection(Pdf::where('dokument_id', $request->id)->paginate(5));
+        return new PdfResourceCollection(Pdf::where('dokument_id', $request->id)->orderBy('id','desc')->paginate(5));
     }
 
     public function store(Dokument $dokument){

@@ -54,8 +54,9 @@ class DokumentApiController extends Controller
         $validatedData['user_id'] = $request->user()->id;
 
         $dokument->update($validatedData);
-        $dokument->gruppes()->sync($gruppenIds);
-
+        $dokument->gruppes()->detach();
+        $dokument->gruppes()->attach($gruppenIds);
+        
         $dokument->gruppenDokument = $dokument->gruppes;
         
         return new DokumentResource($dokument);
