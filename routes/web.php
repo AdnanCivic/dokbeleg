@@ -13,5 +13,3 @@ Route::middleware(['auth'])->get('/dokuments/{any?}', function(){ return view('d
 // Route::resources([
 //     'user' => 'UserController'
 // ]);
-
-// Route::get('/pdf', function () { return view('formulare.fieldset'); })->name('pdf');

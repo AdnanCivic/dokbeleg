@@ -4,16 +4,12 @@ export default {
         return axios.get(`/api/v1/dokument/${id}/pdfs`, {params});
     },
 
-    // create(data) {
-    //     return axios.post('/api/v1/dokument/pdf', data);
-    // },
+    create(id) {
+        return axios.get(`/api/v1/dokument/${id}/pdfs/download`, {responseType: 'blob'});
+    },
 
     // find(id) {
     //     return axios.get(`/api/v1/dokument/pdf/${id}`);
-    // },
-
-    // update(id, data) {
-    //     return axios.put(`/api/v1/dokument/pdf/${id}`, data);
     // },
 
     // delete(id) {

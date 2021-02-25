@@ -18,6 +18,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function() {
 
 Route::prefix('v1')->middleware('auth:sanctum')->group(function() {
     Route::get('/dokument/{id}/pdfs', 'Api\v1\PdfApiController@index');
+    Route::get('/dokument/{id}/pdfs/download', 'Api\v1\PdfApiController@store');
 });
 
 // Route::prefix('v2')->group(function() {

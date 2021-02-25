@@ -23,7 +23,7 @@
             <div>
                 <router-link class="btn btn-secondary" tag="button" :disabled="!prevPage" :to="{name: 'AllePdfs', query: { page: this.prevPage}}">Zurück</router-link>
                 <router-link class="btn btn-secondary" tag="button" :disabled="!nextPage" :to="{name: 'AllePdfs', query: { page: this.nextPage}}">Weiter</router-link>
-                <router-link class="btn btn-success" tag="button" :to="{name: 'PdfCreate'}">PDF neu erstellen</router-link>
+                <button class="btn btn-success" @click.prevent="createPdf()">PDF neu erstellen</button>
             </div>
             <div>{{ paginationCount }}</div>
 
@@ -56,14 +56,10 @@ export default {
         return {
             pdfs: null,
             error: null,
-            links: {
-                first: null,
-                last: null,
-                next: null,
-                prev: null
-            },
+            links: { first: null, last: null, next: null, prev: null},
             meta: null,
             loaded: false,
+            pdf: null,
         }
     },
 
@@ -95,6 +91,20 @@ export default {
     },
 
     methods: {
+        createPdf(){
+            api.create(this.$route.params.id)
+                .then((response) => {
+                    const url = window.URL.createObjectURL(new Blob([response.data]));
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', this.pdfs[0].name + ' Version ' + this.pdfCount + '.pdf');
+                    document.body.appendChild(link);
+                    link.click();
+                })
+                .catch((error) => {
+                    console.log(error.message);
+                })
+        },
         setData(error, { data: pdfs, links, meta }) {
             if (error) {
                 this.error = null;
@@ -115,24 +125,24 @@ export default {
     },
 
     computed: {
-        
+        pdfCount(){
+            if(this.pdfs.length !== null){
+                return this.pdfs.length;
+            }
+        },
         nextPage(){
             if (!this.meta || this.meta.current_page === this.meta.last_page) {return;}
-
             return this.meta.current_page + 1;
         },
 
         prevPage(){
             if (!this.meta || this.meta.current_page === 1) {return;}
-
             return this.meta.current_page - 1;
         },
 
         paginationCount() {
             if (! this.meta) {return;}
-
             const { current_page, last_page } = this.meta;
-
             return `Seite ${current_page} von ${last_page}`;
         },
     }
