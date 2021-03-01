@@ -1,32 +1,34 @@
 <template>
-    <div class="card" >
-        <div class="card-header"><h3>PDF-Dokumente</h3></div>
-        <div class="card-body">
-            <table class="table table-sm">
-                <tr><th>Name</th><th>PDF-ID</th><th>Anzahl Gruppen</th><th style="text-align: center">Aktion</th></tr>
-                    <tr v-for="(pdf, index) in pdfs" :key="index">
-                        <td>{{ pdf.name }}</td><td>{{ pdf.id }}</td><td>{{ pdf.anzahlGruppen }}</td>
-                        <td id="buttons">
-                            <router-link class="btn btn-primary btn-sm" :to="{name: 'PdfEdit', params: { id:pdf.id }}">Anzeigen</router-link>
-                        </td>
-                    </tr>
-            </table>
-            <div v-if="!loaded">
-                <div class="d-flex justify-content-center">
-                    <div class="spinner-border" role="status"></div>
+    <div>
+        
+        <div class="card" >
+            <div class="card-header"><h3>PDF-Dokumente</h3></div>
+            <div class="card-body">
+                <table class="table table-sm">
+                    <tr><th>Name</th><th>PDF-ID</th><th>Anzahl Gruppen</th><th style="text-align: center">Aktion</th></tr>
+                        <tr v-for="(pdf, index) in pdfs" :key="index">
+                            <td>{{ pdf.name }}</td><td>{{ pdf.id }}</td><td>{{ pdf.anzahlGruppen }}</td>
+                            <td id="buttons">
+                                <router-link class="btn btn-primary btn-sm" :to="{name: 'PdfEdit', params: { id:pdf.id }}">Anzeigen</router-link>
+                            </td>
+                        </tr>
+                </table>
+                <div v-if="!loaded">
+                    <div class="d-flex justify-content-center">
+                        <div class="spinner-border" role="status"></div>
+                    </div>
                 </div>
+                <div v-if="error" class="error">
+                    <p>{{ error.message }}</p>
+                    <p><button class="btn btn-success" @click="reloadComponent">Erneut versuchen</button></p>
+                </div>
+                <div>
+                    <router-link class="btn btn-secondary" tag="button" :disabled="!prevPage" :to="{name: 'AllePdfs', query: { page: this.prevPage}}">Zurück</router-link>
+                    <router-link class="btn btn-secondary" tag="button" :disabled="!nextPage" :to="{name: 'AllePdfs', query: { page: this.nextPage}}">Weiter</router-link>
+                    
+                </div>
+                <div>{{ paginationCount }}</div>
             </div>
-            <div v-if="error" class="error">
-                <p>{{ error.message }}</p>
-                <p><button class="btn btn-success" @click="reloadComponent">Erneut versuchen</button></p>
-            </div>
-            <div>
-                <router-link class="btn btn-secondary" tag="button" :disabled="!prevPage" :to="{name: 'AllePdfs', query: { page: this.prevPage}}">Zurück</router-link>
-                <router-link class="btn btn-secondary" tag="button" :disabled="!nextPage" :to="{name: 'AllePdfs', query: { page: this.nextPage}}">Weiter</router-link>
-                <button class="btn btn-success" @click.prevent="createPdf()">PDF neu erstellen</button>
-            </div>
-            <div>{{ paginationCount }}</div>
-
         </div>
     </div>
 </template>
@@ -47,7 +49,7 @@ const getPdfs = (page, dok_id, callback) => {
 const getDokumentId = () => {
     let url = window.location.pathname;
     let crop1 = url.substr(11);
-    let res = crop1.slice(0, 1);
+    let res = crop1.substring(0, crop1.length - 5);
     return res;
 };
 
@@ -91,20 +93,21 @@ export default {
     },
 
     methods: {
-        createPdf(){
-            api.create(this.$route.params.id)
-                .then((response) => {
-                    const url = window.URL.createObjectURL(new Blob([response.data]));
-                    const link = document.createElement('a');
-                    link.href = url;
-                    link.setAttribute('download', this.pdfs[0].name + ' Version ' + this.pdfCount + '.pdf');
-                    document.body.appendChild(link);
-                    link.click();
-                })
-                .catch((error) => {
-                    console.log(error.message);
-                })
-        },
+        
+            // api.create(this.$route.params.id)
+            //     .then((response) => {
+            //         // console.log(response.headers['content-disposition']);
+            //         const url = window.URL.createObjectURL(new Blob([response.data]));
+            //         const link = document.createElement('a');
+            //         link.href = url;
+            //         link.setAttribute('download', this.$route.params.name + ' Version ' + this.pdfCount + '.pdf');
+            //         document.body.appendChild(link);
+            //         link.click();
+            //     })
+            //     .catch((error) => {
+            //         console.log(error.message);
+            //     })
+    
         setData(error, { data: pdfs, links, meta }) {
             if (error) {
                 this.error = null;

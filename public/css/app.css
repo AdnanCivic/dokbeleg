@@ -10907,3 +10907,9 @@ a.text-dark:focus {
   }
 }
 
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  justify-content: space-evenly;
+}
+

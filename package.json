@@ -23,6 +23,7 @@
         "axios": "^0.21.1",
         "bootstrap": "^4.5.3",
         "codemirror": "^5.59.0",
+        "fs": "0.0.1-security",
         "jquery": "^3.5.1",
         "nprogress": "^0.2.0",
         "popper.js": "^1.16.1",

@@ -7,7 +7,7 @@ class PdfPrinter
 {
     
     public function printPdf($dokument){
-        $name = $dokument->name;
+        
         // $name = 'Belegdokumentation';
         // $html = '';
 
@@ -15,7 +15,7 @@ class PdfPrinter
         
         // TCPDF::SetCreator('PDF_Generator');
         // TCPDF::SetAuthor('Docubyte');
-        $pdf::SetTitle($name);
+        $pdf::SetTitle($dokument->name);
 
         // TCPDF::setHeaderData('', 0, '', "Verfahrensdokumentation zur Belegablage");
         // TCPDF::setHeaderFont(array('dejavusans', '', 9));
@@ -34,9 +34,9 @@ class PdfPrinter
         
         $pdf::AddPage('P', 'A4');
         // // PDF::writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
-        $pdf::writeHTML('<p>Inhalt</p>', true, false, true, false, '');
+        $pdf::writeHTML('<p>Inhalt Äüöß</p>', true, false, true, false, '');
 
-        $pdf::Output($name.'.pdf', 'I');
+        $pdf::Output($dokument->name.'.pdf', 'I');
         
     }
 }

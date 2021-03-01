@@ -8,6 +8,7 @@ import 'nprogress/nprogress.css';
 
 Vue.component('button-link', require('./components/ButtonLink.vue').default);
 Vue.component('editor', require('./components/Editor.vue').default);
+Vue.component('pdf-modal', require('./components/PdfModal.vue').default);
 
 const app = new Vue({
     el: '#app',

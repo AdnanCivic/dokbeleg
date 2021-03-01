@@ -16,14 +16,6 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/grid-dashboard.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/grid-createdoku.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/modal-form.css') }}" rel="stylesheet">
-    {{-- <style type="text/css">
-        #registration_form fieldset:not(:first-of-type) {
-          display: none;
-        }
-    </style> --}}
 </head>
 <body>
     <div>
@@ -80,5 +72,7 @@
         </main>
     </div>
     <script src="{{ mix('js/app.js') }}"></script>
+    <script src="{{ asset('js/pdfkit.js') }}"></script>
+    <script src="{{ asset('js/blob-stream.js') }}"></script>
 </body>
 </html>

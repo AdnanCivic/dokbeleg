@@ -1,5 +1,10 @@
 <template>
     <div class="card">
+        <pdf-modal>
+                <!-- <template #modal-header></template>
+                <template #modal-footer></template> -->
+                <template #modal-content><iframe id="document"></iframe></template>
+        </pdf-modal>
         <div class="card-header"><h3>Dokument editieren</h3></div>
         <div v-if="!loaded" style="margin:20px;">
             <div class="d-flex justify-content-center">
@@ -46,7 +51,9 @@
             </div>
             <div class="form-group">
                 <button type="submit" :disabled="saving" class="btn btn-primary">Änderungen speichern</button>
-                <button type="button" :disabled="saving" class="btn btn-success" @click.prevent="pdfSection()">PDF bearbeiten</button>
+
+                <button type="button" class="btn btn-success" @click.prevent="showPdf()">PDF anzeigen</button>
+
                 <button type="button" class="btn btn-danger" @click.prevent="checkDelete(dokument.id)" :disabled="saving">Dokumentzuordnung löschen</button>
             </div>
         </form>
@@ -174,8 +181,52 @@ export default {
             window.location.reload();
         },
 
-        pdfSection(){
-            this.$router.push({name: 'AllePdfs', params: { id: this.dokument.id }});
+        showPdf(){
+            var lorem = "Mein Miester";
+            const doc = new PDFDocument();
+            var stream = doc.pipe(blobStream());
+
+            // draw some text
+            doc.fontSize(25).text('Here is some vector graphics...', 100, 80);
+
+            // some vector graphics
+            doc
+            .save()
+            .moveTo(100, 150)
+            .lineTo(100, 250)
+            .lineTo(200, 250)
+            .fill('#FF3300');
+
+            doc.circle(280, 200, 50).fill('#6600FF');
+
+            // an SVG path
+            doc
+            .scale(0.6)
+            .translate(470, 130)
+            .path('M 250,75 L 323,301 131,161 369,161 177,301 z')
+            .fill('red', 'even-odd')
+            .restore();
+
+            // and some justified text wrapped into columns
+            doc
+            .text('And here is some wrapped text...', 100, 300)
+            .font('Times-Roman', 13)
+            .moveDown()
+            .text(lorem, {
+                width: 412,
+                align: 'justify',
+                indent: 30,
+                columns: 2,
+                height: 300,
+                ellipsis: true
+            });
+
+            // end and display the document in the iframe to the right
+            doc.end();
+            stream.on('finish', function() {
+                document.getElementById('document').src = stream.toBlobURL('application/pdf');
+                $('#pdfModal').modal({backdrop: 'static'});
+            });
         },
     }
 }
