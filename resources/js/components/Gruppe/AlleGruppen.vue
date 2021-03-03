@@ -3,9 +3,9 @@
         <div class="card-header"><h3>Verfügbare Gruppen</h3></div>
         <div class="card-body">
             <table class="table table-sm">
-                <tr><th>Name</th><th>Dokument-ID</th><th>Dokument-Position</th><th>Anzahl Bausteine</th><th style="text-align: center">Aktion</th></tr>
+                <tr><th>Name</th><th>Dokument-ID</th><th>Anzahl Bausteine</th><th style="text-align: center">Aktion</th></tr>
                     <tr v-for="(gruppe, index) in gruppen" :key="index">
-                        <td>{{ gruppe.name }}</td><td>{{ gruppe.dokument_id }}</td><td>{{ gruppe.dokument_pos }}</td><td>{{ gruppe.anzahlBausteine}}</td>
+                        <td>{{ gruppe.name }}</td><td>{{ gruppe.dokument_id }}</td><td>{{ gruppe.anzahlBausteine}}</td>
                         <td id="buttons">
                             <router-link class="btn btn-primary btn-sm" :to="{name: 'GruppeEdit', params: { id:gruppe.id }}">Anzeigen</router-link>
                         </td>

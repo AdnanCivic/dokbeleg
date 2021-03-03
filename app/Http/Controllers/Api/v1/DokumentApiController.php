@@ -15,7 +15,7 @@ class DokumentApiController extends Controller
         return new DokumentResourceCollection(Dokument::where('user_id', $user_id)->paginate(5));
     }
 
-    public function show(Dokument $dokument): DokumentResource{
+    public function show(Dokument $dokument, Request $request): DokumentResource{
         $dokument->gruppenDokument = $dokument->gruppes;
         return new DokumentResource($dokument);
     }
@@ -67,6 +67,11 @@ class DokumentApiController extends Controller
         $dokument->delete();
 
         return response()->json();
+    }
+
+    public function pdf(Dokument $dokument): DokumentResourceCollection{
+        dd($dokument->bausteins);
+        return new DokumentResourceCollection($dokument->bausteins);
     }
 }
 

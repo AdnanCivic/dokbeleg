@@ -14,12 +14,8 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function() {
 
 Route::prefix('v1')->middleware('auth:sanctum')->group(function() {
     Route::apiResource('/dokument', 'Api\v1\DokumentApiController');
+    Route::get('/dokument/{dokument}/pdf', 'Api\v1\DokumentApiController@pdf');
 });
-
-// Route::prefix('v1')->middleware('auth:sanctum')->group(function() {
-//     Route::get('/dokument/{id}/pdfs', 'Api\v1\PdfApiController@index');
-//     Route::get('/dokument/{id}/pdfs/download', 'Api\v1\PdfApiController@store');
-// });
 
 // Route::prefix('v2')->group(function() {
 //     Route::apiResource('/baustein', 'Api\v2\BausteinApiController')->only('show');

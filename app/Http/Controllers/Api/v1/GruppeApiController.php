@@ -25,7 +25,8 @@ class GruppeApiController extends Controller
     }
 
     public function show(Gruppe $gruppe): GruppeResource{
-        $gruppe->bausteinGruppe = $gruppe->bausteins;
+        $gruppe->bausteinGruppe = $gruppe->bausteins->sortBy('gruppe_pos')->toArray();
+        
         return new GruppeResource($gruppe);
     }
 

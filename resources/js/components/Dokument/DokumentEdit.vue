@@ -1,10 +1,10 @@
 <template>
+<div>
+    <pdf-modal>
+        <template #modal-content><iframe id="document"></iframe></template>
+    </pdf-modal>
     <div class="card">
-        <pdf-modal>
-                <!-- <template #modal-header></template>
-                <template #modal-footer></template> -->
-                <template #modal-content><iframe id="document"></iframe></template>
-        </pdf-modal>
+        
         <div class="card-header"><h3>Dokument editieren</h3></div>
         <div v-if="!loaded" style="margin:20px;">
             <div class="d-flex justify-content-center">
@@ -51,13 +51,12 @@
             </div>
             <div class="form-group">
                 <button type="submit" :disabled="saving" class="btn btn-primary">Änderungen speichern</button>
-
-                <button type="button" class="btn btn-success" @click.prevent="showPdf()">PDF anzeigen</button>
-
+                <button type="button" class="btn btn-success" @click.prevent="showPdf(dokument.id)">PDF anzeigen</button>
                 <button type="button" class="btn btn-danger" @click.prevent="checkDelete(dokument.id)" :disabled="saving">Dokumentzuordnung löschen</button>
             </div>
         </form>
     </div>
+</div>
 </template>
 
 <script>
@@ -169,7 +168,7 @@ export default {
                     setTimeout(() => this.message = null, 1000);
                 })
                 .catch((error) => {
-                    this.error = error.response.data
+                    this.error = error.response.data;
                 })
                 .finally(() => {
                     setTimeout(() => this.saving = false, 1000);
@@ -181,7 +180,17 @@ export default {
             window.location.reload();
         },
 
-        showPdf(){
+        showPdf(id){
+            apiD.pdf(id)
+                .then((response) => {
+                    console.log(response.data.data);
+                })
+                .catch((error) => {
+                    this.error = error.response.data;
+                });
+            // api call dokument alle bausteine holen
+            // import createPdf array übergeben
+            // dokument in modal aufrufen
             var lorem = "Mein Miester";
             const doc = new PDFDocument();
             var stream = doc.pipe(blobStream());
@@ -223,9 +232,10 @@ export default {
 
             // end and display the document in the iframe to the right
             doc.end();
+            
             stream.on('finish', function() {
-                document.getElementById('document').src = stream.toBlobURL('application/pdf');
                 $('#pdfModal').modal({backdrop: 'static'});
+                document.getElementById('document').src = stream.toBlobURL('application/pdf');
             });
         },
     }
@@ -263,6 +273,11 @@ border-radius: 5px;
 .ghost {
   opacity: 0.5;
   background: #fdff87;
+}
+
+#document {
+    width: 100%;
+    height: 100%;
 }
 
 </style>

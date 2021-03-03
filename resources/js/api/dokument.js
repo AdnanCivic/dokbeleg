@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export default {
 
     all(params) {
@@ -18,5 +20,9 @@ export default {
 
     delete(id) {
         return axios.delete(`/api/v1/dokument/${id}`);
+    },
+
+    pdf(id) {
+        return axios.get(`/api/v1/dokument/${id}/pdf`);
     }
 }

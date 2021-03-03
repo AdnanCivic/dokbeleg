@@ -1,6 +1,6 @@
 <template>
-  <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+  <div class="modal bd-example-modal-lg fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -9,10 +9,6 @@
         </div>
         <div class="modal-body">
           <slot name="modal-content"></slot>
-          <p>Body content</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
@@ -31,5 +27,9 @@ export default {
 </script>
 
 <style>
+.modal-content {
+  height: 95vh;
+  
+}
 
 </style>

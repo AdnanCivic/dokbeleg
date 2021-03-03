@@ -20,4 +20,5 @@ class Baustein extends Model
     public function gruppe(){
         return $this->belongsTo('App\Gruppe');
     }
+    
 }

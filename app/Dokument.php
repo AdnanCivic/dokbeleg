@@ -20,8 +20,8 @@ class Dokument extends Model
         return $this->belongsToMany('App\Gruppe');
     }
 
-    public function pdfs(){
-        return $this->hasMany('App\Pdf');
+    public function bausteins(){
+        return $this->hasManyThrough('App\Baustein', 'App\Gruppe');
     }
 
 }
