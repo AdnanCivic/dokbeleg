@@ -8,8 +8,6 @@ class Gruppe extends Model
 {
     protected $fillable = [
         'user_id',
-        'dokument_id',
-        'dokument_pos',
         'name', 
         'anzahlBausteine'
     ];

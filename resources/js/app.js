@@ -20,8 +20,7 @@ const dok = new Vue({
     router: routerDok,
 });
 
-const gru = new Vue({
-    
+const gru = new Vue({ 
     el: '#gru',
     router: routerGru,
 });

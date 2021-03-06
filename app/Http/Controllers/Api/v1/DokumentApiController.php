@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Gruppe;
 use App\Dokument;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -70,8 +71,15 @@ class DokumentApiController extends Controller
     }
 
     public function pdf(Dokument $dokument): DokumentResourceCollection{
-        dd($dokument->bausteins);
-        return new DokumentResourceCollection($dokument->bausteins);
+        $gruppen = $dokument->gruppes;
+        
+        $bausteine = $gruppen->map(function($gruppe, $key){
+            return $gruppe->bausteins->map(function($baustein, $key){
+                return [$baustein->typ, $baustein->heading, $baustein->content];
+            });
+        });
+
+        return new DokumentResourceCollection($bausteine->all());
     }
 }
 

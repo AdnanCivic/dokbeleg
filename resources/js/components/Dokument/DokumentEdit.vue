@@ -74,6 +74,36 @@ const getGruppen = (callback) => {
     });
 };
 
+const createPdf = (bausteine) => {
+    console.log(bausteine);
+    
+    var uno = bausteine[0];
+    var dos = bausteine[1];
+    const doc = new PDFDocument();
+    var stream = doc.pipe(blobStream());
+
+    // draw some text
+    doc.fontSize(25).text(uno, 100, 80);
+
+    // and some justified text wrapped into columns
+    doc.text(dos, 100, 300).font('Times-Roman', 13).moveDown()
+    .text(dos, {
+        width: 412,
+        align: 'justify',
+        indent: 30,
+        columns: 2,
+        height: 300,
+        ellipsis: true
+    });
+
+    doc.end();
+    
+    stream.on('finish', function() {
+        $('#pdfModal').modal({backdrop: 'static'});
+        document.getElementById('document').src = stream.toBlobURL('application/pdf');
+    });
+};
+
 export default {
     components: {
         draggable
@@ -81,6 +111,7 @@ export default {
 
     data(){
         return {
+            bausteine: null,
             dokument: {
                 name: '',
                 gruppenDokument: [],
@@ -117,6 +148,25 @@ export default {
     },
 
     methods: {
+        showPdf(id){
+            apiD.pdf(id)
+                .then((response) => {
+                    this.bausteine = response.data.data.flat();
+                    createPdf(this.bausteine);
+                    // $('#pdfModal').modal({backdrop: 'static'});
+                    // document.getElementById('document').src = temp;
+                })
+                .catch((error) => {
+                    console.log(error);
+                    // this.error = error.response.data;
+                    // this.error = error;
+                    // console.log(error);
+                });
+            // api call dokument alle bausteine holen
+            // import createPdf array übergeben
+            // dokument in modal aufrufen
+            
+        },
         setData(error, data) {
             if (error) {
                 this.error = null;
@@ -178,65 +228,6 @@ export default {
         
         reloadComponent(){
             window.location.reload();
-        },
-
-        showPdf(id){
-            apiD.pdf(id)
-                .then((response) => {
-                    console.log(response.data.data);
-                })
-                .catch((error) => {
-                    this.error = error.response.data;
-                });
-            // api call dokument alle bausteine holen
-            // import createPdf array übergeben
-            // dokument in modal aufrufen
-            var lorem = "Mein Miester";
-            const doc = new PDFDocument();
-            var stream = doc.pipe(blobStream());
-
-            // draw some text
-            doc.fontSize(25).text('Here is some vector graphics...', 100, 80);
-
-            // some vector graphics
-            doc
-            .save()
-            .moveTo(100, 150)
-            .lineTo(100, 250)
-            .lineTo(200, 250)
-            .fill('#FF3300');
-
-            doc.circle(280, 200, 50).fill('#6600FF');
-
-            // an SVG path
-            doc
-            .scale(0.6)
-            .translate(470, 130)
-            .path('M 250,75 L 323,301 131,161 369,161 177,301 z')
-            .fill('red', 'even-odd')
-            .restore();
-
-            // and some justified text wrapped into columns
-            doc
-            .text('And here is some wrapped text...', 100, 300)
-            .font('Times-Roman', 13)
-            .moveDown()
-            .text(lorem, {
-                width: 412,
-                align: 'justify',
-                indent: 30,
-                columns: 2,
-                height: 300,
-                ellipsis: true
-            });
-
-            // end and display the document in the iframe to the right
-            doc.end();
-            
-            stream.on('finish', function() {
-                $('#pdfModal').modal({backdrop: 'static'});
-                document.getElementById('document').src = stream.toBlobURL('application/pdf');
-            });
         },
     }
 }
