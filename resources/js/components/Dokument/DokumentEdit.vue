@@ -63,6 +63,7 @@
 import apiG from '../../api/gruppe';
 import apiD from '../../api/dokument';
 import draggable from 'vuedraggable';
+import pdf from '../../pdfGenerate.js';
 
 const getGruppen = (callback) => {
     const params =  { gruppe: 1};
@@ -74,27 +75,63 @@ const getGruppen = (callback) => {
     });
 };
 
+const formatDeckblatt = (doc, baustein) => {
+    let text = '';
+    text = doc.fontSize(25).text(baustein[1], {
+        align: 'justify',
+        indent: 50
+    });
+    text += doc.addPage();
+    text += doc.fontSize(40).text(baustein[1], 100, 80);
+    return text;
+};
+
+const formatHauptkapitel = (doc, baustein) => {
+    let text = '';
+};
+
+const formatOberkapitel = (doc, baustein) => {
+    let text = '';
+};
+
+const formatUnterkapitel = (doc, baustein) => {
+    let text = '';
+};
+
 const createPdf = (bausteine) => {
-    console.log(bausteine);
-    
-    var uno = bausteine[0];
-    var dos = bausteine[1];
+    let text = '';
     const doc = new PDFDocument();
     var stream = doc.pipe(blobStream());
 
-    // draw some text
-    doc.fontSize(25).text(uno, 100, 80);
-
-    // and some justified text wrapped into columns
-    doc.text(dos, 100, 300).font('Times-Roman', 13).moveDown()
-    .text(dos, {
-        width: 412,
-        align: 'justify',
-        indent: 30,
-        columns: 2,
-        height: 300,
-        ellipsis: true
+    bausteine.forEach((baustein) => {
+        switch(baustein[0]){
+           case "deckblatt":
+               text += formatDeckblatt(doc, baustein);
+               break;
+            // case "hauptkapitel":
+            //     text += formatHauptkapitel(baustein);
+            //     break;
+            // case "oberkapitel":
+            //     text += formatOberkapitel(baustein);
+            //     break;
+            // case "unterkapitel":
+            //     text += formatUnterkapitel(baustein);
+            //     break;
+            // default:
+            //     text += formatDefault(baustein);
+        }
     });
+
+    // // and some justified text wrapped into columns
+    // doc.text(dos, 100, 300).font('Times-Roman', 13).moveDown()
+    // .text(dos, {
+    //     width: 412,
+    //     align: 'justify',
+    //     indent: 30,
+    //     columns: 2,
+    //     height: 300,
+    //     ellipsis: true
+    // });
 
     doc.end();
     
@@ -152,20 +189,14 @@ export default {
             apiD.pdf(id)
                 .then((response) => {
                     this.bausteine = response.data.data.flat();
-                    createPdf(this.bausteine);
-                    // $('#pdfModal').modal({backdrop: 'static'});
-                    // document.getElementById('document').src = temp;
+                    
+                    document.getElementById('document').src = pdf.create(this.bausteine);
+                    $('#pdfModal').modal({backdrop: 'static'});
+                    // createPdf(this.bausteine);
                 })
                 .catch((error) => {
-                    console.log(error);
-                    // this.error = error.response.data;
-                    // this.error = error;
-                    // console.log(error);
+                    this.error = error.response.data;
                 });
-            // api call dokument alle bausteine holen
-            // import createPdf array übergeben
-            // dokument in modal aufrufen
-            
         },
         setData(error, data) {
             if (error) {
