@@ -63,7 +63,7 @@
 import apiG from '../../api/gruppe';
 import apiD from '../../api/dokument';
 import draggable from 'vuedraggable';
-import pdf from '../../pdfGenerate.js';
+import pdfGenerator from '../../pdfGenerator.js';
 
 const getGruppen = (callback) => {
     const params =  { gruppe: 1};
@@ -72,72 +72,6 @@ const getGruppen = (callback) => {
             callback(null, response.data);})
         .catch(error => {
             callback(error, error.response.data);
-    });
-};
-
-const formatDeckblatt = (doc, baustein) => {
-    let text = '';
-    text = doc.fontSize(25).text(baustein[1], {
-        align: 'justify',
-        indent: 50
-    });
-    text += doc.addPage();
-    text += doc.fontSize(40).text(baustein[1], 100, 80);
-    return text;
-};
-
-const formatHauptkapitel = (doc, baustein) => {
-    let text = '';
-};
-
-const formatOberkapitel = (doc, baustein) => {
-    let text = '';
-};
-
-const formatUnterkapitel = (doc, baustein) => {
-    let text = '';
-};
-
-const createPdf = (bausteine) => {
-    let text = '';
-    const doc = new PDFDocument();
-    var stream = doc.pipe(blobStream());
-
-    bausteine.forEach((baustein) => {
-        switch(baustein[0]){
-           case "deckblatt":
-               text += formatDeckblatt(doc, baustein);
-               break;
-            // case "hauptkapitel":
-            //     text += formatHauptkapitel(baustein);
-            //     break;
-            // case "oberkapitel":
-            //     text += formatOberkapitel(baustein);
-            //     break;
-            // case "unterkapitel":
-            //     text += formatUnterkapitel(baustein);
-            //     break;
-            // default:
-            //     text += formatDefault(baustein);
-        }
-    });
-
-    // // and some justified text wrapped into columns
-    // doc.text(dos, 100, 300).font('Times-Roman', 13).moveDown()
-    // .text(dos, {
-    //     width: 412,
-    //     align: 'justify',
-    //     indent: 30,
-    //     columns: 2,
-    //     height: 300,
-    //     ellipsis: true
-    // });
-
-    doc.end();
-    
-    stream.on('finish', function() {
-        $('#pdfModal').modal({backdrop: 'static'});
-        document.getElementById('document').src = stream.toBlobURL('application/pdf');
     });
 };
 
@@ -189,12 +123,10 @@ export default {
             apiD.pdf(id)
                 .then((response) => {
                     this.bausteine = response.data.data.flat();
-                    
-                    document.getElementById('document').src = pdf.create(this.bausteine);
-                    $('#pdfModal').modal({backdrop: 'static'});
-                    // createPdf(this.bausteine);
+                    console.log(pdfGenerator.createPdf(this.bausteine, this.dokument));
                 })
                 .catch((error) => {
+                    console.log(error);
                     this.error = error.response.data;
                 });
         },
