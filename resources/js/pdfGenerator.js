@@ -6,9 +6,7 @@ export default {
             bufferPages: true
         });
 
-        doc.info['title'] = dokument.name;
-
-        var stream = doc.pipe(blobStream());
+        let stream = doc.pipe(blobStream());
 
         bausteine.forEach((baustein) => {
             switch(baustein[0]){
@@ -33,29 +31,33 @@ export default {
         let end = range.start + range.count;
         for( let i = range.start; i < end; i++){
             doc.switchToPage(i);
-            doc.text(dokument.name, 0, 20);
-            doc.text(`Seite ${i + 1} von ${range.count}`, 470, 20);
+            doc.text(`Seite ${i + 1} / ${range.count}`, 470, 20);
         }
 
         doc.end();
 
-        const pdf = stream.on('finish', function() {
-            // $('#pdfModal').modal({backdrop: 'static'});
-            // document.getElementById('document').src = stream.toBlobURL('application/pdf');
-            const blob = stream.toBlob('application/pdf');
-            return blob;
+        stream.on('finish', function() {
+            const url = stream.toBlobURL('application/pdf');
+            $('#pdfModal').modal({backdrop: 'static'});
+            document.getElementById('document').src = url;
+
+            $(".download").remove();
+            let download = $("<a class='btn btn-sm btn-primary download'>Download</a>").attr({
+                "href": url,
+                "download": dokument.name
+                });
+            download.insertBefore(document.querySelector("#document"));
         });
 
-        return pdf;
     },
 
     formatDeckblatt(doc, baustein){
         let text = '';
         text = doc
                 .fontSize(24)
-                .text(baustein[1],{
+                .text(baustein[1],{//heading
                     align: 'center'
-                });//heading
+                });
         
         return text;
     },

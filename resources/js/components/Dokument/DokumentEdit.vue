@@ -123,7 +123,7 @@ export default {
             apiD.pdf(id)
                 .then((response) => {
                     this.bausteine = response.data.data.flat();
-                    console.log(pdfGenerator.createPdf(this.bausteine, this.dokument));
+                    pdfGenerator.createPdf(this.bausteine, this.dokument);
                 })
                 .catch((error) => {
                     console.log(error);
@@ -231,7 +231,7 @@ border-radius: 5px;
 
 #document {
     width: 100%;
-    height: 100%;
+    height: 95%;
 }
 
 </style>
