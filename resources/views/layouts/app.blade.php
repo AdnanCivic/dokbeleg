@@ -72,7 +72,5 @@
         </main>
     </div>
     <script src="{{ mix('js/app.js') }}"></script>
-    <script src="{{ asset('js/pdfkit.js') }}"></script>
-    <script src="{{ asset('js/blob-stream.js') }}"></script>
 </body>
 </html>

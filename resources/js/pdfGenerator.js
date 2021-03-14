@@ -1,110 +1,73 @@
+var htmlToPdfmake = require("html-to-pdfmake");
+
 export default {
     
-    createPdf(bausteine, dokument) {
-        let text = '';
-        const doc = new PDFDocument({
-            bufferPages: true
-        });
+    createPdf(bausteine, dokument){
+        
+        var docDefinition = this.formatBausteine(bausteine);
+        pdfMake.createPdf(docDefinition).download(dokument.name);
 
-        let stream = doc.pipe(blobStream());
+    },
+
+    formatBausteine(bausteine){
+        
+        let docDefinitionContent = {
+            content: this.stratifyContent(bausteine),
+    
+            styles: {
+                deckblattHeading: {
+                    fontSize: 24,
+                    bold: true,
+                    margin: [0, 200],
+                    alignment: 'center',
+                },
+                hauptkapitelHeading: {
+                    fontSize: 16,
+                    bold: true,
+                },
+                oberkapitelHeading: {
+                    fontSize: 12,
+                    bold: true,
+                },
+                unterkapitelHeading: {
+                    fontSize: 12,
+                    bold: true
+                }
+            }
+        }
+
+        return docDefinitionContent;
+    },
+
+    stratifyContent(bausteine){
+        let content = [];
 
         bausteine.forEach((baustein) => {
             switch(baustein[0]){
-                case "deckblatt":
-                    text += this.formatDeckblatt(doc, baustein);
+                case "deckblatt":  
+                    content.push({ text: baustein[1], style: 'deckblattHeading'});
+                    content.push(htmlToPdfmake(baustein[2]));
                     break;
-                case "hauptkapitel":
-                    text += this.formatHauptkapitel(doc, baustein);
+                case "hauptkapitel":  
+                    content.push({ text: baustein[1], style: 'hauptkapitelHeading', pageBreak: 'before'});
+                    content.push(htmlToPdfmake(baustein[2]));
                     break;
-                case "oberkapitel":
-                    text += this.formatOberkapitel(doc, baustein);
+                case "oberkapitel": 
+                    content.push({ text: baustein[1], style: 'oberkapitelHeading'});
+                    content.push(htmlToPdfmake(baustein[2]));
                     break;
                 case "unterkapitel":
-                    text += this.formatUnterkapitel(doc, baustein);
+                    content.push({ text: baustein[1], style: 'unterkapitelHeading'});
+                    content.push(htmlToPdfmake(baustein[2]));
                     break;
                 default:
-                    text += this.formatDefault(doc, baustein);
-            }
+                    content.push({ text: baustein[1], style: 'unterkapitelHeading'});
+                    content.push(htmlToPdfmake(baustein[2]));
+           }
         });
 
-        const range = doc.bufferedPageRange();
-        let end = range.start + range.count;
-        for( let i = range.start; i < end; i++){
-            doc.switchToPage(i);
-            doc.text(`Seite ${i + 1} / ${range.count}`, 470, 20);
-        }
+        return content;
+ 
+    }
 
-        doc.end();
-
-        stream.on('finish', function() {
-            const url = stream.toBlobURL('application/pdf');
-            $('#pdfModal').modal({backdrop: 'static'});
-            document.getElementById('document').src = url;
-
-            $(".download").remove();
-            let download = $("<a class='btn btn-sm btn-primary download'>Download</a>").attr({
-                "href": url,
-                "download": dokument.name
-                });
-            download.insertBefore(document.querySelector("#document"));
-        });
-
-    },
-
-    formatDeckblatt(doc, baustein){
-        let text = '';
-        text = doc
-                .fontSize(24)
-                .text(baustein[1],{//heading
-                    align: 'center'
-                });
-        
-        return text;
-    },
-
-    formatHauptkapitel(doc, baustein){
-        let text = '';
-        doc.addPage();
-        text = doc
-                .fontSize(16)
-                .text(baustein[1])//heading
-                .moveDown()
-                .fontSize(11)
-                .text(baustein[2]);//content  
-
-        return text;
-    },
-
-    formatOberkapitel(doc, baustein){
-        let text = '';
-        text = doc
-                .fontSize(12)
-                .text(baustein[1])//heading
-                .fontSize(11)
-                .text(baustein[2]);//content
-
-        return text;
-    },
-
-    formatUnterkapitel(doc, baustein){
-        let text = '';
-        text = doc
-                .fontSize(12)
-                .text(baustein[1])//heading
-                .fontSize(11)
-                .text(baustein[2]);//content
-
-        return text;
-    },
-
-    formatDefault(doc, baustein){
-        let text = '';
-        text = doc
-                .fontSize(12)
-                .text(baustein[1])
-                .fontSize(11)
-                .text(baustein[2]);
-
-        return text;
-    },
 }
