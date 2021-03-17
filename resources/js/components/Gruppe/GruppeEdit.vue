@@ -127,20 +127,26 @@ export default {
                 this.message = "Bitte mindestens einen Textbaustein auswählen.";
                 setTimeout(() => this.message = null, 1000);
             }else{
-                this.saving = true;
-                apiG.update(this.gruppe.id, this.gruppe)
-                    .then((response) => {
-                        this.message = 'Änderungen werden gespeichert!';
-                        setTimeout(() => this.message = null, 1000);
-                        this.gruppe = response.data.data;
-                    })
-                    .catch((error) => {
-                        this.error = error.response.data
-                    })
-                    .finally(() => {
-                        setTimeout(() => this.saving = false, 1000);
-                        setTimeout(() => this.$router.go(0), 1500);
-                    });
+                const deckblattIndex = this.gruppe.bausteinGruppe.findIndex((baustein) => baustein.typ === 'deckblatt');
+                if(deckblattIndex > 0){
+                    this.message = "Ein Baustein vom Typ Deckblatt muss an erster Position stehen."
+                    setTimeout(() => this.message = null, 1500);
+                }else{
+                    this.saving = true;
+                    apiG.update(this.gruppe.id, this.gruppe)
+                        .then((response) => {
+                            this.message = 'Änderungen werden gespeichert!';
+                            setTimeout(() => this.message = null, 1000);
+                            this.gruppe = response.data.data;
+                        })
+                        .catch((error) => {
+                            this.error = error.response.data
+                        })
+                        .finally(() => {
+                            setTimeout(() => this.saving = false, 1000);
+                            setTimeout(() => this.$router.go(0), 1500);
+                        });
+                }
             }
         },
 

@@ -39,6 +39,13 @@ class GruppeApiController extends Controller
         $anzahlBausteine = count($request->bausteinGruppe);
         $bausteine = $request->bausteinGruppe;
 
+        $typen = array_column($bausteine, 'typ');
+        if(in_array('deckblatt', $typen)){
+            $validatedData['hasDeckblatt'] = true;
+        }else{
+            $validatedData['hasDeckblatt'] = false;
+        }
+
         $validatedData['anzahlBausteine'] = $anzahlBausteine;
         $validatedData['user_id'] = $request->user()->id;
 
@@ -83,6 +90,14 @@ class GruppeApiController extends Controller
         
         $gruppe->anzahlBausteine = $anzahlBausteine;
         $gruppe->name = $request->name;
+
+        $typen = array_column($bausteineNeu, 'typ');
+        if(in_array('deckblatt', $typen)){
+            $gruppe->hasDeckblatt = true;
+        }else{
+            $gruppe->hasDeckblatt = false;
+        }
+
         $gruppe->save();
 
         $gruppe->bausteinGruppe = $gruppe->bausteins;

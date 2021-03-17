@@ -14,6 +14,7 @@ class CreateGruppesTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->string('name');
             $table->unsignedSmallInteger('anzahlBausteine');
+            $table->boolean('hasDeckblatt');
             $table->timestamps();
         });
     }

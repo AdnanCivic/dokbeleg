@@ -99,28 +99,34 @@ export default {
         },
         
         onSubmit(){
+            
             if(this.bausteinAuswahl.length < 1){
                 this.message = "Bitte mindestens einen Textbaustein auswählen.";
                 setTimeout(() => this.message = null, 1000);
             }else{
-                this.error = null;
-                this.saving = true;
-                this.gruppe.bausteinGruppe = this.bausteinAuswahl;
+                const deckblattIndex = this.bausteinAuswahl.findIndex((baustein) => baustein.typ === 'deckblatt');
+                if(deckblattIndex > 0){
+                    this.message= "Ein Baustein vom Typ Deckblatt muss an erster Position stehen."
+                    setTimeout(() => this.message = null, 1500);
+                }else{
+                    this.error = null;
+                    this.saving = true;
+                    this.gruppe.bausteinGruppe = this.bausteinAuswahl;
 
-                apiG.create(this.gruppe)
-                    .then((response) => {
-                        this.message = "Gruppe wird gespeichert.";
-                        setTimeout(() => this.message = null, 1000);
-                    })
-                    .catch((error) => {
-                        this.error = error.response.data;
-                    })
-                    .finally(() => {
-                        setTimeout(() => this.saving = false, 1000);
-                        setTimeout(() => this.$router.push({name: 'AlleGruppen'}), 1500);
-                    });
-            }
-            
+                    apiG.create(this.gruppe)
+                        .then((response) => {
+                            this.message = "Gruppe wird gespeichert.";
+                            setTimeout(() => this.message = null, 1000);
+                        })
+                        .catch((error) => {
+                            this.error = error.response.data;
+                        })
+                        .finally(() => {
+                            setTimeout(() => this.saving = false, 1000);
+                            setTimeout(() => this.$router.push({name: 'AlleGruppen'}), 1500);
+                        });
+                }    
+            }   
         },
 
         reloadComponent(){

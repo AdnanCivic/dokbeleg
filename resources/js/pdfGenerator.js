@@ -66,12 +66,12 @@ export default {
                     content.push(htmlToPdfmake(baustein[2]));
                     break;
                 case "oberkapitel": 
-                    ++counterOK;
+                    counterOK++;
                     content.push({ text: counterHK + "." + counterOK + "." + baustein[1], style: 'oberkapitelHeading'});
                     content.push(htmlToPdfmake(baustein[2]));
                     break;
                 case "unterkapitel":
-                    ++counterUK;
+                    counterUK++;
                     content.push({ text: counterHK + "." + counterOK + "." + counterUK + "." + baustein[1], style: 'unterkapitelHeading'});
                     content.push(htmlToPdfmake(baustein[2]));
                     break;
@@ -97,11 +97,11 @@ export default {
                     inhaltsverzeichnis.push({ text: counterHK + "." + baustein[1], style: 'inhaltsverzeichnis'});
                     break;
                 case "oberkapitel": 
-                    ++counterOK;
+                    counterOK++;
                     inhaltsverzeichnis.push({ text: counterHK + "." + counterOK + "." + baustein[1], style: 'inhaltsverzeichnis'});
                     break;
                 case "unterkapitel":
-                    ++counterUK;
+                    counterUK++;
                     inhaltsverzeichnis.push({ text: counterHK + "." + counterOK + "." + counterUK + "." + baustein[1], style: 'inhaltsverzeichnis'});
                     break;
             }

@@ -104,22 +104,28 @@ export default {
                 this.message = "Bitte mindestens eine Gruppe auswählen.";
                 setTimeout(() => this.message = null, 1000);
             }else{
-                this.error = null;
-                this.saving = true;
-                this.dokument.gruppenDokument = this.gruppeAuswahl;
+                const deckblattIndex = this.gruppeAuswahl.findIndex((gruppe) => gruppe.hasDeckblatt === 1);
+                if(deckblattIndex > 0){
+                    this.message = 'Eine Gruppe mit dem Baustein Deckblatt muss an erster Position stehen.';
+                    setTimeout(() => this.message = null, 1500);
+                }else{
+                    this.error = null;
+                    this.saving = true;
+                    this.dokument.gruppenDokument = this.gruppeAuswahl;
 
-                apiD.create(this.dokument)
-                    .then((response) => {
-                        this.message = "Dokument wird gespeichert.";
-                        setTimeout(() => this.message = null, 1000);
-                    })
-                    .catch((error) => {
-                        this.error = error.response.data;
-                    })
-                    .finally(() => {
-                        setTimeout(() => this.saving = false, 1000);
-                        setTimeout(() => this.$router.push({name: 'AlleDokumente'}), 1500);
-                    });
+                    apiD.create(this.dokument)
+                        .then((response) => {
+                            this.message = "Dokument wird gespeichert.";
+                            setTimeout(() => this.message = null, 1000);
+                        })
+                        .catch((error) => {
+                            this.error = error.response.data;
+                        })
+                        .finally(() => {
+                            setTimeout(() => this.saving = false, 1000);
+                            setTimeout(() => this.$router.push({name: 'AlleDokumente'}), 1500);
+                        });
+                }   
             }
         },
 

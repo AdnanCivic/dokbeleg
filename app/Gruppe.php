@@ -9,7 +9,8 @@ class Gruppe extends Model
     protected $fillable = [
         'user_id',
         'name', 
-        'anzahlBausteine'
+        'anzahlBausteine',
+        'hasDeckblatt'
     ];
 
     public function bausteins(){
