@@ -106,8 +106,15 @@ export default {
             }else{
                 const deckblattIndex = this.gruppeAuswahl.findIndex((gruppe) => gruppe.hasDeckblatt === 1);
                 if(deckblattIndex > 0){
+                    this.saving = true;
                     this.message = 'Eine Gruppe mit dem Baustein Deckblatt muss an erster Position stehen.';
                     setTimeout(() => this.message = null, 1500);
+                    setTimeout(() => this.saving = false, 1500);
+                }else if(deckblattIndex < 0){
+                    this.saving = true;
+                    this.message = 'Es fehlt eine Gruppe mit dem Baustein Deckblatt.';
+                    setTimeout(() => this.message = null, 1500);
+                    setTimeout(() => this.saving = false, 1500);
                 }else{
                     this.error = null;
                     this.saving = true;

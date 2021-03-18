@@ -106,8 +106,10 @@ export default {
             }else{
                 const deckblattIndex = this.bausteinAuswahl.findIndex((baustein) => baustein.typ === 'deckblatt');
                 if(deckblattIndex > 0){
+                    this.saving = true;
                     this.message= "Ein Baustein vom Typ Deckblatt muss an erster Position stehen."
                     setTimeout(() => this.message = null, 1500);
+                    setTimeout(() => this.saving = false, 1500);
                 }else{
                     this.error = null;
                     this.saving = true;

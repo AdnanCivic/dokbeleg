@@ -147,21 +147,34 @@ export default {
                 this.message = "Bitte mindestens eine Gruppe auswählen.";
                 setTimeout(() => this.message = null, 1000);
             }else{
-                this.saving = true;
-                this.dokument.gruppenDokument = _.uniqBy(this.dokument.gruppenDokument, 'id');
-                apiD.update(this.dokument.id, this.dokument)
-                    .then((response) => {
-                        this.message = 'Änderungen werden gespeichert!';
-                        setTimeout(() => this.message = null, 1000);
-                        this.dokument = response.data.data;
-                    })
-                    .catch((error) => {
-                        this.error = error.response.data
-                    })
-                    .finally(() => {
-                        setTimeout(() => this.saving = false, 1000);
-                        setTimeout(() => this.$router.go(0), 1500);
-                    });
+                const deckblattIndex = this.dokument.gruppenDokument.findIndex((gruppe) => gruppe.hasDeckblatt === 1);
+                if(deckblattIndex > 0){
+                    this.saving = true;
+                    this.message = 'Eine Gruppe mit dem Baustein Deckblatt muss an erster Position stehen.';
+                    setTimeout(() => this.message = null, 1500);
+                    setTimeout(() => this.saving = false, 1500);
+                }else if(deckblattIndex < 0){
+                    this.saving = true;
+                    this.message = 'Es fehlt eine Gruppe mit dem Baustein Deckblatt.';
+                    setTimeout(() => this.message = null, 1500);
+                    setTimeout(() => this.saving = false, 1500);
+                }else{
+                    this.saving = true;
+                    this.dokument.gruppenDokument = _.uniqBy(this.dokument.gruppenDokument, 'id');
+                    apiD.update(this.dokument.id, this.dokument)
+                        .then((response) => {
+                            this.message = 'Änderungen werden gespeichert!';
+                            setTimeout(() => this.message = null, 1000);
+                            this.dokument = response.data.data;
+                        })
+                        .catch((error) => {
+                            this.error = error.response.data
+                        })
+                        .finally(() => {
+                            setTimeout(() => this.saving = false, 1000);
+                            setTimeout(() => this.$router.go(0), 1500);
+                        });
+                }
             }
         },
 
