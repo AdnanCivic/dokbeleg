@@ -24,13 +24,13 @@
                         <button-link route="{{ route('dokumente.index') }}">Dokumente bearbeiten</button-link>
                     </div>
                 </div>
-                <div class="grid-item card">
+                {{-- <div class="grid-item card">
                     <div class="card-header"  style="text-align:center"><h5>Benutzer</h5></div>
-                    <div class="card-body">
+                    <div class="card-body"> --}}
                         {{-- <button-link route="{{ route('user.index') }}">Alle Benutzer anzeigen</button-link> --}}
                         {{-- <button-link class="btn-success" route="{{ route('user.create') }}">Benutzer anlegen</button-link> --}}
-                    </div>
-                </div>
+                    {{-- </div>
+                </div> --}}
             </div>
         </div>
     </div>

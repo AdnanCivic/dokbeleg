@@ -11,6 +11,15 @@ export default {
 
     formatBausteine(bausteine, inhaltsverzeichnis){
         let docDefinitionContent = {
+            header: function(currentPage, pageCount){
+                        return {
+                            columns: [
+                                { text: 'Dokumentation', style: 'headerLeft'},
+                                { text: 'Seite ' + currentPage.toString() + ' von ' + pageCount, style: 'headerRight'}
+                            ]
+                        }
+                    },
+
             content: this.stratifyContent(bausteine, inhaltsverzeichnis),
     
             styles: {
@@ -42,6 +51,16 @@ export default {
                 inhaltsverzeichnis: {
                     fontSize: 12,
                     margin: [0, 2]
+                },
+                headerLeft: {
+                    fontSize: 11,
+                    alignment: 'left',
+                    margin: [40, 15]
+                },
+                headerRight: {
+                    fontSize: 11,
+                    alignment: 'right',
+                    margin: [40, 15]
                 }
             }
         }
@@ -57,27 +76,27 @@ export default {
             switch(baustein[0]){
                 case "deckblatt":  
                     content.push({ text: baustein[1], style: 'deckblattHeading'});
-                    content.push(htmlToPdfmake(baustein[2]));
+                    content.push(htmlToPdfmake(baustein[2], { defaultStyles: { img: { width: 300 } } }));
                     content.push({ stack: inhaltsverzeichnis, style: 'inhaltsverzeichnis', pageBreak: 'before'});
                     break;
                 case "hauptkapitel":  
                     counterHK++;
                     content.push({ text: counterHK + "." + baustein[1], style: 'hauptkapitelHeading', pageBreak: 'before'});
-                    content.push(htmlToPdfmake(baustein[2]));
+                    content.push(htmlToPdfmake(baustein[2], { defaultStyles: { img: { width: 300 } } }));
                     break;
                 case "oberkapitel": 
                     counterOK++;
                     content.push({ text: counterHK + "." + counterOK + "." + baustein[1], style: 'oberkapitelHeading'});
-                    content.push(htmlToPdfmake(baustein[2]));
+                    content.push(htmlToPdfmake(baustein[2], { defaultStyles: { img: { width: 300 } } }));
                     break;
                 case "unterkapitel":
                     counterUK++;
                     content.push({ text: counterHK + "." + counterOK + "." + counterUK + "." + baustein[1], style: 'unterkapitelHeading'});
-                    content.push(htmlToPdfmake(baustein[2]));
+                    content.push(htmlToPdfmake(baustein[2], { defaultStyles: { img: { width: 300 } } }));
                     break;
                 default:
                     content.push({ text: baustein[1], style: 'unterkapitelHeading'});
-                    content.push(htmlToPdfmake(baustein[2]));
+                    content.push(htmlToPdfmake(baustein[2], { defaultStyles: { img: { width: 300 } } }));
            }
         });
 
