@@ -27,6 +27,7 @@ export default {
 </script>
 
 <style>
+
 .modal-content {
   height: 95vh;
 }
