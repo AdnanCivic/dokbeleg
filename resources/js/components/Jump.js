@@ -1,37 +1,51 @@
-import { Node } from 'tiptap'
-import { wrappingInputRule, toggleWrap } from 'tiptap-commands'
+import { Mark } from 'tiptap'
+import { toggleMark, markInputRule, markPasteRule } from 'tiptap-commands'
 
-export default class Jump extends Node {
-    get name(){
-        return 'jump';
+export default class Jump extends Mark {
+
+  get name() {
+    return 'jump'
+  }
+
+  get schema() {
+    return {
+      parseDOM: [
+        {
+          tag: 'strong',
+        },
+        {
+          tag: 'b',
+          getAttrs: node => node.style.fontWeight !== 'normal' && null,
+        },
+        {
+          style: 'font-weight',
+          getAttrs: value => /^(bold(er)?|[5-9]\d{2,})$/.test(value) && null,
+        },
+      ],
+      toDOM: () => ['strong', 0],
     }
+  }
 
-    get schema() {
-        return {
-          content: 'block*',
-          group: 'block',
-          defining: true,
-          draggable: false,
-          parseDOM: [
-            { tag: 'blockquote' },
-          ],
-          toDOM: () => ['blockquote', 0],
-        }
-      }
-    
-      commands({ type }) {
-        return () => toggleWrap(type)
-      }
-    
-      keys({ type }) {
-        return {
-          'Ctrl->': toggleWrap(type),
-        }
-      }
-    
-      inputRules({ type }) {
-        return [
-          wrappingInputRule(/^\s*>\s$/, type),
-        ]
-      }
+  keys({ type }) {
+    return {
+      'Mod-b': toggleMark(type),
+    }
+  }
+
+  commands({ type }) {
+    return () => toggleMark(type)
+  }
+
+  inputRules({ type }) {
+    return [
+      markInputRule(/(?:\*\*|__)([^*_]+)(?:\*\*|__)$/, type),
+    ]
+  }
+
+  pasteRules({ type }) {
+    return [
+      markPasteRule(/(?:\*\*|__)([^*_]+)(?:\*\*|__)/g, type),
+    ]
+  }
+
 }

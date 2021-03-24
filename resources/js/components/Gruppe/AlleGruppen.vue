@@ -1,4 +1,5 @@
 <template>
+    <transition name="fade" appear>
     <div class="card" >
         <div class="card-header"><h3>Verfügbare Gruppen</h3></div>
         <div class="card-body">
@@ -27,6 +28,7 @@
             <div>{{ paginationCount }}</div>
         </div>
     </div>
+    </transition>
 </template>
 
 <script>

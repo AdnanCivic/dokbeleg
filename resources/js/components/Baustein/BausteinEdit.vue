@@ -1,4 +1,5 @@
 <template>
+    <transition name="fade" appear>
     <div class="card">
         <div class="card-header"><h3>Baustein editieren</h3></div>
         <div v-if="!loaded" style="margin:20px;">
@@ -15,7 +16,7 @@
             <div class="form-group row">
                 <div class="col">
                     <label for="name" class="label">Name:</label>
-                    <input type="textarea" class="form-control" name="name" v-model="baustein.name" required autofocus>
+                    <input type="textarea" class="form-control" name="name" v-model="baustein.name" required>
                 </div>
                 <div class="col">
                     <label for="typ" class="label">Typ:</label>
@@ -38,6 +39,7 @@
             </div>
         </form>
     </div>
+    </transition>
 </template>
 
 <script>

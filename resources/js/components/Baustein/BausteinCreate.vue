@@ -1,4 +1,5 @@
 <template>
+    <transition name="fade" appear>
     <div class="card">
         <div class="card-header"><h3>Baustein erstellen</h3></div>
         <div v-if="error" class="error" style="margin:20px;">
@@ -31,8 +32,8 @@
                 <button type="submit" :disabled="saving" class="btn btn-primary">Speichern</button>
             </div>
         </form>
-        
     </div>
+    </transition>
 </template>
 
 <script>
@@ -84,9 +85,11 @@ export default {
 </script>
 
 <style scoped>
+
 #formCreate {
     margin: 10px;
 }
+
 .standby {
 background: rgb(129, 226, 129);
 color: black;
@@ -97,4 +100,5 @@ width: 100%;
 border: 1px solid rgb(26, 197, 26);
 border-radius: 5px;
 }
+
 </style>

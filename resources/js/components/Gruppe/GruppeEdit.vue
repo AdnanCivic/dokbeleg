@@ -1,4 +1,5 @@
 <template>
+    <transition name="fade" appear>
     <div class="card">
         <div class="card-header"><h3>Gruppe editieren</h3></div>
         <div v-if="!loaded" style="margin:20px;">
@@ -50,6 +51,7 @@
             </div>
         </form>
     </div>
+    </transition>
 </template>
 
 <script>

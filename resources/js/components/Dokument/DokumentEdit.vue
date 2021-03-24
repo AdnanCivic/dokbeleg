@@ -1,62 +1,64 @@
 <template>
-<div>
-    <pdf-modal>
-        <template #modal-content><iframe id="document"></iframe></template>
-    </pdf-modal>
-    <div class="card">
-        
-        <div class="card-header"><h3>Dokument editieren</h3></div>
-        <div v-if="!loaded" style="margin:20px;">
-            <div class="d-flex justify-content-center">
-                <div class="spinner-border" role="status"></div>
+    <transition name="fade" appear>
+    <div>
+        <pdf-modal>
+            <template #modal-content><iframe id="document"></iframe></template>
+        </pdf-modal>
+        <div class="card">
+            
+            <div class="card-header"><h3>Dokument editieren</h3></div>
+            <div v-if="!loaded" style="margin:20px;">
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border" role="status"></div>
+                </div>
             </div>
+            <div v-if="error" class="error" style="margin:20px;">
+                <p>{{ error.message }}</p>
+                <p><button class="btn btn-success" @click="reloadComponent">Erneut versuchen</button></p>
+            </div>
+            <div v-if="message" class="standby">{{ message }}</div>
+            <form id="formEdit" @submit.prevent="onSubmit">
+                <div class="form-group row">
+                    <div class="col">
+                        <label for="name" class="label">Name:</label>
+                        <input type="textarea" class="form-control" name="name" v-model="dokument.name" required autofocus>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div id="gruppeFeld" class="col alert alert-secondary feld">
+                        <h4 style="text-align:center;">Auswahl der Gruppen</h4>
+                        <draggable class="list-group" :list="gruppeFeld" group="gruppen" ghost-class="ghost" @start="drag=true" @end="drag=false">
+                            <div class="list-group-item" v-for="gruppe in gruppeFeld" :key="gruppe.id">
+                                {{gruppe.name}}
+                            </div>
+                        </draggable>
+                    </div>
+                    <div id="dokumentFeld" class="col alert alert-success feld">
+                        <h4 style="text-align:center;">Gruppen des Dokuments</h4>
+                        <draggable class="list-group" :list="dokument.gruppenDokument" group="gruppen" ghost-class="ghost" @start="drag=true" @end="drag=false">
+                            <div class="list-group-item" v-for="gruppe in dokument.gruppenDokument" :key="gruppe.id">
+                                {{gruppe.name}}
+                            </div>
+                        </draggable> 
+                    </div>
+                    <div id="deleteFeld" class="col alert alert-warning feld">
+                        <h4 style="text-align:center;">Aus Dokument entfernen</h4>
+                        <draggable class="list-group" :list="deleteFeld" group="gruppen" ghost-class="ghost" @start="drag=true" @end="drag=false">
+                            <div class="list-group-item" v-for="(gruppe, index) in deleteFeld" :key="index">
+                                {{gruppe.name}}
+                            </div>
+                        </draggable>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" :disabled="saving" class="btn btn-primary">Änderungen speichern</button>
+                    <button type="button" class="btn btn-success" @click.prevent="showPdf(dokument.id)">PDF anzeigen</button>
+                    <button type="button" class="btn btn-danger" @click.prevent="checkDelete(dokument.id)" :disabled="saving">Dokumentzuordnung löschen</button>
+                </div>
+            </form>
         </div>
-        <div v-if="error" class="error" style="margin:20px;">
-            <p>{{ error.message }}</p>
-            <p><button class="btn btn-success" @click="reloadComponent">Erneut versuchen</button></p>
-        </div>
-        <div v-if="message" class="standby">{{ message }}</div>
-        <form id="formEdit" @submit.prevent="onSubmit">
-            <div class="form-group row">
-                <div class="col">
-                    <label for="name" class="label">Name:</label>
-                    <input type="textarea" class="form-control" name="name" v-model="dokument.name" required autofocus>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div id="gruppeFeld" class="col alert alert-secondary feld">
-                    <h4 style="text-align:center;">Auswahl der Gruppen</h4>
-                    <draggable class="list-group" :list="gruppeFeld" group="gruppen" ghost-class="ghost" @start="drag=true" @end="drag=false">
-                        <div class="list-group-item" v-for="gruppe in gruppeFeld" :key="gruppe.id">
-                            {{gruppe.name}}
-                        </div>
-                    </draggable>
-                </div>
-                <div id="dokumentFeld" class="col alert alert-success feld">
-                    <h4 style="text-align:center;">Gruppen des Dokuments</h4>
-                    <draggable class="list-group" :list="dokument.gruppenDokument" group="gruppen" ghost-class="ghost" @start="drag=true" @end="drag=false">
-                        <div class="list-group-item" v-for="gruppe in dokument.gruppenDokument" :key="gruppe.id">
-                            {{gruppe.name}}
-                        </div>
-                    </draggable> 
-                </div>
-                <div id="deleteFeld" class="col alert alert-warning feld">
-                    <h4 style="text-align:center;">Aus Dokument entfernen</h4>
-                    <draggable class="list-group" :list="deleteFeld" group="gruppen" ghost-class="ghost" @start="drag=true" @end="drag=false">
-                        <div class="list-group-item" v-for="(gruppe, index) in deleteFeld" :key="index">
-                            {{gruppe.name}}
-                        </div>
-                    </draggable>
-                </div>
-            </div>
-            <div class="form-group">
-                <button type="submit" :disabled="saving" class="btn btn-primary">Änderungen speichern</button>
-                <button type="button" class="btn btn-success" @click.prevent="showPdf(dokument.id)">PDF anzeigen</button>
-                <button type="button" class="btn btn-danger" @click.prevent="checkDelete(dokument.id)" :disabled="saving">Dokumentzuordnung löschen</button>
-            </div>
-        </form>
     </div>
-</div>
+    </transition>
 </template>
 
 <script>

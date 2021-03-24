@@ -1,4 +1,5 @@
 <template>
+    <transition name="fade" appear>
     <div class="card">
         <div class="card-header"><h3>Gruppe erstellen</h3></div>
         <div v-if="error" class="error" style="margin:20px;">
@@ -42,6 +43,7 @@
             </div>
         </form>   
     </div>
+    </transition>
 </template>
 
 <script>

@@ -14,7 +14,7 @@
         <button type="button" class="btn btn-light" @click.prevent="commands.undo"><i class="fa fa-undo" aria-hidden="true"></i></button>
         <button type="button" class="btn btn-light" @click.prevent="commands.redo"><i class="fa fa-redo" aria-hidden="true"></i></button>
         <button type="button" class="btn btn-light" :class="{ 'is-active': isActive.code() }" @click.prevent="commands.code"><i class="fas fa-marker"></i></button>
-        <button type="button" class="btn btn-light" :class="{ 'is-active': isActive.jump() }" @click.prevent="commands.jump"><i class="fas fa-compress-arrows-alt"></i></button>
+        <button type="button" class="btn btn-light" @click.prevent="jumpToMarker"><i class="fas fa-compress-arrows-alt"></i></button>
       </div>
     </editor-menu-bar>
     <editor-content :editor="editor" class="editor"></editor-content>
@@ -25,7 +25,7 @@
 // Import the editor
 import { Editor, EditorContent, EditorMenuBar } from 'tiptap';
 import { Bold, Italic, Underline, Strike, Heading, BulletList, OrderedList, ListItem, HorizontalRule, History, Image, Code } from 'tiptap-extensions';
-import { Jump } from './Jump.js';
+import Jump from './Jump.js';
 
 export default {
   props: {
@@ -41,7 +41,8 @@ export default {
   data() {
     return {
       editor: null,
-      updatedContent: ''
+      updatedContent: '',
+      codeSelection: null
     }
   },
 
@@ -57,12 +58,7 @@ export default {
   },
 
   methods: {
-      // showImagePrompt(command) {
-      //   const src = prompt('Image-Url hier einfügen')
-      //   if (src !== null) {
-      //     command({ src })
-      // }
-    // },
+      
   },
 
   mounted() {
@@ -86,6 +82,7 @@ export default {
 </script>
 
 <style scoped>
+
 .editor {
   border: 1px solid #ced4da;
   border-radius: 4px; padding: 5px; 
