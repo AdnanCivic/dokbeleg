@@ -130,7 +130,6 @@ export default {
                     setTimeout(() => this.saving = false, 1000);
                     setTimeout(() => this.$router.back(), 1500);
                 });
-            
         },
 
     }
@@ -138,6 +137,7 @@ export default {
 </script>
 
 <style scoped>
+
 #formEdit {
     margin: 10px;
 }
@@ -152,4 +152,5 @@ export default {
     border: 1px solid rgb(26, 197, 26);
     border-radius: 5px;
 }
+
 </style>
