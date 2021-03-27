@@ -21,7 +21,7 @@ class CreateBausteinsTable extends Migration
             $table->string('name');
             $table->string('typ');
             $table->text('heading');
-            $table->longText('content')->charset('utf8');
+            $table->longText('content')->charset('utf8')->nullable();
             $table->unsignedInteger('marker')->nullable();
             $table->timestamps();
             
