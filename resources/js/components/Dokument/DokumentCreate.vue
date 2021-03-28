@@ -106,7 +106,7 @@ export default {
                 this.message = "Bitte mindestens eine Gruppe auswählen.";
                 setTimeout(() => this.message = null, 1000);
             }else{
-                const deckblattIndex = this.gruppeAuswahl.findIndex((gruppe) => gruppe.hasDeckblatt === 1);
+                const deckblattIndex = this.gruppeAuswahl.findIndex((gruppe) => gruppe.hasDeckblatt == true);
                 if(deckblattIndex > 0){
                     this.saving = true;
                     this.message = 'Eine Gruppe mit dem Baustein Deckblatt muss an erster Position stehen.';
