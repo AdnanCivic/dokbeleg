@@ -73,30 +73,57 @@ export default {
         let counterHK = 0, counterOK = 0, counterUK = 0;
 
         bausteine.forEach((baustein) => {
-            switch(baustein[0]){
+            switch(baustein.typ){
                 case "deckblatt":  
-                    content.push({ text: baustein[1], style: 'deckblattHeading'});
-                    content.push(htmlToPdfmake(baustein[2], { defaultStyles: { img: { width: 300 } } }));
+                    content.push({ text: baustein.heading, style: 'deckblattHeading'});
+                    if(baustein.content == null){
+                        content.push(htmlToPdfmake('', { defaultStyles: { img: { width: 300 } } }));
+                    }else{
+                        content.push(htmlToPdfmake(baustein.content, { defaultStyles: { img: { width: 300 } } }));
+                    }
                     content.push({ stack: inhaltsverzeichnis, style: 'inhaltsverzeichnis', pageBreak: 'before'});
                     break;
                 case "hauptkapitel":  
                     counterHK++;
-                    content.push({ text: counterHK + "." + baustein[1], style: 'hauptkapitelHeading', pageBreak: 'before'});
-                    content.push(htmlToPdfmake(baustein[2], { defaultStyles: { img: { width: 300 } } }));
+                    content.push({ text: counterHK + "." + baustein.heading, style: 'hauptkapitelHeading', pageBreak: 'before'});
+
+                    if(baustein.content == null){
+                        content.push(htmlToPdfmake('', { defaultStyles: { img: { width: 300 } } }));
+                    }else{
+                        content.push(htmlToPdfmake(baustein.content, { defaultStyles: { img: { width: 300 } } }));
+                    }
+
                     break;
                 case "oberkapitel": 
                     counterOK++;
-                    content.push({ text: counterHK + "." + counterOK + "." + baustein[1], style: 'oberkapitelHeading'});
-                    content.push(htmlToPdfmake(baustein[2], { defaultStyles: { img: { width: 300 } } }));
+                    content.push({ text: counterHK + "." + counterOK + "." + baustein.heading, style: 'oberkapitelHeading'});
+
+                    if(baustein.content == null){
+                        content.push(htmlToPdfmake('', { defaultStyles: { img: { width: 300 } } }));
+                    }else{
+                        content.push(htmlToPdfmake(baustein.content, { defaultStyles: { img: { width: 300 } } }));
+                    }
+
                     break;
                 case "unterkapitel":
                     counterUK++;
-                    content.push({ text: counterHK + "." + counterOK + "." + counterUK + "." + baustein[1], style: 'unterkapitelHeading'});
-                    content.push(htmlToPdfmake(baustein[2], { defaultStyles: { img: { width: 300 } } }));
+                    content.push({ text: counterHK + "." + counterOK + "." + counterUK + "." + baustein.heading, style: 'unterkapitelHeading'});
+
+                    if(baustein.content == null){
+                        content.push(htmlToPdfmake('', { defaultStyles: { img: { width: 300 } } }));
+                    }else{
+                        content.push(htmlToPdfmake(baustein.content, { defaultStyles: { img: { width: 300 } } }));
+                    }
+
                     break;
                 default:
-                    content.push({ text: baustein[1], style: 'unterkapitelHeading'});
-                    content.push(htmlToPdfmake(baustein[2], { defaultStyles: { img: { width: 300 } } }));
+                    content.push({ text: baustein.heading, style: 'unterkapitelHeading'});
+
+                    if(baustein.content == null){
+                        content.push(htmlToPdfmake('', { defaultStyles: { img: { width: 300 } } }));
+                    }else{
+                        content.push(htmlToPdfmake(baustein.content, { defaultStyles: { img: { width: 300 } } }));
+                    }
            }
         });
 
@@ -110,22 +137,21 @@ export default {
         inhaltsverzeichnis[0] = { text: "Inhaltsverzeichnis", style: 'inhaltsverzeichnisHeading'};
 
         bausteine.forEach((baustein) => {
-            switch(baustein[0]){
+            switch(baustein.typ){
                 case "hauptkapitel":  
                     counterHK++;
-                    inhaltsverzeichnis.push({ text: counterHK + "." + baustein[1], style: 'inhaltsverzeichnis'});
+                    inhaltsverzeichnis.push({ text: counterHK + "." + baustein.heading, style: 'inhaltsverzeichnis'});
                     break;
                 case "oberkapitel": 
                     counterOK++;
-                    inhaltsverzeichnis.push({ text: counterHK + "." + counterOK + "." + baustein[1], style: 'inhaltsverzeichnis'});
+                    inhaltsverzeichnis.push({ text: counterHK + "." + counterOK + "." + baustein.heading, style: 'inhaltsverzeichnis'});
                     break;
                 case "unterkapitel":
                     counterUK++;
-                    inhaltsverzeichnis.push({ text: counterHK + "." + counterOK + "." + counterUK + "." + baustein[1], style: 'inhaltsverzeichnis'});
+                    inhaltsverzeichnis.push({ text: counterHK + "." + counterOK + "." + counterUK + "." + baustein.heading, style: 'inhaltsverzeichnis'});
                     break;
             }
         });
-        
         return inhaltsverzeichnis;
 
     }

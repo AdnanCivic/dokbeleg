@@ -19,7 +19,7 @@ class GruppeApiController extends Controller
                 ['user_id', $user_id]
             ])->get());
         }else{
-            return new GruppeResourceCollection(Gruppe::where('user_id', $user_id)->paginate(5));
+            return new GruppeResourceCollection(Gruppe::where('user_id', $user_id)->paginate(10));
         }
         
     }

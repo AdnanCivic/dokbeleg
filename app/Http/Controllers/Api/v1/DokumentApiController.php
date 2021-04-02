@@ -13,7 +13,7 @@ class DokumentApiController extends Controller
 {
     public function index(Request $request): DokumentResourceCollection{
         $user_id = $request->user()->id;
-        return new DokumentResourceCollection(Dokument::where('user_id', $user_id)->paginate(5));
+        return new DokumentResourceCollection(Dokument::where('user_id', $user_id)->paginate(10));
     }
 
     public function show(Dokument $dokument, Request $request): DokumentResource{
@@ -71,15 +71,15 @@ class DokumentApiController extends Controller
     }
 
     public function pdf(Dokument $dokument): DokumentResourceCollection{
-        $gruppen = $dokument->gruppes;
-        
-        $bausteine = $gruppen->map(function($gruppe, $key){
-            return $gruppe->bausteins->map(function($baustein, $key){
-                return [$baustein->typ, $baustein->heading, $baustein->content];
-            });
-        });
 
-        return new DokumentResourceCollection($bausteine->all());
+        $gruppen = $dokument->gruppes;
+        $bausteine = [];
+
+        foreach($gruppen as $gruppe){
+            $bausteine = $gruppe->bausteins;
+        }
+        
+        return new DokumentResourceCollection($bausteine->sortBy('gruppe_pos')->all());
     }
 }
 

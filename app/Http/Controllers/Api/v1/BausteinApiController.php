@@ -20,7 +20,7 @@ class BausteinApiController extends Controller
                 ['gruppe_id', null]
             ])->get());
         }else{
-            return new BausteinResourceCollection(Baustein::where('user_id', $user_id)->paginate(5));
+            return new BausteinResourceCollection(Baustein::where('user_id', $user_id)->paginate(10));
         }  
     }
     
@@ -37,7 +37,7 @@ class BausteinApiController extends Controller
         ]);
         
         $suche = "/«(.*?)»/";
-        $html = $request->content;
+
         $anzahlMarker = preg_match_all($suche, $html, $matches, PREG_SET_ORDER);
 
         $validatedData['marker'] = $anzahlMarker;
