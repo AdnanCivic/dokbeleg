@@ -124,11 +124,10 @@ export default {
         showPdf(id){
             apiD.pdf(id)
                 .then((response) => {
-                    this.bausteine = response.data.data;
+                    this.bausteine = response.data.data.flat();
                     pdfGenerator.createPdf(this.bausteine, this.dokument);
                 })
                 .catch((error) => {
-                    console.log(error);
                     this.error = error.response.data;
                 });
         },

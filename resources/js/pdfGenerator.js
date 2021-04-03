@@ -52,6 +52,14 @@ export default {
                     fontSize: 12,
                     margin: [0, 2]
                 },
+                inhaltsverzeichnisOK: {
+                    fontSize: 12,
+                    margin: [10, 2]
+                },
+                inhaltsverzeichnisUK: {
+                    fontSize: 12,
+                    margin: [15, 2]
+                },
                 headerLeft: {
                     fontSize: 11,
                     alignment: 'left',
@@ -85,6 +93,7 @@ export default {
                     break;
                 case "hauptkapitel":  
                     counterHK++;
+                    counterOK = 0, counterUK = 0;
                     content.push({ text: counterHK + "." + baustein.heading, style: 'hauptkapitelHeading', pageBreak: 'before'});
 
                     if(baustein.content == null){
@@ -96,6 +105,7 @@ export default {
                     break;
                 case "oberkapitel": 
                     counterOK++;
+                    counterUK = 0;
                     content.push({ text: counterHK + "." + counterOK + "." + baustein.heading, style: 'oberkapitelHeading'});
 
                     if(baustein.content == null){
@@ -140,15 +150,17 @@ export default {
             switch(baustein.typ){
                 case "hauptkapitel":  
                     counterHK++;
+                    counterOK = 0, counterUK = 0;
                     inhaltsverzeichnis.push({ text: counterHK + "." + baustein.heading, style: 'inhaltsverzeichnis'});
                     break;
                 case "oberkapitel": 
                     counterOK++;
-                    inhaltsverzeichnis.push({ text: counterHK + "." + counterOK + "." + baustein.heading, style: 'inhaltsverzeichnis'});
+                    counterUK = 0;
+                    inhaltsverzeichnis.push({ text: counterHK + "." + counterOK + "." + baustein.heading, style: 'inhaltsverzeichnisOK'});
                     break;
                 case "unterkapitel":
                     counterUK++;
-                    inhaltsverzeichnis.push({ text: counterHK + "." + counterOK + "." + counterUK + "." + baustein.heading, style: 'inhaltsverzeichnis'});
+                    inhaltsverzeichnis.push({ text: counterHK + "." + counterOK + "." + counterUK + "." + baustein.heading, style: 'inhaltsverzeichnisUK'});
                     break;
             }
         });

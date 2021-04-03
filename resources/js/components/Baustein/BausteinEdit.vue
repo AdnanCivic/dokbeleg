@@ -20,8 +20,8 @@
                 </div>
                 <div class="col">
                     <label for="typ" class="label">Typ:</label>
-                    <select class="form-control" name="typ" :value="baustein.typ" required>
-                        <option v-for="(typ, index) in typen" :key="index">{{ typ }}</option>
+                    <select class="form-control" name="typ" required v-model="baustein.typ">
+                        <option v-for="(typ, index) in typen" :key="index" :value="typ">{{ typ }}</option>
                     </select>
                 </div>
             </div>

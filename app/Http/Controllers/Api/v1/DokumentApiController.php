@@ -71,15 +71,15 @@ class DokumentApiController extends Controller
     }
 
     public function pdf(Dokument $dokument): DokumentResourceCollection{
-
         $gruppen = $dokument->gruppes;
         $bausteine = [];
 
         foreach($gruppen as $gruppe){
-            $bausteine = $gruppe->bausteins;
+            $gruppeMod = $gruppe->bausteins->sortBy('gruppe_pos')->toArray();
+            array_push($bausteine, $gruppeMod);
         }
         
-        return new DokumentResourceCollection($bausteine->sortBy('gruppe_pos')->all());
+        return new DokumentResourceCollection($bausteine);
     }
 }
 
