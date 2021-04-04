@@ -4,6 +4,7 @@ import AlleDokumente from '../components/Dokument/AlleDokumente.vue';
 import DokumentEdit from '../components/Dokument/DokumentEdit.vue';
 import DokumentCreate from '../components/Dokument/DokumentCreate.vue';
 import NotFound from '../components/Dokument/NotFound.vue';
+import NProgress from 'nprogress';
 
 Vue.use(VueRouter);
 
@@ -37,6 +38,15 @@ const routerDok = new VueRouter({
             redirect: '404'
         }
     ]
+});
+
+routerDok.beforeEach((to, from, next) => {
+    NProgress.start();
+    next();
+});
+
+routerDok.afterEach(() => {
+    NProgress.done();
 });
 
 export default routerDok;

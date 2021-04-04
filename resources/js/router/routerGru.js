@@ -4,6 +4,7 @@ import AlleGruppen from '../components/Gruppe/AlleGruppen.vue';
 import GruppeEdit from '../components/Gruppe/GruppeEdit.vue';
 import GruppeCreate from '../components/Gruppe/GruppeCreate.vue';
 import NotFound from '../components/Gruppe/NotFound.vue';
+import NProgress from 'nprogress';
 
 Vue.use(VueRouter);
 
@@ -37,6 +38,15 @@ const routerGru = new VueRouter({
             redirect: '404'
         }
     ]
+});
+
+routerGru.beforeEach((to, from, next) => {
+    NProgress.start();
+    next();
+});
+
+routerGru.afterEach(() => {
+    NProgress.done();
 });
 
 export default routerGru;
