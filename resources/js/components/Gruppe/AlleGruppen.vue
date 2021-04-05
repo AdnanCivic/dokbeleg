@@ -1,7 +1,7 @@
 <template>
     <transition name="fade" appear>
     <div class="card" >
-        <div class="card-header"><h3>Verfügbare Gruppen</h3></div>
+        <div class="card-header"><h3>Index Gruppen</h3></div>
         <div class="card-body">
             <table class="table table-sm">
                 <tr><th>Name</th><th>Anzahl Bausteine</th><th>Deckblatt</th><th style="text-align: center">Aktion</th></tr>

@@ -2,7 +2,7 @@
     <div class="notFound">
         <h3>404 - Not Found</h3>
         <p>Die gesuchte Seite existiert nicht.</p>
-        <button type="button" class="btn btn-success" @click="toIndex">Weiter zum Index</button>
+        <button type="button" class="btn btn-success" @click="toIndex">Weiter zu Home</button>
     </div>
 </template>
 
@@ -10,13 +10,16 @@
 export default {
     methods: {
         toIndex(){
-            this.$router.push({name: 'AlleBausteine', params: { page: 1}});
+            this.$router.push({name: 'Home'});
         }
     }
 }
 </script>
+
 <style scoped>
+
 .notFound {
     text-align: center;
 }
+
 </style>

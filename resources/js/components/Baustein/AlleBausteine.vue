@@ -1,7 +1,7 @@
 <template>
     <transition name="fade" appear>
         <div class="card" >
-            <div class="card-header"><h3>Verfügbare Bausteine</h3></div>
+            <div class="card-header"><h3>Index Bausteine</h3></div>
             <div class="card-body">
                 <table class="table table-sm">
                     <tr><th>Name</th><th>ID</th><th>Typ</th><th style="text-align: center">Aktion</th></tr>

@@ -1,6 +1,5 @@
 <?php
 
-use App\Baustein;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +14,10 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function() {
 Route::prefix('v1')->middleware('auth:sanctum')->group(function() {
     Route::apiResource('/dokument', 'Api\v1\DokumentApiController');
     Route::get('/dokument/{dokument}/pdf', 'Api\v1\DokumentApiController@pdf');
+});
+
+Route::prefix('v1')->middleware('auth:sanctum')->group(function() {
+    Route::apiResource('/user', 'Api\v1\UserApiController')->only('show');
 });
 
 // Route::prefix('v2')->group(function() {

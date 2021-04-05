@@ -1,7 +1,7 @@
 <template>
     <transition name="fade" appear>
     <div class="card" >
-        <div class="card-header"><h3>Dokumente</h3></div>
+        <div class="card-header"><h3>Index Dokumente</h3></div>
         <div class="card-body">
             <table class="table table-sm">
                 <tr><th>Name</th><th>Dokument-ID</th><th>Anzahl Gruppen</th><th style="text-align: center">Aktion</th></tr>
