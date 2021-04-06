@@ -17,7 +17,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function() {
 });
 
 Route::prefix('v1')->middleware('auth:sanctum')->group(function() {
-    Route::apiResource('/user', 'Api\v1\UserApiController')->only('show');
+    Route::apiResource('/user', 'Api\v1\UserApiController');
 });
 
 // Route::prefix('v2')->group(function() {
